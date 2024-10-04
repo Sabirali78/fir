@@ -23,6 +23,13 @@ $in_progress_result = mysqli_query($conn, $in_progress_query);
 $resolved_query = "SELECT * FROM ncs WHERE status = 'Resolved'";
 $resolved_result = mysqli_query($conn, $resolved_query);
 
+function limit_text($text, $limit) {
+    if (strlen($text) > $limit) {
+        return substr($text, 0, $limit) . '...';
+    } else {
+        return $text;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +44,16 @@ $resolved_result = mysqli_query($conn, $resolved_query);
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+    .table-responsive {
+        overflow-x: auto; /* Allows horizontal scrolling */
+    }
+
+    .student-data-table {
+        width: 100%; /* Makes sure the table uses the full width */
+        min-width: 800px; /* Ensures the table doesn't shrink too small */
+    }
+</style>
 </head>
     <!--*******************
         Preloader start
@@ -238,6 +255,8 @@ $resolved_result = mysqli_query($conn, $resolved_query);
                             <th class="py-2 px-4 border-b">Tracking ID</th>
                             <th class="py-2 px-4 border-b">Created At</th>
                             <th class="py-2 px-4 border-b">Updated At</th>
+                            <th class="py-2 px-4 border-b">ACTION</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -246,11 +265,13 @@ $resolved_result = mysqli_query($conn, $resolved_query);
                                 <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                                <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                                <td><a href="Edit_noc">EDIT</a> <a href="delete_noc.php">DELETE</a> </td>
+
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -285,7 +306,7 @@ $resolved_result = mysqli_query($conn, $resolved_query);
                                 <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                                <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
@@ -316,6 +337,8 @@ $resolved_result = mysqli_query($conn, $resolved_query);
                             <th class="py-2 px-4 border-b">Tracking ID</th>
                             <th class="py-2 px-4 border-b">Created At</th>
                             <th class="py-2 px-4 border-b">Updated At</th>
+                            <th class="py-2 px-4 border-b">ACTION</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -324,11 +347,12 @@ $resolved_result = mysqli_query($conn, $resolved_query);
                                 <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                                <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                                <td><a href="Edit_noc">EDIT</a> <a href="delete_noc.php">DELETE</a> </td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

@@ -39,18 +39,15 @@ function limit_text($text, $limit) {
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <style>
-          .table-responsive {
-            overflow-x: auto;
-        }
-        .table th, .table td {
-            white-space: nowrap;
-        }
-        .table td.description {
-            white-space: normal;
-            max-width: 200px; /* Adjust this as necessary */
-            word-wrap: break-word;
-        }
-    </style>
+    .table-responsive {
+        overflow-x: auto; /* Allows horizontal scrolling */
+    }
+
+    .student-data-table {
+        width: 100%; /* Makes sure the table uses the full width */
+        min-width: 800px; /* Ensures the table doesn't shrink too small */
+    }
+</style>
 </head>
     <!--*******************
         Preloader start
@@ -234,17 +231,17 @@ function limit_text($text, $limit) {
                     
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                             <h4 class="card-title">FIR'S Pending</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table student-data-table m-t-20">
-                                        <thead>
-                                            <tr>
-                                            <th class="py-2 px-4 border-b">ID</th>
+                <div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">FIR'S Pending</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table student-data-table m-t-20">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">ID</th>
                             <th class="py-2 px-4 border-b">User ID</th>
                             <th class="py-2 px-4 border-b">Title</th>
                             <th class="py-2 px-4 border-b">Description</th>
@@ -252,27 +249,32 @@ function limit_text($text, $limit) {
                             <th class="py-2 px-4 border-b">Tracking ID</th>
                             <th class="py-2 px-4 border-b">Created At</th>
                             <th class="py-2 px-4 border-b">Updated At</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($firs_pending)) : ?>
-                        <tr>
-                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                            <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
-                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                            <th class="py-2 px-4 border-b">Action</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($firs_pending)) : ?>
+                            <tr>
+                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
+                                <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                                <td>
+                                    <a href="Edit_fir.php">EDIT</a>
+                                    <a href="DELETE_fir.php">DELETE</a>
+                                </td>
+                            </tr>
                         <?php endwhile; ?>
                     </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
