@@ -11,6 +11,12 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.html");
     exit;
 }
+
+$firs_pending = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'pending'");
+$firs_in_progress = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'in progress'");
+$firs_resolved = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'resolved'");
+$registered_users = mysqli_query($conn, "SELECT * FROM users");
+
 ?>
 
 <!DOCTYPE html>
@@ -211,37 +217,115 @@ if (!isset($_SESSION['admin_id'])) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                             <h4 class="card-title">USERS DATA</h4>
+                             <h4 class="card-title">FIR'S Pending</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table student-data-table m-t-20">
                                         <thead>
                                             <tr>
-                                                <th>Subject</th>
-                                                <th>Grade Point</th>
-                                                <th>Percent Form</th>
-                                                <th>Percent Upto</th>
-                                                <th>Date</th>
+                                            <th class="py-2 px-4 border-b">ID</th>
+                            <th class="py-2 px-4 border-b">User ID</th>
+                            <th class="py-2 px-4 border-b">Title</th>
+                            <th class="py-2 px-4 border-b">Description</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b">Tracking ID</th>
+                            <th class="py-2 px-4 border-b">Created At</th>
+                            <th class="py-2 px-4 border-b">Updated At</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($firs_pending)) : ?>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                             <h4 class="card-title">In Progress</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table student-data-table m-t-20">
+                                        <thead>
                                             <tr>
-                                                <td>Class Test</td>
-                                                <td>Mathmatics</td>
-                                                <td>
-                                                    4.00
-                                                </td>
-                                                <td>
-                                                    95.00
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td>20/04/2017</td>
+                                            <th class="py-2 px-4 border-b">ID</th>
+                            <th class="py-2 px-4 border-b">User ID</th>
+                            <th class="py-2 px-4 border-b">Title</th>
+                            <th class="py-2 px-4 border-b">Description</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b">Tracking ID</th>
+                            <th class="py-2 px-4 border-b">Created At</th>
+                            <th class="py-2 px-4 border-b">Updated At</th>
                                             </tr>
-                                            
-                                        </tbody>
+                                        </thead>
+                                        <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($firs_in_progress)) : ?>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                             <h4 class="card-title">Resolved</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table student-data-table m-t-20">
+                                        <thead>
+                                            <tr>
+                                            <th class="py-2 px-4 border-b">ID</th>
+                            <th class="py-2 px-4 border-b">User ID</th>
+                            <th class="py-2 px-4 border-b">Title</th>
+                            <th class="py-2 px-4 border-b">Description</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b">Tracking ID</th>
+                            <th class="py-2 px-4 border-b">Created At</th>
+                            <th class="py-2 px-4 border-b">Updated At</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($firs_resolved)) : ?>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
                                     </table>
                                 </div>
                             </div>
