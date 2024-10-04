@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container mt-5">
     <h2>Add FIR</h2>
-    <form action="fir.php" method="POST">
+    <form action="Add_fir.php" method="POST">
         <div class="form-group">
             <label for="user_id">User ID</label>
             <input type="number" class="form-control" id="user_id" name="user_id" value="<?php echo $user_id; ?>" disabled>

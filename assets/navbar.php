@@ -31,13 +31,13 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link" href="Add_fir.php">Fir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Add_NCS.php">NCS</a>
+                <a class="nav-link" href="add_noc.php">NCS</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="Add_complaints.php">Complaints</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 5</a>
+                <a class="nav-link" href="Report_crime.php">Report a Crime</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link 6</a>

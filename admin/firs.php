@@ -17,6 +17,13 @@ $firs_in_progress = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'in p
 $firs_resolved = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'resolved'");
 $registered_users = mysqli_query($conn, "SELECT * FROM users");
 
+function limit_text($text, $limit) {
+    if (strlen($text) > $limit) {
+        return substr($text, 0, $limit) . '...';
+    } else {
+        return $text;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +38,19 @@ $registered_users = mysqli_query($conn, "SELECT * FROM users");
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+          .table-responsive {
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            white-space: nowrap;
+        }
+        .table td.description {
+            white-space: normal;
+            max-width: 200px; /* Adjust this as necessary */
+            word-wrap: break-word;
+        }
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -240,7 +260,7 @@ $registered_users = mysqli_query($conn, "SELECT * FROM users");
                             <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
                             <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
@@ -279,7 +299,7 @@ $registered_users = mysqli_query($conn, "SELECT * FROM users");
                             <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
                             <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
@@ -318,7 +338,7 @@ $registered_users = mysqli_query($conn, "SELECT * FROM users");
                             <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
                             <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
