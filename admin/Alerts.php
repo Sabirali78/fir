@@ -119,7 +119,7 @@ if (!isset($_SESSION['admin_id'])) {
                 <ul class="metismenu" id="menu">
                  
 
-                <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">REPORTS</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">Reports</span></a>
@@ -190,7 +190,76 @@ if (!isset($_SESSION['admin_id'])) {
             Sidebar end
         ***********************************-->
 
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+               
 
+                <div class="row">
+                   
+                   
+                    
+                    
+                </div>
+                <div class="row">
+                   
+                    
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                             <h4 class="card-title">USERS DATA</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table student-data-table m-t-20">
+                                        <thead>
+                                            <tr>
+                                                <th>Subject</th>
+                                                <th>Grade Point</th>
+                                                <th>Percent Form</th>
+                                                <th>Percent Upto</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Class Test</td>
+                                                <td>Mathmatics</td>
+                                                <td>
+                                                    4.00
+                                                </td>
+                                                <td>
+                                                    95.00
+                                                </td>
+                                                <td>
+                                                    100
+                                                </td>
+                                                <td>20/04/2017</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+            </div>
+        </div>
         <!--**********************************
             Footer end
         ***********************************-->
