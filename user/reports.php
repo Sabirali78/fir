@@ -16,9 +16,10 @@ $user_id = $_SESSION['user_id'];
 // Fetch the logged-in user's data
 
 // Fetch the logged-in user's data
-$ncs_pending = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id AND status = 'pending'");
-$ncs_in_progress = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id AND status = 'in_progress'");
-$ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id AND status = 'resolved'");
+$firs = mysqli_query($conn, "SELECT * FROM firs WHERE user_id = $user_id");
+$ncs = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id");
+$complaints = mysqli_query($conn, "SELECT * FROM complaints WHERE user_id = $user_id");
+
 
 ?>
 
@@ -96,13 +97,14 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
                         </div>
                         <h4><a href="../homepage.php">MAIN PAGE</a> </h4>
 
+
                         <ul class="navbar-nav header-right">
                                 <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="profile.php" class="dropdown-item">
+                                    <a href="User_dashboard.php" class="dropdown-item">
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
@@ -127,28 +129,15 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
-                
-                <li class="nav-label"></li>
-                    <li><span class="nav-text"></span></a>
-                     <a href="User_dashboard.php">PROFILE</a>
-                    </li>
-
-
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">Queries</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">Reports</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="User_firs.php">FIR</a></li>
-                            <li><a href="User_NOC.php">NOC</a></li>
-                            <li><a href="User_Comlpaints.php">COMPLAINTS
-                            </a></li>
+                            <li><a href="User_dashboard.php">PROFILE</a></li>
+                            <li><a href="reports.php">Reports</a></li>
                         </ul>
                     </li>
-                    
-
-
                 </ul>
             </div>
         </div>
@@ -171,15 +160,55 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
                 </div>
                 <div class="row">
                    
+                <h3><a href="../Add_fir.php" class="text-center">Submit an FIR (First Information Report)</a></h3>
                     
                 </div>
-    <div class="row">
-        <div class="col-lg-12">
-                        
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                             <h4 class="card-title">FIR (First Information Report) List</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table student-data-table m-t-20">
+                                        <thead>
+                                            <tr>
+                                            <th class="py-2 px-4 border-b">ID</th>
+                            <th class="py-2 px-4 border-b">User ID</th>
+                            <th class="py-2 px-4 border-b">Title</th>
+                            <th class="py-2 px-4 border-b">Description</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b">Tracking ID</th>
+                            <th class="py-2 px-4 border-b">Created At</th>
+                            <th class="py-2 px-4 border-b">Updated At</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($firs)) : ?>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+
+        <div class="col-lg-12">
         <div class="card mb-6">
             <div class="card-header">
-                <h4 class="card-title">Pending NOCs</h4>
+                <h4 class="card-title">NOC (No Objection Certificate)</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -198,7 +227,7 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($ncs_pending)) : ?>
+                            <?php while ($row = mysqli_fetch_assoc($ncs )) : ?>
                                 <tr>
                                     <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
@@ -221,11 +250,9 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
         </div>
         </div>
         <div class="col-lg-12">
-                        
-
         <div class="card mb-6">
             <div class="card-header">
-                <h4 class="card-title">in_progress NOCs</h4>
+                <h4 class="card-title">Complaints</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -244,7 +271,7 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($ncs_pending)) : ?>
+                            <?php while ($row = mysqli_fetch_assoc($complaints )) : ?>
                                 <tr>
                                     <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
@@ -266,53 +293,6 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
             </div>
         </div>
         </div>
-        <div class="col-lg-12">
-                        
-
-        <div class="card mb-6">
-            <div class="card-header">
-                <h4 class="card-title">Resolved NOCs</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table-auto w-full text-left">
-                        <thead>
-                            <tr>
-                                <th class="py-2 px-4 border-b">ID</th>
-                                <th class="py-2 px-4 border-b">User ID</th>
-                                <th class="py-2 px-4 border-b">Title</th>
-                                <th class="py-2 px-4 border-b">Description</th>
-                                <th class="py-2 px-4 border-b">Status</th>
-                                <th class="py-2 px-4 border-b">Tracking ID</th>
-                                <th class="py-2 px-4 border-b">Created At</th>
-                                <th class="py-2 px-4 border-b">Updated At</th>
-                                <th class="py-2 px-4 border-b">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($ncs_pending)) : ?>
-                                <tr>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
-                                    <td class="py-2 px-4 border-b">
-                                        <a href="edit_noc.php?id=<?php echo $row['id']; ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
-                                        <a href="delete_noc.php?id=<?php echo $row['id']; ?>" class="text-red-500 hover:text-red-700 ml-4">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        </div>
-                    
         <!--**********************************
             Content body end
         ***********************************-->
@@ -323,7 +303,7 @@ $ncs_resolved = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id 
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Sabir Baloch</a> 2024</p>
             </div>
         </div>
         <!--**********************************

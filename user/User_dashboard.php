@@ -131,28 +131,15 @@ $user = $result->fetch_assoc();
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
-                <li class="nav-label"></li>
-                    <li><span class="nav-text"></span></a>
-                     <a href="User_dashboard.php">PROFILE</a>
-                    </li>
-
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">Queries</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">Reports</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="User_firs.php">FIR</a></li>
-                            <li><a href="User_NOC.php">NOC</a></li>
-                            <li><a href="User_Comlpaints.php">COMPLAINTS
-                            </a></li>
+                            <li><a href="User_dashboard.php">PROFILE</a></li>
+                            <li><a href="reports.php">Reports</a></li>
                         </ul>
                     </li>
-
-                   
-                    
-
-
                 </ul>
             </div>
         </div>
@@ -240,7 +227,7 @@ $user = $result->fetch_assoc();
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+            <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Sabir Baloch</a> 2024</p>
             </div>
         </div>
         <!--**********************************
