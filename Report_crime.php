@@ -22,11 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user_id'];
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $status = mysqli_real_escape_string($conn, $_POST['status']);
     $tracking_id = generateTrackingID();
     
     $query = "INSERT INTO crime (user_id, title, description, status, tracking_id, created_at, updated_at) 
-              VALUES ('$user_id', '$title', '$description', '$status', '$tracking_id', NOW(), NOW())";
+              VALUES ('$user_id', '$title', '$description', 'pending', '$tracking_id', NOW(), NOW())";
 
     if (mysqli_query($conn, $query)) {
         echo "Crime report submitted successfully. Your tracking ID is: $tracking_id";
@@ -47,14 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" class="form-control" rows="5" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="tracking_id">Tracking ID:</label>
-                <input type="text" id="tracking_id" name="tracking_id" class="form-control" value="<?php echo generateTrackingID(); ?>" readonly>
-            </div>
+           
+           
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

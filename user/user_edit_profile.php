@@ -111,7 +111,7 @@ $user = $result->fetch_assoc();
                                         <span class="ml-2">Profile </span>
                                     </a>
                                    
-                                    <a href="logout.php" class="dropdown-item">
+                                    <a href="admin_logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -171,84 +171,34 @@ $user = $result->fetch_assoc();
 
                 <div class="row">
                     
+                <div class="container">
+    <h2 class="mt-5">Edit Profile</h2>
+    <form action="update_profile.php" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
                 
                   
                 </div>
                 
-                <div class="row">
-                    <div class="col-lg-12">
-                
-                    <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Your Information</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table student-data-table m-t-20">
-                                <thead>
-                                    <tr>
-                                        <th class="py-2 px-4 border-b">ID</th>
-                                        <th class="py-2 px-4 border-b">Name</th>
-                                        <th class="py-2 px-4 border-b">Email</th>
-                                        <th class="py-2 px-4 border-b">CNIC</th>
-                                        <th class="py-2 px-4 border-b">Phone Number</th>
-                                        <th class="py-2 px-4 border-b">Address</th>
-                                        <th class="py-2 px-4 border-b">Role</th>
-                                        <th class="py-2 px-4 border-b">Email Verified At</th>
-                                        <th class="py-2 px-4 border-b">Created At</th>
-                                        <th class="py-2 px-4 border-b">Updated At</th>
-                                        <th class="py-2 px-4 border-b">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['id']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['name']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['email']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['CNIC_Number']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['phone_number']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['address']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['role']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['email_verified_at']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['created_at']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['updated_at']; ?></td>
-                                        <td class="py-2 px-4 border-b">
-                                            <a href="user_edit_profile.php?id=<?php echo $user['id']; ?>" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i> Edit</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-            <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Sabir Baloch</a> 2024</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
-    </div>
+             
     <!--**********************************
         Main wrapper end
     ***********************************-->

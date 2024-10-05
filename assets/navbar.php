@@ -40,7 +40,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link" href="Report_crime.php">Report a Crime</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 6</a>
+                <a class="nav-link" href="public_service.php">Public Services</a>
             </li>
         </ul>
         <div class="navbar-right">

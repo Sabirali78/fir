@@ -25,6 +25,55 @@ if (!isset($_SESSION['admin_id'])) {
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+        .custom-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom-col-lg-8,
+.custom-col-lg-4,
+.custom-col-md-12 {
+    padding: 0 15px;
+}
+
+.custom-col-lg-8 {
+    width: 66.66%;
+}
+
+.custom-col-lg-4 {
+    width: 33.33%;
+}
+
+.custom-col-md-12 {
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .custom-col-lg-8,
+    .custom-col-lg-4 {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .custom-col-lg-4 {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-card {
+        margin-bottom: 20px;
+    }
+
+    .custom-canvas-bar,
+    .custom-canvas-pie {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -263,25 +312,28 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">RATES</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="ct-bar-chart mt-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="ct-pie-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+<!-- charts` -->
+<div class="row custom-row">
+    <div class="col-lg-8 col-md-12 custom-col-lg-8 custom-col-md-12">
+        <div class="card custom-card">
+            <div class="card-header custom-card-header">
+                <h4 class="card-title custom-card-title">RATES</h4>
+            </div>
+            <div class="card-body custom-card-body">
+                <canvas id="barChart" class="custom-canvas-bar"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 mt-4 mt-lg-0 custom-col-lg-4 custom-col-md-12">
+        <div class="card custom-card">
+            <div class="card-body custom-card-body">
+                <canvas id="pieChart" class="custom-canvas-pie"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -357,9 +409,88 @@ if (!isset($_SESSION['admin_id'])) {
         Scripts
     ***********************************-->
     <!-- Required vendors -->
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Data for the charts
+    const data = {
+        reportedCrimes: 117,
+        reportedFIRs: 84,
+        solvedCrimes: 97,
+        obtainedNOCs: 36
+    };
+
+    // Bar Chart
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['Reported FIRs', 'Solved Cases', 'Reported Crimes', 'Obtained NOCs'],
+            datasets: [{
+                label: 'Number of Cases',
+                data: [data.reportedCrimes, data.reportedFIRs, data.solvedCrimes, data.obtainedNOCs],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Pie Chart
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Reported FIRs', 'Solved Cases', 'Reported Crimes', 'Obtained NOCs'],
+            datasets: [{
+                data: [data.reportedCrimes, data.reportedFIRs, data.solvedCrimes, data.obtainedNOCs],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+});
+</script>
+
+
+     </script>
     <script src="./vendor/global/global.min.js"></script>
     <script src="./js/quixnav-init.js"></script>
     <script src="./js/custom.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <script src="./vendor/chartist/js/chartist.min.js"></script>
 

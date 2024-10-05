@@ -259,7 +259,7 @@ function limit_text($text, $limit) {
                                     <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['description']; ?></td>
+                                    <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
