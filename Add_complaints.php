@@ -16,6 +16,14 @@ if (!isset($_SESSION['user_id'])) {
     
 $user_id = $_SESSION['user_id'];
 
+// Fetch the logged-in user's data
+$query = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
 $complaints = mysqli_query($conn, "SELECT * FROM complaints WHERE user_id = $user_id");
 
 
@@ -123,16 +131,17 @@ $complaints = mysqli_query($conn, "SELECT * FROM complaints WHERE user_id = $use
                                 <input type="hidden" name="_token" value="sAGE2dZLP9wZSDNUdydeO9wSj979YhIyQ8QHJga9">
                                 <div class="form-group required-field ">
                                     <label for="">Enter CNIC</label>
-                                    <input type="text" class="form-control" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" id="cnic" name="cnic" required="" placeholder="Enter CNIC" maxlength="15">
-                                </div>
+                                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['CNIC_Number']); ?>" required>
+                                    </div>
                                 <div class="form-group required-field">
                                     <label for="">Enter Name</label>
-                                    <input type="text" class="form-control" name="name" id="name" required="" placeholder="Enter Name" onkeypress="return characterOnly(this,event)">
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['name']); ?>" required>
                                 </div>
+        
                                 <div class="form-group required-field">
                                     <label for="">Enter Cell No.</label>
-                                    <input type="text" class="form-control" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" id="phone_number" name="phone_number" required="" placeholder="Enter Cell No." maxlength="12">
-                                </div>
+                                    <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>">
+                                    </div>
                                 <div class="form-group">
                                     <button class="btn btn-blue btn-block btn-lg">Submit</button>
                                 </div>
