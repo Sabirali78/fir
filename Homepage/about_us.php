@@ -168,12 +168,6 @@ if (session_status() == PHP_SESSION_NONE) {
                     </div>
                 </div>
             </section>
-            <section id="block-block-10" class="block block-block clearfix">
-                <div class="page-cover">
-                    <div class="cover-bg bg-img"></div>
-                    <div class="cover-bg-mask bg-color"></div>
-                </div>
-            </section>
         </div>
         <!-- /page content -->
     </section>
