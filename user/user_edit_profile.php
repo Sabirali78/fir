@@ -106,7 +106,7 @@ $user = $result->fetch_assoc();
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="profile.php" class="dropdown-item">
+                                    <a href="User_dashboard.php" class="dropdown-item">
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
@@ -155,7 +155,7 @@ $user = $result->fetch_assoc();
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
-                <div class="row page-titles mx-0">
+                <div class="row mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Hi, welcome <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h4>
@@ -171,8 +171,8 @@ $user = $result->fetch_assoc();
 
                 <div class="row">
                     
-                <div class="container">
-    <h2 class="mt-5">Edit Profile</h2>
+    <div class="container">
+    <h2>Edit Profile</h2>
     <form action="update_profile.php" method="POST">
         <div class="form-group">
             <label for="username">Username</label>

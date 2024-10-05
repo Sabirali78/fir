@@ -34,7 +34,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link" href="add_noc.php">NCS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Add_complaints.php">Complaints</a>
+                <a class="nav-link" href="complaints.php">Complaints</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="Report_crime.php">Report a Crime</a>
