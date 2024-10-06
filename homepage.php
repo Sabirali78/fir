@@ -66,6 +66,11 @@ if (session_status() == PHP_SESSION_NONE) {
     padding-left: 20px;
     list-style: none;
 }
+.newroom{
+    background-color: transparent;
+    border-color: #112255;
+    border-width: 2px;
+}
 /* 5 cards section */
 
 
@@ -217,12 +222,12 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <section>
    
-            <center><H1 class="">News Room</H1></center>
+            <center><H1 class="" style="margin-top:20px;">News Room</H1></center>
 </section>
 
- <!--Cards Start-->
+ 
 
- <section style="display: inline-flex; margin-left: 150px;" >
+ <section style="display: inline-flex; margin-left: 150px; margin-bottom: 20px;" >
         
         <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
            <div class="card-body">
