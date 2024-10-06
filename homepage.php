@@ -27,21 +27,31 @@ if (session_status() == PHP_SESSION_NONE) {
     padding: 20px;
     
 }
-/* 5 cards section */
 
 .container1 {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+.container2 {
+    display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    width: 70%;
+
 }
 
-.card {
-    background-color: white;
+.container_card {
+    background-color: blue;
     border: 1px solid #ddd;
     border-radius: 8px;
-    width: 18%;
+    width: 15%;
     margin: 10px;
     padding: 20px;
+    color: white;
     position: relative;
     cursor: pointer;
     transition: box-shadow 0.3s ease;
@@ -51,16 +61,26 @@ if (session_status() == PHP_SESSION_NONE) {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.links {
-    display: none; /* Initially hide the links */
-    margin-top: 10px;
+.links-container {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
 .links ul {
     padding-left: 20px;
+    list-style: none;
 }
+
 /* 5 cards section */
-    </style>
+
+
+</style>
 <body>
 <!--Slider -->
         <div id="carouselExampleControls" class="carousel slide " data-bs-ride="carousel" style="margin-bottom: 20px;">
@@ -87,57 +107,63 @@ if (session_status() == PHP_SESSION_NONE) {
 <!--Slider End -->
 
 <!-- 5 cards section -->
-
+ 
 <div class="container1">
-        <div class="card" onclick="toggleExpand(event, 'linkList1')">
+<div class="container2">
+    
+        <div class="container_card" onclick="toggleExpand(event, 'linkList1')">
             <h2>Card 1</h2>
-            <div class="links" id="linkList1">
-                <ul>
-                    <li><a href="#">Link 1A</a></li>
-                    <li><a href="#">Link 1B</a></li>
-                    <li><a href="#">Link 1C</a></li>
-                </ul>
-            </div>
         </div>
-        <div class="card" onclick="toggleExpand(event, 'linkList2')">
+        <div class="container_card" onclick="toggleExpand(event, 'linkList2')">
             <h2>Card 2</h2>
-            
-                <ul class="links" id="linkList2">
-                    <li><a href="#">Link 2A</a></li>
-                    <li><a href="#">Link 2B</a></li>
-                    <li><a href="#">Link 2C</a></li>
-                </ul>
-            
         </div>
-        <div class="card" onclick="toggleExpand(event, 'linkList3')">
+        <div class="container_card" onclick="toggleExpand(event, 'linkList3')">
             <h2>Card 3</h2>
-            <div class="links" id="linkList3">
-                <ul>
-                    <li><a href="#">Link 3A</a></li>
-                    <li><a href="#">Link 3B</a></li>
-                    <li><a href="#">Link 3C</a></li>
-                </ul>
-            </div>
         </div>
-        <div class="card" onclick="toggleExpand(event, 'linkList4')">
+        <div class="container_card" onclick="toggleExpand(event, 'linkList4')">
             <h2>Card 4</h2>
-            <div class="links" id="linkList4">
-                <ul>
-                    <li><a href="#">Link 4A</a></li>
-                    <li><a href="#">Link 4B</a></li>
-                    <li><a href="#">Link 4C</a></li>
-                </ul>
-            </div>
         </div>
-        <div class="card" onclick="toggleExpand(event, 'linkList5')">
+        <div class="container_card" onclick="toggleExpand(event, 'linkList5')">
             <h2>Card 5</h2>
-            <div class="links" id="linkList5">
-                <ul>
-                    <li><a href="#">Link 5A</a></li>
-                    <li><a href="#">Link 5B</a></li>
-                    <li><a href="#">Link 5C</a></li>
-                </ul>
-            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="links-container" id="linksContainer">
+        <div class="links" id="linkList1">
+            <ul>
+                <li><a href="#">Link 1A</a></li>
+                <li><a href="#">Link 1B</a></li>
+                <li><a href="#">Link 1C</a></li>
+            </ul>
+        </div>
+        <div class="links" id="linkList2">
+            <ul>
+                <li><a href="#">Link 2A</a></li>
+                <li><a href="#">Link 2B</a></li>
+                <li><a href="#">Link 2C</a></li>
+            </ul>
+        </div>
+        <div class="links" id="linkList3">
+            <ul>
+                <li><a href="#">Link 3A</a></li>
+                <li><a href="#">Link 3B</a></li>
+                <li><a href="#">Link 3C</a></li>
+            </ul>
+        </div>
+        <div class="links" id="linkList4">
+            <ul>
+                <li><a href="#">Link 4A</a></li>
+                <li><a href="#">Link 4B</a></li>
+                <li><a href="#">Link 4C</a></li>
+            </ul>
+        </div>
+        <div class="links" id="linkList5">
+            <ul>
+                <li><a href="#">Link 5A</a></li>
+                <li><a href="#">Link 5B</a></li>
+                <li><a href="#">Link 5C</a></li>
+            </ul>
         </div>
     </div>
 
@@ -217,26 +243,33 @@ include("assets/footer.php");
 <!--Script-->
 <!-- for 5 cards -->
 <script>
-    function toggleExpand(event, linkListId) {
-    // Prevent the event from bubbling up to the document
+ function toggleExpand(event, listId) {
     event.stopPropagation();
+    const linksContainer = document.getElementById('linksContainer');
+    const links = document.getElementById(listId);
 
-    const linkList = document.getElementById(linkListId);
+    // Close any other open links
     const allLinks = document.querySelectorAll('.links');
-
-    // Toggle the clicked card's links
-    linkList.style.display = (linkList.style.display === 'block') ? 'none' : 'block';
-
-    // Hide other links if one is expanded
     allLinks.forEach(link => {
-        if (link.id !== linkListId) {
+        if (link !== links) {
             link.style.display = 'none';
         }
     });
+
+    // Toggle the visibility of the clicked card's links
+    if (links.style.display === 'block') {
+        links.style.display = 'none';
+        linksContainer.style.display = 'none';
+    } else {
+        links.style.display = 'block';
+        linksContainer.style.display = 'block';
+    }
 }
 
-// Close all expanded links when clicking outside
-document.addEventListener('click', function() {
+document.body.addEventListener('click', function() {
+    const linksContainer = document.getElementById('linksContainer');
+    linksContainer.style.display = 'none';
+
     const allLinks = document.querySelectorAll('.links');
     allLinks.forEach(link => {
         link.style.display = 'none';
