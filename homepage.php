@@ -29,7 +29,7 @@ if (session_status() == PHP_SESSION_NONE) {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 70%;
+    width: 85%;
 
 }
 
@@ -38,6 +38,7 @@ if (session_status() == PHP_SESSION_NONE) {
     border: 1px solid #ddd;
     border-radius: 8px;
     width: 15%;
+    height: 9rem;
     margin: 10px;
     padding: 20px;
     color: white;
@@ -46,17 +47,21 @@ if (session_status() == PHP_SESSION_NONE) {
     transition: box-shadow 0.3s ease;
 }
 
-.card:hover {
+.container_card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    color: blue;
+    border: 2px solid blue;
 }
 
 .links-container {
     display: none;
     position: absolute;
-    left: 15rem;
-    width: 68%;
+    left: 7.9rem;
+    width: 83.5%;
+    top: 50rem;
     background-color: white;
-    border-top: 1px solid #ddd;
+    border: 2px solid blue;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 10;
@@ -66,13 +71,30 @@ if (session_status() == PHP_SESSION_NONE) {
     padding-left: 20px;
     list-style: none;
 }
+
+.fa-solid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 35px;
+}
+.container_card:hover .fa-solid{
+    color: blue;
+}
+.cards-title{
+    
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* 5 cards section */
+
 .newroom{
     background-color: transparent;
     border-color: #112255;
     border-width: 2px;
 }
-/* 5 cards section */
-
 
 </style>
 <body>
@@ -106,19 +128,24 @@ if (session_status() == PHP_SESSION_NONE) {
 <div class="container2">
     
         <div class="container_card" onclick="toggleExpand(event, 'linkList1')">
-            <h2>Card 1</h2>
+                <i class="fa-solid fa-file"></i>
+                <p class="cards-title">Reports</p>
         </div>
         <div class="container_card" onclick="toggleExpand(event, 'linkList2')">
-            <h2>Card 2</h2>
-        </div>
+                <i class="fa-solid fa-user"></i>
+                <p class="cards-title">Tell us about</p>
+            </div>
         <div class="container_card" onclick="toggleExpand(event, 'linkList3')">
-            <h2>Card 3</h2>
+                <i class="fa-solid fa-award"></i>
+                <p class="cards-title">Apply or Register</p>
         </div>
         <div class="container_card" onclick="toggleExpand(event, 'linkList4')">
-            <h2>Card 4</h2>
+                <i class="fa-solid fa-person-circle-question"></i>
+                <p class="cards-title">Request</p>
         </div>
         <div class="container_card" onclick="toggleExpand(event, 'linkList5')">
-            <h2>Card 5</h2>
+                <i class="fa-solid fa-phone"></i>
+                <p class="cards-title">Connect</p>
         </div>
     </div>
     </div>
