@@ -100,13 +100,13 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="card" onclick="toggleExpand(event, 'linkList2')">
             <h2>Card 2</h2>
-            <div class="links" id="linkList2">
-                <ul>
+            
+                <ul class="links" id="linkList2">
                     <li><a href="#">Link 2A</a></li>
                     <li><a href="#">Link 2B</a></li>
                     <li><a href="#">Link 2C</a></li>
                 </ul>
-            </div>
+            
         </div>
         <div class="card" onclick="toggleExpand(event, 'linkList3')">
             <h2>Card 3</h2>
