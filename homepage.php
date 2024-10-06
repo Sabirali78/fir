@@ -45,25 +45,50 @@ if (session_status() == PHP_SESSION_NONE) {
 <!--Slider End -->
 
 <section>
-    <div class="container " >
-        <div class="row">
+   
             <center><H1 class="">Latest News</H1></center>
 </section>
 
  <!--Cards Start-->
-    <div class="card d-flex" style="width: 18rem; margin-top: 100px " >
-      <div style="justify-items: center;">  
-    <img src="assets/Images/Cards1.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-    </div>
-    </div>
+ <section style="display: inline-flex; margin-left: 150px;" >
+        
+        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
+            <img src="assets/Images/Cards1.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+
+
+   
+        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
+            <img src="assets/Images/Cards2.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>   
+
+        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
+            <img src="assets/Images/Cards3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+
+        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
+            <img src="assets/Images/Cards4.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        
+
+    
 
 
 
 
-
+</section>
 <!--Cards End -->
 
     
