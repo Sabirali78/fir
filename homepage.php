@@ -208,7 +208,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <section>
    
-            <center><H1 class="">Latest News</H1></center>
+            <center><H1 class="">News Room</H1></center>
 </section>
 
  <!--Cards Start-->
