@@ -8,23 +8,12 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
-<!-- Your homepage content -->
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        
-        <title>Document</title>
-    </head>
-    <style>
+<!-- Your homepage content -->  
+<style>
         body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
-    padding: 20px;
     
 }
 
@@ -64,7 +53,8 @@ if (session_status() == PHP_SESSION_NONE) {
 .links-container {
     display: none;
     position: absolute;
-    width: 100%;
+    left: 15rem;
+    width: 68%;
     background-color: white;
     border-top: 1px solid #ddd;
     padding: 20px;
