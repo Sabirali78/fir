@@ -59,6 +59,12 @@ if (session_status() == PHP_SESSION_NONE) {
 .links ul {
     padding-left: 20px;
 }
+
+.newroom{
+    background-color: transparent;
+    border-color: #112255;
+    border-width: 2px;
+}
 /* 5 cards section */
     </style>
 <body>
@@ -196,6 +202,61 @@ if (session_status() == PHP_SESSION_NONE) {
 
 </section>
 <!--Cards End -->
+
+
+<!--News Room Start-->
+
+<section>
+   
+            <center><H1 class="">Latest News</H1></center>
+</section>
+
+ <!--Cards Start-->
+
+ <section style="display: inline-flex; margin-left: 150px;" >
+        
+        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
+           <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+            </div>
+        </div>
+
+
+   
+        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
+           <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+            </div>
+        </div>   
+
+        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
+           <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+            </div>
+        </div>
+
+        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
+           <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+            </div>
+        </div>
+        
+
+    
+
+   
+
+
+
+
+
+
+</section>
+<!--News Room End-->
 
 <!--Footer Start-->
 <?php
