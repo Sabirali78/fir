@@ -14,44 +14,60 @@ if (session_status() == PHP_SESSION_NONE) {
         display: flex;
         align-items: center;
     }
+
+    .nav-color{
+        background-color: #112255;
+    }
+
+    .btn-action{
+        background-color: white;
+        color: yellow;
+        border-radius: 3px;
+        border: none;
+        outline: none;
+    }
+    .btn-action:hover{
+        background-color: transparent;
+        color:white;
+    }
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Logo</a>
+<nav class="navbar navbar-expand-lg navbar-dark nav-color">
+    <a class="navbar-brand" href="#">SecureCity</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="nav-link" href="homepage.php">Home</a>
+                <a class="nav-link  text-white" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Homepage/about_us.php">About Us</a>
+                <a class="nav-link  text-white" href="Homepage/about_us.php">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Add_fir.php">Fir</a>
+                <a class="nav-link  text-white" href="Add_fir.php">Fir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="add_noc.php">NCS</a>
+                <a class="nav-link text-white" href="add_noc.php">NCS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="complaints.php">Complaints</a>
+                <a class="nav-link  text-white" href="complaints.php">Complaints</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Report_crime.php">Report a Crime</a>
+                <a class="nav-link  text-white" href="Report_crime.php">Report a Crime</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="public_service.php">Public Services</a>
+                <a class="nav-link  text-white" href="public_service.php">Public Services</a>
             </li>
         </ul>
         <div class="navbar-right">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a class="nav-link" href="./user/User_dashboard.php">Profile</a>
-                <a class="nav-link" href="./user/logout.php">Logout</a>
+                <a class="nav-link btn-action" href="./user/User_dashboard.php" >Profile</a>
+                <a class="nav-link  mx-1 btn-action" href="./user/logout.php">Logout</a>
             <?php else: ?>
-                <a class="nav-link" href="./user/login.html">Login</a>
+                <a class="nav-link btn-action" href="./user/login.html">Login</a>
             <?php endif; ?>
         </div>
     </div>

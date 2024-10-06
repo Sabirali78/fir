@@ -25,6 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
     background-color: #f0f0f0;
     margin: 0;
     padding: 20px;
+    
 }
 /* 5 cards section */
 
@@ -195,6 +196,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 </section>
 <!--Cards End -->
+
+<!--Footer Start-->
+<?php
+include("assets/footer.php");
+?>
+<!--Footer End-->
+
+
 
     
 
