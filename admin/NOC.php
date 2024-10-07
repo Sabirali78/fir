@@ -172,6 +172,17 @@ function limit_text($text, $limit) {
                     </li>
 
 
+                    <li class="nav-label">Stations</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Stations</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="stations.php">Police Stations</a></li>
+                        </ul>
+                    </li>
+
+
+
                    
                     <li class="nav-label">Components</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i

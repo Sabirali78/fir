@@ -6,6 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
+
     .navbar-nav {
         flex: 1;
         justify-content: center;
@@ -17,18 +18,31 @@ if (session_status() == PHP_SESSION_NONE) {
 
         body {
             font-family: Arial, sans-serif;
+            background-color: #d1bebe;
+            
         }
-        .breadcrumb {
+        .breadcrumb{
+            margin-top: 4rem;
             background-color: #f8f9fa;
             border-radius: 0.25rem;
+            display: flex;
+            gap:1rem;
+      
         }
         .breadcrumb a {
             color: #007bff;
             text-decoration: none;
+            font-size: 20px;
         }
         .breadcrumb .active {
             color: #6c757d;
+            font-size: 20px;
         }
+        .breadcrumb>li+li:before {
+            padding: 0 5px;
+            color: #ccc;
+            content: "/\00a0";
+}
         #page-title {
             margin-top: 20px;
             margin-bottom: 20px;

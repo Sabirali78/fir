@@ -8,96 +8,9 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
+<link rel="stylesheet" href="assets/homepage.css">
 <!-- Your homepage content -->  
-<style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    
-}
 
-.container1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-
-}
-.container2 {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 85%;
-
-}
-
-.container_card {
-    background-color: #112255;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 15%;
-    height: 9rem;
-    margin: 10px;
-    padding: 20px;
-    color: white;
-    position: relative;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-}
-
-.container_card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    color: #112255;
-    border: 2px solid #112255;
-}
-
-.links-container {
-    display: none;
-    position: absolute;
-    left: 7.9rem;
-    width: 83.5%;
-    top: 50rem;
-    background-color: white;
-    border: 2px solid #112255;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.links ul {
-    padding-left: 20px;
-    list-style: none;
-}
-
-.fa-solid{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 35px;
-}
-.container_card:hover .fa-solid{
-    color: #112255;
-}
-.cards-title{
-    
-    text-align: center;
-    margin-top: 1rem;
-}
-
-/* 5 cards section */
-
-.newroom{
-    background-color: transparent;
-    border-color: #112255;
-    border-width: 2px;
-}
-
-</style>
-<body>
 <!--Slider -->
        
         <img src="assets/Images/1.jpg" class="d-block" alt="..." width="100%" height="80%">
@@ -108,6 +21,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <!-- 5 cards section -->
  
 <div class="container1">
+            <h1>PUBLIC SERVICES</h1>
 <div class="container2">
     
         <div class="container_card" onclick="toggleExpand(event, 'linkList1')">

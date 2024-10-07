@@ -12,18 +12,11 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-$firs_pending = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'pending'");
-$firs_in_progress = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'in progress'");
-$firs_resolved = mysqli_query($conn, "SELECT * FROM firs WHERE status = 'resolved'");
-$registered_users = mysqli_query($conn, "SELECT * FROM users");
-
-function limit_text($text, $limit) {
-    if (strlen($text) > $limit) {
-        return substr($text, 0, $limit) . '...';
-    } else {
-        return $text;
-    }
-}
+// Retrieve police station data along with city names
+$sql = "SELECT ps.name AS station_name, c.city AS city_name, ps.address, ps.contact_number
+        FROM police_stations ps
+        JOIN city c ON ps.city_id = c.id";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -38,16 +31,6 @@ function limit_text($text, $limit) {
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
-    <style>
-    .table-responsive {
-        overflow-x: auto; /* Allows horizontal scrolling */
-    }
-
-    .student-data-table {
-        width: 100%; /* Makes sure the table uses the full width */
-        min-width: 800px; /* Ensures the table doesn't shrink too small */
-    }
-</style>
 </head>
     <!--*******************
         Preloader start
@@ -166,6 +149,17 @@ function limit_text($text, $limit) {
                     </li>
 
 
+
+                    <li class="nav-label">Stations</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Stations</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="stations.php">Police Stations</a></li>
+                        </ul>
+                    </li>
+
+
                    
                     <li class="nav-label">Components</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
@@ -218,140 +212,51 @@ function limit_text($text, $limit) {
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
-               
+
+            <h3><a href="add_stations.php">Add a New Police Stations</a></h3>
 
                 <div class="row">
                    
-                   
-                    
                     
                 </div>
                 <div class="row">
-                   
-                    
-                </div>
-                <div class="row">
-                <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">FIR'S Pending</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table student-data-table m-t-20">
-                    <thead>
-                        <tr>
-                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User ID</th>
-                            <th class="py-2 px-4 border-b">Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Updated At</th>
-                            <th class="py-2 px-4 border-b">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($firs_pending)) : ?>
-                            <tr>
-                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
-                                <td>
-                                    <a href="Edit_fir.php">EDIT</a>
-                                    <a href="DELETE_fir.php">DELETE</a>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            </div>
+                    <div class="col-lg-12">
+                    <div class="card">
+    <div class="card-header">
+        <h4 class="card-title">POLICE STATIONS DATA</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table student-data-table m-t-20">
+                <thead>
+                    <tr>
+                        <th>Station Name</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        // Output data of each row
+                        while($row = $result->fetch_assoc()) {
+                            echo '<tr>';
+                            echo '<td>' . $row["station_name"] . '</td>';
+                            echo '<td>' . $row["city_name"] . '</td>';
+                            echo '<td>' . $row["address"] . '</td>';
+                            echo '<td>' . $row["contact_number"] . '</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo '<tr><td colspan="5">No data available</td></tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                             <h4 class="card-title">In Progress</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table student-data-table m-t-20">
-                                        <thead>
-                                            <tr>
-                                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User ID</th>
-                            <th class="py-2 px-4 border-b">Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Updated At</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($firs_in_progress)) : ?>
-                        <tr>
-                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                            <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
-                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
-                        </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                             <h4 class="card-title">Resolved</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table student-data-table m-t-20">
-                                        <thead>
-                                            <tr>
-                                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User ID</th>
-                            <th class="py-2 px-4 border-b">Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Updated At</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($firs_resolved)) : ?>
-                        <tr>
-                            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                            <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
-                            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                            <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
-                        </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
         <!--**********************************
             Content body end

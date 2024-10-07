@@ -45,7 +45,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link  text-white" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  text-white" href="Homepage/about_us.php">About Us</a>
+                <a class="nav-link  text-white" href="other_pages/about_us.php">About Us</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link  text-white" href="Add_fir.php">Fir</a>
