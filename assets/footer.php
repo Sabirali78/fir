@@ -2,7 +2,7 @@
   <!-- Footer -->
   <footer
           class="text-center text-lg-start text-white"
-          style="background-color: #1c2331"
+          style="background-color: #112255"
           >
     <!-- Section: Social media -->
     <section
@@ -132,9 +132,9 @@
          class="text-center p-3"
          style="background-color: rgba(0, 0, 0, 0.2)"
          >
-      © 2020 Copyright:
+      © 2024 Copyright:
       <a class="text-white" href="https://mdbootstrap.com/"
-         >MDBootstrap.com</a
+         >SecureCity System</a
         >
     </div>
     <!-- Copyright -->

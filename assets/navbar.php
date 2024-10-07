@@ -22,7 +22,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
     .btn-action{
         background-color: white;
-        color: yellow;
+        color: #112255;
         border-radius: 3px;
         border: none;
         outline: none;

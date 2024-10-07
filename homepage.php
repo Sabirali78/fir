@@ -34,7 +34,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 .container_card {
-    background-color: blue;
+    background-color: #112255;
     border: 1px solid #ddd;
     border-radius: 8px;
     width: 15%;
@@ -50,8 +50,8 @@ if (session_status() == PHP_SESSION_NONE) {
 .container_card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: white;
-    color: blue;
-    border: 2px solid blue;
+    color: #112255;
+    border: 2px solid #112255;
 }
 
 .links-container {
@@ -61,7 +61,7 @@ if (session_status() == PHP_SESSION_NONE) {
     width: 83.5%;
     top: 50rem;
     background-color: white;
-    border: 2px solid blue;
+    border: 2px solid #112255;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 10;
@@ -80,7 +80,7 @@ if (session_status() == PHP_SESSION_NONE) {
     font-size: 35px;
 }
 .container_card:hover .fa-solid{
-    color: blue;
+    color: #112255;
 }
 .cards-title{
     
@@ -99,27 +99,10 @@ if (session_status() == PHP_SESSION_NONE) {
 </style>
 <body>
 <!--Slider -->
-        <div id="carouselExampleControls" class="carousel slide " data-bs-ride="carousel" style="margin-bottom: 20px;">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
+       
         <img src="assets/Images/1.jpg" class="d-block" alt="..." width="100%" height="80%">
-        </div>
-        <div class="carousel-item">
-        <img src="assets/Images/2.jpg" class="d-block" alt="..." width="100%" height="80%">
-        </div>
-        <div class="carousel-item">
-        <img src="assets/Images/3.jpg" class="d-block " alt="..." width="100%" height="80%">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-    </div >
+        
+      
 <!--Slider End -->
 
 <!-- 5 cards section -->
@@ -194,7 +177,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <section>
    
-            <center><H1 class="">Latest News</H1></center>
+            <center><H1 class="" style="margin-top: 20px;">Latest News</H1></center>
 </section>
 
  <!--Cards Start-->
