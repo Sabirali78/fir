@@ -16,7 +16,11 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Fetch the logged-in user's data
-$query = "SELECT * FROM users WHERE id = ?";
+// Fetch the logged-in user's data with city name
+$query = "SELECT u.*, c.city AS city_name 
+          FROM users u
+          JOIN city c ON u.city_id = c.id
+          WHERE u.id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -184,40 +188,40 @@ $user = $result->fetch_assoc();
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table student-data-table m-t-20">
-                                <thead>
-                                    <tr>
-                                        <th class="py-2 px-4 border-b">ID</th>
-                                        <th class="py-2 px-4 border-b">Name</th>
-                                        <th class="py-2 px-4 border-b">Email</th>
-                                        <th class="py-2 px-4 border-b">CNIC</th>
-                                        <th class="py-2 px-4 border-b">Phone Number</th>
-                                        <th class="py-2 px-4 border-b">Address</th>
-                                        <th class="py-2 px-4 border-b">Role</th>
-                                        <th class="py-2 px-4 border-b">Email Verified At</th>
-                                        <th class="py-2 px-4 border-b">Created At</th>
-                                        <th class="py-2 px-4 border-b">Updated At</th>
-                                        <th class="py-2 px-4 border-b">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['id']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['name']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['email']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['CNIC_Number']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['phone_number']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['address']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['role']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['email_verified_at']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['created_at']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $user['updated_at']; ?></td>
-                                        <td class="py-2 px-4 border-b">
-                                            <a href="user_edit_profile.php?id=<?php echo $user['id']; ?>" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i> Edit</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <table class="table student-data-table m-t-20">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">ID</th>
+                <th class="py-2 px-4 border-b">Name</th>
+                <th class="py-2 px-4 border-b">Email</th>
+                <th class="py-2 px-4 border-b">CNIC</th>
+                <th class="py-2 px-4 border-b">Phone Number</th>
+                <th class="py-2 px-4 border-b">City</th>
+                <th class="py-2 px-4 border-b">Address</th>
+                <th class="py-2 px-4 border-b">Role</th>
+                <th class="py-2 px-4 border-b">Created At</th>
+                <th class="py-2 px-4 border-b">Updated At</th>
+                <th class="py-2 px-4 border-b">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="py-2 px-4 border-b"><?php echo $user['id']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['name']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['email']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['CNIC_Number']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['phone_number']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['city_name']; ?></td> <!-- Changed this line -->
+                <td class="py-2 px-4 border-b"><?php echo $user['address']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['role']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['created_at']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['updated_at']; ?></td>
+                <td class="py-2 px-4 border-b">
+                    <a href="user_edit_profile.php?id=<?php echo $user['id']; ?>" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i> Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
                         </div>
                     </div>
                     </div>

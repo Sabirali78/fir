@@ -23,6 +23,14 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
+
+// Fetch the list of cities
+$cityQuery = "SELECT id, city FROM city";
+$cityResult = $conn->query($cityQuery);
+$cities = [];
+while ($city = $cityResult->fetch_assoc()) {
+    $cities[] = $city;
+}
 ?>
 
 <!DOCTYPE html>
@@ -183,6 +191,16 @@ $user = $result->fetch_assoc();
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
         </div>
+        <div class="form-group">
+        <label for="city">City</label>
+        <select class="form-control" id="city" name="city_id" required>
+            <?php foreach ($cities as $city): ?>
+                <option value="<?php echo $city['id']; ?>" <?php echo ($user['city_id'] == $city['id']) ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($city['city']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
         <div class="form-group">
             <label for="phone">Phone</label>
             <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>">

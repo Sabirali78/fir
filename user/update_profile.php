@@ -22,11 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
+    $city_id = $_POST['city_id'];
 
     // Update the user's data in the database
-    $query = "UPDATE users SET name = ?, email = ?,  phone_number = ?, address = ? WHERE id = ?";
+    $query = "UPDATE users SET name = ?, email = ?, phone_number = ?, address = ?, city_id = ? WHERE id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssi", $username, $email,  $phone, $address, $user_id);
+    $stmt->bind_param("ssssii", $username, $email, $phone, $address, $city_id, $user_id);
 
     if ($stmt->execute()) {
         echo "Profile updated successfully.";

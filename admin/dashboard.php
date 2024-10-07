@@ -264,7 +264,7 @@ if (!isset($_SESSION['admin_id'])) {
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
-                            <li><a href="logout.php" class="text-blue-500">Logout</a></li>
+                            <li><a href="admin_logout.php" class="text-blue-500">Logout</a></li>
                         </ol>
                     </div>
                 </div>

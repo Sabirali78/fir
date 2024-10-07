@@ -14,12 +14,9 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Fetch the logged-in user's data
-
-// Fetch the logged-in user's data
-$firs = mysqli_query($conn, "SELECT * FROM firs WHERE user_id = $user_id");
 $ncs = mysqli_query($conn, "SELECT * FROM ncs WHERE user_id = $user_id");
 $complaints = mysqli_query($conn, "SELECT * FROM complaints WHERE user_id = $user_id");
-$crime = mysqli_query($conn, "SELECT * FROM crime WHERE user_id = $user_id");
+$crime = mysqli_query($conn, "SELECT * FROM crime_report WHERE user_id = $user_id");
 
 function limit_text($text, $limit) {
     if (strlen($text) > $limit) {
@@ -28,6 +25,12 @@ function limit_text($text, $limit) {
         return $text;
     }
 }
+
+// Retrieve police station data along with city names
+$sql = "SELECT ps.name AS station_name, c.city AS city_name, ps.address, ps.contact_number
+        FROM police_stations ps
+        JOIN city c ON ps.city_id = c.id";
+$result = $conn->query($sql);
 
 
 ?>
@@ -174,61 +177,12 @@ function limit_text($text, $limit) {
             <div class="container-fluid">
                
 
-                <div class="row">
-                   
-                   
-                    
-                    
-                </div>
-                <div class="row" style="margin-left: 1.5rem;">
-                   
-                <h4><a href="../Add_fir.php" class="text-center">Submit an FIR (First Information Report)</a></h4>
-                    
-                </div>
-                <div class="row">
-                <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">FIR (First Information Report) List</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped m-t-20">
-                                <thead>
-                                    <tr>
-                                        <th class="py-2 px-4 border-b">ID</th>
-                                        <th class="py-2 px-4 border-b">User ID</th>
-                                        <th class="py-2 px-4 border-b">Title</th>
-                                        <th class="py-2 px-4 border-b">Description</th>
-                                        <th class="py-2 px-4 border-b">Status</th>
-                                        <th class="py-2 px-4 border-b">Tracking ID</th>
-                                        <th class="py-2 px-4 border-b">Created At</th>
-                                        <th class="py-2 px-4 border-b">Updated At</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($row = mysqli_fetch_assoc($firs)) : ?>
-                                    <tr>
-                                        <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                        <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td> <!-- Limiting description to 100 characters -->
-                                        <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                                        <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
-                                    </tr>
-                                    <?php endwhile; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+  
+        <div class="row">
+                
 
                     <div class="row" style="margin-left: 2rem;">
-                    <h4><a href="../Add_fir.php" class="text-center">Report a Crime</a></h4>
+                    <h4><a href="../Report_crime.php" class="text-center">Report a Crime</a></h4>
                     </div>
                 
 
@@ -245,11 +199,10 @@ function limit_text($text, $limit) {
                                 <th class="py-2 px-4 border-b">ID</th>
                                 <th class="py-2 px-4 border-b">User ID</th>
                                 <th class="py-2 px-4 border-b">Title</th>
-                                <th class="py-2 px-4 border-b">Description</th>
+                                <th class="py-2 px-4 border-b">report_text</th>
                                 <th class="py-2 px-4 border-b">Status</th>
                                 <th class="py-2 px-4 border-b">Tracking ID</th>
-                                <th class="py-2 px-4 border-b">Created At</th>
-                                <th class="py-2 px-4 border-b">Updated At</th>
+                                <th class="py-2 px-4 border-b">Report Date</th>
                                 <th class="py-2 px-4 border-b">Actions</th>
                             </tr>
                         </thead>
@@ -259,14 +212,13 @@ function limit_text($text, $limit) {
                                     <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['user_id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['title']; ?></td>
-                                    <td class="py-2 px-4 border-b description"><?php echo limit_text($row['description'], limit: 100); ?></td>
+                                    <td class="py-2 px-4 border-b description"><?php echo limit_text($row['report_text'], limit: 100); ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['tracking_id']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['created_at']; ?></td>
-                                    <td class="py-2 px-4 border-b"><?php echo $row['updated_at']; ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo $row['report_date']; ?></td>
                                     <td class="py-2 px-4 border-b">
                                         <a href="edit_noc.php?id=<?php echo $row['id']; ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
-                                        <a href="delete_noc.php?id=<?php echo $row['id']; ?>" class="text-red-500 hover:text-red-700 ml-4">Delete</a>
+                                        <a href="delete_crime_report.php?id=<?php echo $row['id']; ?>" class="text-red-500 hover:text-red-700 ml-4">Delete</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
