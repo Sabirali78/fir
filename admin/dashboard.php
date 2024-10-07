@@ -201,6 +201,14 @@ if (!isset($_SESSION['admin_id'])) {
                         </ul>
                     </li>
 
+                    <li class="nav-label">Profie</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Profile</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="profile.php">Profile</a></li>
+                        </ul>
+                    </li>
 
 
                    
