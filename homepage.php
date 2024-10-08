@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <!--Slider -->
        
-        <img src="assets/Images/1.jpg" class="d-block" alt="..." width="100%" height="80%">
+        <img src="assets/Images/bg.png" class="d-block" alt="..." width="100%" height="80%">
         
       
 <!--Slider End -->
@@ -95,105 +95,92 @@ if (session_status() == PHP_SESSION_NONE) {
 </section>
 
  <!--Cards Start-->
+ <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <img src="assets/Images/Cards1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
 
- <section style="display: inline-flex; margin-left: 150px;" >
-        
-        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
-            <img src="assets/Images/Cards1.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <img src="assets/Images/Cards2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <img src="assets/Images/Cards3.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <img src="assets/Images/Cards4.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-   
-        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
-            <img src="assets/Images/Cards2.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>   
-
-        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
-            <img src="assets/Images/Cards3.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-
-        <div class="card d-flex mx-3" style="width: 18rem; margin-top: 50px " >
-            <img src="assets/Images/Cards4.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        
-
-    
-
-   
-
-
-
-
-
-
-</section>
+    </div>
 <!--Cards End -->
 
 
 <!--News Room Start-->
+<section class="text-center">
+        <h1>News Room</h1>
+    </section>
 
-<section>
-   
-            <center><H1 class="" style="margin-top:20px;">News Room</H1></center>
-</section>
+    <section class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card newroom">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
 
- 
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card newroom">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
 
- <section style="display: inline-flex; margin-left: 150px; margin-bottom: 20px;" >
-        
-        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
-           <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card newroom">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card newroom">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-   
-        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
-           <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
-            </div>
-        </div>   
-
-        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
-           <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
-            </div>
-        </div>
-
-        <div class="card d-flex mx-3 newroom" style="width: 18rem; margin-top: 50px " >
-           <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn" style="color: white; background-color:#112255;">Go somewhere</a>
-            </div>
-        </div>
-        
-
-    
-
-   
-
-
-
-
-
-
-</section>
+    </section>
 <!--News Room End-->
 
 <!--Footer Start-->
