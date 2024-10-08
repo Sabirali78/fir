@@ -6,11 +6,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the admin is logged in
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.html");
-    exit;
-}
+$sql = "SELECT users.id, users.name, users.CNIC_Number, users.email, users.password, users.phone_number, users.gender, city.city, users.address, users.role, users.created_at, users.updated_at
+        FROM users
+        JOIN city ON users.city_id = city.id";
+
+$result = mysqli_query($conn, $sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -114,33 +116,22 @@ if (!isset($_SESSION['admin_id'])) {
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav">
+        <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                  
 
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">COMPLAINTS</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">Reports</span></a>
+                    <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="firs.php">FIR</a></li>
-                            <li><a href="NOC.php">NOC</a></li>
-                            <li><a href="Comlpaints.php">COMPLAINTS
-                            </a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
+                            <li><a href="Comlpaints.php">Crime_reports</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-label">Users</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="Alerts.php">Sweet Alert</a></li>
-                        </ul>
-                    </li>
+            
 
 
                     <li class="nav-label">Stations</li>
@@ -152,46 +143,19 @@ if (!isset($_SESSION['admin_id'])) {
                         </ul>
                     </li>
 
-
-
-                   
-                    <li class="nav-label">Components</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-world-2"></i><span class="nav-text">Bootstrap</span></a>
+                    <li class="nav-label">Users</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Registred Users</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Accordion</a></li>
-                            <li><a href="./ui-alert.html">Alert</a></li>
-                            <li><a href="./ui-badge.html">Badge</a></li>
-                            <li><a href="./ui-button.html">Button</a></li>
-                            <li><a href="./ui-modal.html">Modal</a></li>
-                            <li><a href="./ui-button-group.html">Button Group</a></li>
-                            <li><a href="./ui-list-group.html">List Group</a></li>
-                            <li><a href="./ui-media-object mr-3.html">Media Object</a></li>
-                            <li><a href="./ui-card.html">Cards</a></li>
-                            <li><a href="./ui-carousel.html">Carousel</a></li>
-                            <li><a href="./ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="./ui-popover.html">Popover</a></li>
-                            <li><a href="./ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="./ui-tab.html">Tab</a></li>
-                            <li><a href="./ui-typography.html">Typography</a></li>
-                            <li><a href="./ui-pagination.html">Pagination</a></li>
-                            <li><a href="./ui-grid.html">Grid</a></li>
+                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
+                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
+                            <li><a href="profile.php">Admin Profile</a></li>
 
                         </ul>
                     </li>
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-plug"></i><span class="nav-text">Plugins</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./uc-select2.html">Select 2</a></li>
-                            <li><a href="./uc-nestable.html">Nestedable</a></li>
-                            <li><a href="./uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="./uc-toastr.html">Toastr</a></li>
-                            <li><a href="./map-jqvmap.html">Jqv Map</a></li>
-                        </ul>
-                    </li>
-                    
+
 
 
                 </ul>
@@ -209,55 +173,62 @@ if (!isset($_SESSION['admin_id'])) {
                
 
                 <div class="row">
-                   
-                   
-                    
-                    
-                </div>
                 <div class="row">
-                   
-                    
+                <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Registred User Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table student-data-table m-t-20">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">ID</th>
+                                <th class="py-2 px-4 border-b">Name</th>
+                                <th class="py-2 px-4 border-b">Email</th>
+                                <th class="py-2 px-4 border-b">CNIC</th>
+                                <th class="py-2 px-4 border-b">Phone Number</th>
+                                <th class="py-2 px-4 border-b">City</th>
+                                <th class="py-2 px-4 border-b">Address</th>
+                                <th class="py-2 px-4 border-b">Role</th>
+                                <th class="py-2 px-4 border-b">Created At</th>
+                                <th class="py-2 px-4 border-b">Updated At</th>
+                                <th class="py-2 px-4 border-b">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['id']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['name']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['email']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['CNIC_Number']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['phone_number']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['city']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['address']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['role']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['created_at']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['updated_at']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'><a href='user_edit_profile.php?id=" . $row['id'] . "' class='text-blue-500 hover:text-blue-700'><i class='fas fa-edit'></i> Edit</a>
+                                    <a href='delete_user_profile.php?id=" . $row['id'] . "' class='text-red-500 hover:text-blue-700'>></i> Delete</a>
+                                    </td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='11' class='py-2 px-4 border-b'>No data found</td></tr>";
+                            }
+
+                            mysqli_close($conn);
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                             <h4 class="card-title">USERS DATA</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table student-data-table m-t-20">
-                                        <thead>
-                                            <tr>
-                                                <th>Subject</th>
-                                                <th>Grade Point</th>
-                                                <th>Percent Form</th>
-                                                <th>Percent Upto</th>
-                                                <th>Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Class Test</td>
-                                                <td>Mathmatics</td>
-                                                <td>
-                                                    4.00
-                                                </td>
-                                                <td>
-                                                    95.00
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td>20/04/2017</td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
         <!--**********************************
             Content body end
         ***********************************-->

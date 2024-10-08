@@ -119,34 +119,22 @@ $result = $conn->query($sql);
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav">
+        <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                  
 
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">COMPLAINTS</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">Reports</span></a>
+                    <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="firs.php">FIR</a></li>
-                            <li><a href="NOC.php">NOC</a></li>
-                            <li><a href="Comlpaints.php">COMPLAINTS
-                            </a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
+                            <li><a href="Comlpaints.php">Crime_reports</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-label">Users</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="Alerts.php">Sweet Alert</a></li>
-                        </ul>
-                    </li>
-
+            
 
 
                     <li class="nav-label">Stations</li>
@@ -158,10 +146,19 @@ $result = $conn->query($sql);
                         </ul>
                     </li>
 
+                    <li class="nav-label">Users</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Registred Users</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
+                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
+                            <li><a href="profile.php">Admin Profile</a></li>
 
-                   
-                
-                    
+                        </ul>
+                    </li>
+
+
 
 
                 </ul>

@@ -132,33 +132,22 @@ $user = $result->fetch_assoc();
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav">
+        <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                  
 
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">COMPLAINTS</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">Reports</span></a>
+                    <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="dashboard.php">Dashboard</a></li>
-                            <li><a href="NOC.php">NOC</a></li>
-                            <li><a href="Comlpaints.php">COMPLAINTS
-                            </a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
+                            <li><a href="Comlpaints.php">Crime_reports</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-label">Users</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="Alerts.php">Sweet Alert</a></li>
-                        </ul>
-                    </li>
+            
 
 
                     <li class="nav-label">Stations</li>
@@ -170,60 +159,24 @@ $user = $result->fetch_assoc();
                         </ul>
                     </li>
 
-                    <li class="nav-label">Profie</li>
+                    <li class="nav-label">Users</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Profile</span></a>
+                        <span class="nav-text">Registred Users</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="profile.php">Profile</a></li>
+                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
+                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
+                            <li><a href="profile.php">Admin Profile</a></li>
+
                         </ul>
                     </li>
 
 
-                   
-                    <li class="nav-label">Components</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-world-2"></i><span class="nav-text">Bootstrap</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Accordion</a></li>
-                            <li><a href="./ui-alert.html">Alert</a></li>
-                            <li><a href="./ui-badge.html">Badge</a></li>
-                            <li><a href="./ui-button.html">Button</a></li>
-                            <li><a href="./ui-modal.html">Modal</a></li>
-                            <li><a href="./ui-button-group.html">Button Group</a></li>
-                            <li><a href="./ui-list-group.html">List Group</a></li>
-                            <li><a href="./ui-media-object mr-3.html">Media Object</a></li>
-                            <li><a href="./ui-card.html">Cards</a></li>
-                            <li><a href="./ui-carousel.html">Carousel</a></li>
-                            <li><a href="./ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="./ui-popover.html">Popover</a></li>
-                            <li><a href="./ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="./ui-tab.html">Tab</a></li>
-                            <li><a href="./ui-typography.html">Typography</a></li>
-                            <li><a href="./ui-pagination.html">Pagination</a></li>
-                            <li><a href="./ui-grid.html">Grid</a></li>
-
-                        </ul>
-                    </li>
-
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-plug"></i><span class="nav-text">Plugins</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./uc-select2.html">Select 2</a></li>
-                            <li><a href="./uc-nestable.html">Nestedable</a></li>
-                            <li><a href="./uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="./uc-toastr.html">Toastr</a></li>
-                            <li><a href="./map-jqvmap.html">Jqv Map</a></li>
-                        </ul>
-                    </li>
-                    
 
 
                 </ul>
             </div>
         </div>
-
         <!--**********************************
             Sidebar end
         ***********************************-->
