@@ -168,15 +168,13 @@ if (!isset($_SESSION['admin_id'])) {
                 <ul class="metismenu" id="menu">
                  
 
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">COMPLAINTS</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">Reports</span></a>
+                    <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="firs.php">FIR</a></li>
-                            <li><a href="NOC.php">NOC</a></li>
-                            <li><a href="Comlpaints.php">COMPLAINTS
-                            </a></li>
+                            <li><a href="Comlpaints.php">Complaints</a></li>
+                            <li><a href="Comlpaints.php">Crime_reports</a></li>
                         </ul>
                     </li>
 

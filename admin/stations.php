@@ -13,9 +13,7 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 // Retrieve police station data along with city names
-$sql = "SELECT ps.id, ps.name AS station_name, c.city AS city_name, ps.address, ps.contact_number
-        FROM police_stations ps
-        JOIN city c ON ps.city_id = c.id";
+$sql = "SELECT * FROM police_stations";
 $result = $conn->query($sql);
 
 ?>
@@ -209,8 +207,7 @@ $result = $conn->query($sql);
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
                         echo '<tr>';
-                        echo '<td>' . $row["station_name"] . '</td>';
-                        echo '<td>' . $row["city_name"] . '</td>';
+                        echo '<td>' . $row["name"] . '</td>';
                         echo '<td>' . $row["address"] . '</td>';
                         echo '<td>' . $row["contact_number"] . '</td>';
                         echo '<td>';

@@ -1,33 +1,30 @@
 <?php
 include("db.php");
 
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve city list from the database
-$sql = "SELECT id, city FROM city";
-$result = $conn->query($sql);
-
 // Retrieve form data
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Retrieve form data
     $name = $_POST['name'];
-    $city_id = $_POST['city'];
     $address = $_POST['address'];
     $contact_number = isset($_POST['contact_number']) ? $_POST['contact_number'] : NULL;
 
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO police_stations (name, city_id, address, contact_number) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $name, $city_id, $address, $contact_number);
+    $stmt = $conn->prepare("INSERT INTO police_stations (name, address, contact_number) VALUES (?, ?, ?)");
+    if ($stmt === false) {
+        die("Prepare failed: " . $conn->error);
+    }
+    $stmt->bind_param("sss", $name, $address, $contact_number);
 
     // Execute the statement
     if ($stmt->execute()) {
         echo "New record created successfully";
         header("Location: http://localhost/fir/admin/stations.php");
-
+        exit();
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -37,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $conn->close();
-
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +41,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add City</title>
+    <title>Add Station</title>
     <style>
         body {
             display: flex;
@@ -75,8 +71,7 @@ $conn->close();
             color: #555;
         }
         input[type="text"],
-        textarea,
-        select {
+        textarea {
             width: 100%;
             padding: 0.5rem;
             margin-bottom: 1rem;
@@ -101,23 +96,10 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <h2>Add City Information</h2>
+        <h2>Add Station Information</h2>
         <form action="add_stations.php" method="post">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required><br>
-
-            <label for="city">City:</label>
-            <select id="city" name="city" required>
-                <option value="">Select a city</option>
-                <?php
-                if ($result->num_rows > 0) {
-                    // Output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo '<option value="'.$row["id"].'">'.$row["city"].'</option>';
-                    }
-                }
-                ?>
-            </select><br>
 
             <label for="address">Address:</label>
             <textarea id="address" name="address" required></textarea><br>
@@ -125,9 +107,8 @@ $conn->close();
             <label for="contact_number">Contact Number:</label>
             <input type="text" id="contact_number" name="contact_number"><br>
 
-            <input type="submit" value="Add City">
+            <input type="submit" value="Add">
         </form>
     </div>
 </body>
 </html>
-
