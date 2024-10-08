@@ -48,7 +48,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link  text-white" href="other_pages/about_us.php">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  text-white" href="Add_fir.php">Fir</a>
+                <a class="nav-link  text-white" href="public_service.php">Public Services</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="add_noc.php">NCS</a>
@@ -59,9 +59,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <li class="nav-item">
                 <a class="nav-link  text-white" href="Report_crime.php">Report a Crime</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link  text-white" href="public_service.php">Public Services</a>
-            </li>
+           
         </ul>
         <div class="navbar-right">
             <?php if (isset($_SESSION['user_id'])): ?>

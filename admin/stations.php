@@ -13,10 +13,11 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 // Retrieve police station data along with city names
-$sql = "SELECT ps.name AS station_name, c.city AS city_name, ps.address, ps.contact_number
+$sql = "SELECT ps.id, ps.name AS station_name, c.city AS city_name, ps.address, ps.contact_number
         FROM police_stations ps
         JOIN city c ON ps.city_id = c.id";
 $result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -191,36 +192,42 @@ $result = $conn->query($sql);
         <h4 class="card-title">POLICE STATIONS DATA</h4>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table student-data-table m-t-20">
-                <thead>
-                    <tr>
-                        <th>Station Name</th>
-                        <th>City</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if ($result->num_rows > 0) {
-                        // Output data of each row
-                        while($row = $result->fetch_assoc()) {
-                            echo '<tr>';
-                            echo '<td>' . $row["station_name"] . '</td>';
-                            echo '<td>' . $row["city_name"] . '</td>';
-                            echo '<td>' . $row["address"] . '</td>';
-                            echo '<td>' . $row["contact_number"] . '</td>';
-                            echo '</tr>';
-                        }
-                    } else {
-                        echo '<tr><td colspan="5">No data available</td></tr>';
+    <div class="table-responsive">
+        <table class="table student-data-table m-t-20">
+            <thead>
+                <tr>
+                    <th>Station Name</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Contact Number</th>
+                    <th>Actions</th> <!-- Added Action column -->
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    // Output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<tr>';
+                        echo '<td>' . $row["station_name"] . '</td>';
+                        echo '<td>' . $row["city_name"] . '</td>';
+                        echo '<td>' . $row["address"] . '</td>';
+                        echo '<td>' . $row["contact_number"] . '</td>';
+                        echo '<td>';
+                        echo '<a href="update.php?id=' . $row["id"] . '" class="btn btn-primary btn-sm">Update</a> ';
+                        echo '<a href="delete_police_station.php?id=' . $row["id"] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this record?\')">Delete</a>';
+                        echo '</td>';
+                        echo '</tr>';
                     }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+                } else {
+                    echo '<tr><td colspan="5">No data available</td></tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
+</div>
+
 </div>
                     </div>
         <!--**********************************
