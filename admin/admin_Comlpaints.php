@@ -219,7 +219,34 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                                     }
                                     ?>
                                 </td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                                <?php 
+                                if ($row['status'] === 'pending'){
+                                    
+                                    ?>
+                                    <td class="py-2 px-4 border-b"> <span class="badge badge-warning"><?php echo $row['status']; ?></span></td>
+
+                                    <?php
+
+                                }
+                                if ($row['status'] === 'resolved'){
+                                    
+                                    ?>
+                                    <td class="py-2 px-4 border-b"><span class="badge badge-success  text-white"><?php echo $row['status']; ?></span></td>
+
+                                    <?php
+
+                                }
+                                if ($row['status'] === 'rejected'){
+                                    
+                                    ?>
+                                    <td class="py-2 px-4 border-b"> <span class="badge badge-danger"><?php echo $row['status']; ?></span>  </td>
+
+                                    <?php
+
+                                }
+                                ?>
+
+                                
                                 <td class="py-2 px-4 border-b"><?php echo $row['police_station']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
                                 <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
