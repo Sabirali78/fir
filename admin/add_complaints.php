@@ -12,15 +12,43 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-$complaints_query = "
-    SELECT c.*, u.name AS name, cr.crime_title AS crime_title, ps.name AS police_station_name
-    FROM complaints c 
-    INNER JOIN users u ON c.user_id = u.id
-    INNER JOIN crimes cr ON c.crime_id = cr.id
-    INNER JOIN police_stations ps ON c.police_station_id = ps.id
-";
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_POST['user_id'];
+    $crime_id = $_POST['crime_id'];
+    $police_station_id = $_POST['police_station_id'];
+    $complaint_text = $_POST['complaint_text'];
 
-$complaints_result = mysqli_query($conn, $complaints_query);
+    $tracking_number = uniqid('complaint_');
+
+
+     // Prepare and bind
+     $stmt = $conn->prepare("INSERT INTO complaints (user_id, crime_id, police_station_id, complaint_text, tracking_number) VALUES (?, ?, ?, ?, ?)");
+     $stmt->bind_param("iiiss", $user_id, $crime_id, $police_station_id, $complaint_text, $tracking_number);
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "<div class='alert alert-success'>New complaint added successfully</div>";
+        header("location: dashboard.php");
+    } else {
+        echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+    }
+
+    $stmt->close();
+}
+
+// Fetch user IDs from the users table
+$sql_users = "SELECT id, name FROM users";
+$result_users = $conn->query($sql_users);
+
+// Fetch crime titles from the crimes table
+$sql_crimes = "SELECT id, crime_title FROM crimes";
+$result_crimes = $conn->query($sql_crimes);
+
+// Fetch police station names from the police_station table
+$sql_stations = "SELECT id, name FROM police_stations";
+$result_stations = $conn->query($sql_stations);
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +63,127 @@ $complaints_result = mysqli_query($conn, $complaints_query);
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+       
+<style>
+
+
+.form {
+        display: flex; /* Enable flexbox */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 70vh; /* Full height of the viewport */
+        margin: 0; /* Reset margin */
+    }
+
+    .container1 {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        border: 2px solid #007bff;
+    }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #007bff;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .form-group label {
+            padding-right: 1rem;
+            margin: 0;
+            color: #333;
+            flex-basis:  25%; /* Set a base width for the labels */
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            
+        }
+        textarea {
+            resize: vertical;
+            width: 100%;
+            height: 200px;
+        }
+        input[type="submit"],
+        .btn-secondary {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover,
+        .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+        .disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .form-group {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align items to the start */
+            }
+            .form-group label {
+                flex-basis: auto; /* Reset label width */
+                margin-bottom: 0.5rem; /* Add space below labels */
+            }
+            .form-group input {
+                width: 100%; /* Full width for inputs */
+            }
+        }
+        .links2{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+        .cancel_btn{
+            text-decoration: none;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem; /* Match font size with other inputs */
+}
+
+/* Optional: Change background color when the select is focused */
+select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border when focused */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a slight shadow for effect */
+}
+
+</style>
 </head>
     <!--*******************
         Preloader start
@@ -180,107 +329,71 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
-               
 
-           
-                <div class="row">
-                    <a href="add_complaints.php" class="btn btn-primary">Add New Complaint</a>          
-                </div>
+
 <div class="row">
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Complaints</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table student-data-table m-t-20">
-                    <thead>
-                        <tr>
-                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User Name</th>
-                            <th class="py-2 px-4 border-b">Crime Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Police Station</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
-                            <tr>
-                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['crime_title']; ?></td>
-                                <td class="py-2 px-4 border-b">
-                                    <?php
-                                    $text = $row['complaint_text'];
-                                    if (strlen($text) > 30) {
-                                        echo substr($text, 0, 30) . '...';
-                                    } else {
-                                        echo $text;
-                                    }
-                                    ?>
-                                </td>
-                                <?php 
-                                if ($row['status'] === 'pending'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-warning"><?php echo $row['status']; ?></span></td>
+    <a href="Online_reg_users.php" class="btn btn-success">See User List</a>
+    <a href="add_new_user.php" class="btn btn-warning">Add New User</a> 
+    <div class="col-lg-12">
+        <h2>Add Complaint</h2>
+        <form action="Add_complaints.php" method="post">
 
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'resolved'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"><span class="badge badge-success  text-white"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'rejected'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-danger"><?php echo $row['status']; ?></span>  </td>
-
-                                    <?php
-
-                                }
-                                ?>
-
-                                
-                                   <?php echo "<td>" . htmlspecialchars($row['police_station_name']) . "</td>"; ?>
-
-                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
-                                <td class="py-2 px-4 border-b">
-    <div style="display: flex; gap: 8px;">
-        <?php if ($row['status'] === 'pending') : ?>
-            <!-- Check if status is 'Pending' -->
-            <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Approve</a>
-            <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Reject</a>
-        <?php else : ?>
-            <span class="text-muted"></span> <!-- Show N/A for other statuses -->
-        <?php endif; ?>
-        
-        <a href="edit_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-        <a href="delete_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
-    </div>
-</td>
-
-                                </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+            <div class="form-group">
+                <label for="user_id">User ID</label>
+                <select name="user_id" id="user_id" class="form-control" required>
+                    <option value="">Select User ID</option>
+                    <?php
+                    if ($result_users->num_rows > 0) {
+                        while($row = $result_users->fetch_assoc()) {
+                            echo "<option value='" . $row["id"] . "'>" . $row["username"] . " (ID: " . $row["id"] . ")</option>";
+                        }
+                    } else {
+                        echo "<option value=''>No users available</option>";
+                    }
+                    ?>
+                </select>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="crime_id">Crime Type</label>
+                <select name="crime_id" id="crime_id" class="form-control" required>
+                    <option value="">Select Crime Type</option>
+                    <?php
+                    if ($result_crimes->num_rows > 0) {
+                        while($row = $result_crimes->fetch_assoc()) {
+                            echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
+                        }
+                    } else {
+                        echo "<option value=''>No crimes available</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="police_station_id">Police Station</label>
+                <select name="police_station_id" id="police_station_id" class="form-control" required>
+                    <option value="">Select Police Station</option>
+                    <?php
+                    if ($result_stations->num_rows > 0) {
+                        while($row = $result_stations->fetch_assoc()) {
+                            echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
+                        }
+                    } else {
+                        echo "<option value=''>No police stations available</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="complaint_text">Enter Your Complaint Here:</label>
+                <textarea id="complaint_text" name="complaint_text" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Complaint</button>
+        </form>
     </div>
-</div>
-
-
 
         <!--**********************************
             Content body end

@@ -12,15 +12,45 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-$complaints_query = "
-    SELECT c.*, u.name AS name, cr.crime_title AS crime_title, ps.name AS police_station_name
-    FROM complaints c 
-    INNER JOIN users u ON c.user_id = u.id
-    INNER JOIN crimes cr ON c.crime_id = cr.id
-    INNER JOIN police_stations ps ON c.police_station_id = ps.id
-";
 
-$complaints_result = mysqli_query($conn, $complaints_query);
+$cities = [];
+$sql = "SELECT id, city FROM city ORDER BY city ASC";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $cities[] = $row;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO users (name, CNIC_Number, email, password, phone_number, gender, city_id, address, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+    $stmt->bind_param("ssssssiss", $name, $cnic, $email, $password, $phone, $gender, $city_id, $address, $role);
+
+    // Set parameters and execute
+    $name = $_POST['name'];
+    $cnic = $_POST['CNIC_Number'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
+    $phone = $_POST['phone_number'];
+    $gender = $_POST['gender'];
+    $city_id = $_POST['city_id'];
+    $address = $_POST['address'];
+    $role = $_POST['role'];
+
+    if ($stmt->execute()) {
+        echo "<div class='alert alert-success'>New user added successfully</div>";
+        header("location: dashboard.php");
+    } else {
+        echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +65,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+       
 </head>
     <!--*******************
         Preloader start
@@ -180,104 +211,58 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
-               
 
-           
-                <div class="row">
-                    <a href="add_complaints.php" class="btn btn-primary">Add New Complaint</a>          
-                </div>
+
 <div class="row">
 <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Complaints</h4>
+
+<div class="container mt-5">
+    <h2>Add New User</h2>
+    <form action="add_new_user.php" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table student-data-table m-t-20">
-                    <thead>
-                        <tr>
-                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User Name</th>
-                            <th class="py-2 px-4 border-b">Crime Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Police Station</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
-                            <tr>
-                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['crime_title']; ?></td>
-                                <td class="py-2 px-4 border-b">
-                                    <?php
-                                    $text = $row['complaint_text'];
-                                    if (strlen($text) > 30) {
-                                        echo substr($text, 0, 30) . '...';
-                                    } else {
-                                        echo $text;
-                                    }
-                                    ?>
-                                </td>
-                                <?php 
-                                if ($row['status'] === 'pending'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-warning"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'resolved'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"><span class="badge badge-success  text-white"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'rejected'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-danger"><?php echo $row['status']; ?></span>  </td>
-
-                                    <?php
-
-                                }
-                                ?>
-
-                                
-                                   <?php echo "<td>" . htmlspecialchars($row['police_station_name']) . "</td>"; ?>
-
-                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
-                                <td class="py-2 px-4 border-b">
-    <div style="display: flex; gap: 8px;">
-        <?php if ($row['status'] === 'pending') : ?>
-            <!-- Check if status is 'Pending' -->
-            <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Approve</a>
-            <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Reject</a>
-        <?php else : ?>
-            <span class="text-muted"></span> <!-- Show N/A for other statuses -->
-        <?php endif; ?>
-        
-        <a href="edit_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-        <a href="delete_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
-    </div>
-</td>
-
-                                </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            </div>
+        <div class="form-group">
+            <label for="CNIC_Number">CNIC Number:</label>
+            <input type="text" class="form-control" id="CNIC_Number" name="CNIC_Number" required>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="text" class="form-control" id="gender" name="gender" required>
+        </div>
+        <div class="form-group">
+            <label for="city_id">City:</label>
+            <select class="form-control" id="city_id" name="city_id" required>
+                <option value="">Select a city</option>
+                <?php foreach ($cities as $city): ?>
+                    <option value="<?= $city['id']; ?>"><?= $city['city']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="text" class="form-control" id="role" name="role" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+</div>
 </div>
 
 
