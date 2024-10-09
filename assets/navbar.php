@@ -48,14 +48,14 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link  text-white" href="other_pages/about_us.php">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  text-white" href="public_service.php">Public Services</a>
+                <a class="nav-link  text-white" href="other_pages/public_service.php">Public Services</a>
             </li>
             <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Complaints
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="complaints_page.php">File a Complaint</a>
+        <a class="dropdown-item" href="other_pages/complaints_page.php">File a Complaint</a>
         <a class="dropdown-item" href="user/user_dashboard.php">Check Complaint Status</a>
         <a class="dropdown-item" href="user/user_Comlpaints.php">View Complaint History</a>
     </div>

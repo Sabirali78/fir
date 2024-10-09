@@ -1,6 +1,6 @@
 <?php
-include("db.php");
-include("assets/navbar.php");
+include("../db.php");
+include("other_page_navbar.php");
 
 // Check if the session is already started
 if (session_status() == PHP_SESSION_NONE) {
@@ -58,7 +58,7 @@ while ($row = $result_crimes->fetch_assoc()) {
         align-items: center;    /* Center vertically */
         width: 100%;
         height: 70vh; /* Adjust height as needed */
-        background-image: url("assets/Images/cards2-cp.jpg");
+        background-image: url("../assets/Images/cards2-cp.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         position: relative; /* Required for absolute positioning of text_section */

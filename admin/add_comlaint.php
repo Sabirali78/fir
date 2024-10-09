@@ -12,28 +12,150 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-$complaints_query = "
-    SELECT c.*, u.name, cr.crime_title AS crime_title 
-    FROM complaints c 
-    INNER JOIN users u ON c.user_id = u.id
-    INNER JOIN crimes cr ON c.crime_id = cr.id
-";
-$complaints_result = mysqli_query($conn, $complaints_query);
 
+// Fetch cities from the database
+$cities_sql = "SELECT id, city FROM city";
+$cities_result = $conn->query($cities_sql);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $phone_number = $_POST['phone_number'];
+    $address = $_POST['address'];
+    $cnic = $_POST['cnic'];
+    $gender = $_POST['gender'];
+    $city_id = $_POST['city_id'];
+
+    $sql = "INSERT INTO users (name, CNIC_Number, email, password, phone_number, gender, address, city_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssi", $name, $cnic, $email, $password, $phone_number, $gender, $address, $city_id);
+    $stmt->execute();
+
+    $stmt->close();
+    $conn->close();
+
+    header("Location: login.html");
+    exit;
+}
+// Fetch crime titles
+$crimes = [];
+$query_crimes = "SELECT crime_title FROM crimes"; // Fetching crime id and title
+$stmt_crimes = $conn->prepare($query_crimes);
+$stmt_crimes->execute();
+$result_crimes = $stmt_crimes->get_result();
+while ($row = $result_crimes->fetch_assoc()) {
+    $crimes[] = $row['crime_title']; // Corrected here to store crime_title
+}
+
+// Fetch city names
+$cities = [];
+$query_city = "SELECT city FROM city"; // Fetching city names
+$stmt_city = $conn->prepare($query_city);
+$stmt_city->execute();
+$result_city = $stmt_city->get_result();
+while ($row = $result_city->fetch_assoc()) {
+    $cities[] = $row['city']; // Corrected here to store city names
+}
+
+
+// Fetch police station names
+$police_stations = [];
+$query_stations = "SELECT name FROM police_stations";
+$stmt_stations = $conn->prepare($query_stations);
+$stmt_stations->execute();
+$result_stations = $stmt_stations->get_result();
+while ($row = $result_stations->fetch_assoc()) {
+    $police_stations[] = $row['name'];
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #007bff;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        margin-bottom: 0.5rem; /* Add space below labels */
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        width: 100%; /* Full width for inputs */
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        height: 200px;
+    }
+
+    input[type="submit"],
+    .btn-secondary {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+
+    input[type="submit"]:hover,
+    .btn-secondary:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .form-group {
+            flex-direction: column; /* Stack items vertically */
+            align-items: flex-start; /* Align items to the start */
+        }
+    }
+
+    .links2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Optional: Change background color when the select is focused */
+    select:focus {
+        outline: none;
+        border-color: #007bff; /* Highlight border when focused */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a slight shadow for effect */
+    }
+</style>
 </head>
     <!--*******************
         Preloader start
@@ -59,7 +181,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="dashboard.php" class="brand-logo">
+            <a href="user_dashboard.php" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
                 <img class="logo-compact" src="./images/logo-text.png" alt="">
                 <img class="brand-title" src="./images/logo-text.png" alt="">
@@ -106,7 +228,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                                         <span class="ml-2">Profile </span>
                                     </a>
                                    
-                                    <a href="admin_logout.php" class="dropdown-item">
+                                    <a href="logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -183,100 +305,89 @@ $complaints_result = mysqli_query($conn, $complaints_query);
 
            
                 <div class="row">
-                    <a href="add_comlaint.php">Add New Complaint</a>          
+                                       
                 </div>
 <div class="row">
 <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Complaints</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table student-data-table m-t-20">
-                    <thead>
-                        <tr>
-                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User Name</th>
-                            <th class="py-2 px-4 border-b">Crime Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Police Station</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
-                            <tr>
-                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['crime_title']; ?></td>
-                                <td class="py-2 px-4 border-b">
-                                    <?php
-                                    $text = $row['complaint_text'];
-                                    if (strlen($text) > 30) {
-                                        echo substr($text, 0, 30) . '...';
-                                    } else {
-                                        echo $text;
-                                    }
-                                    ?>
-                                </td>
-                                <?php 
-                                if ($row['status'] === 'pending'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-warning"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'resolved'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"><span class="badge badge-success  text-white"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'rejected'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-danger"><?php echo $row['status']; ?></span>  </td>
-
-                                    <?php
-
-                                }
-                                ?>
-
-                                
-                                <td class="py-2 px-4 border-b"><?php echo $row['police_station']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
-                                <td class="py-2 px-4 border-b">
-    <div style="display: flex; gap: 8px;">
-        <?php if ($row['status'] === 'pending') : ?>
-            <!-- Check if status is 'Pending' -->
-            <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Approve</a>
-            <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Reject</a>
-        <?php else : ?>
-            <span class="text-muted"></span> <!-- Show N/A for other statuses -->
-        <?php endif; ?>
-        
-        <a href="edit_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-        <a href="delete_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
+    <div class="links2">
+        <h2>Add Complaint</h2>
     </div>
-</td>
 
-                                </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            </div>
+    <form action="Add_complaints.php" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" required>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label for="cnic">CNIC Number:</label>
+            <input type="text" class="form-control" id="cnic" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="text" class="form-control" id="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" id="address" required>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="text" class="form-control" id="gender" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" class="form-control" id="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City:</label>
+            <select id="city_id" name="city_id" required>
+                <option value="" disabled selected>Select a city</option>
+                <?php foreach ($cities as $city): ?>
+                    <option value="<?php echo htmlspecialchars($city); ?>"><?php echo htmlspecialchars($city); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="crime">Crime:</label>
+            <select id="crime" name="crime" required>
+                <option value="" disabled selected>Select a crime</option>
+                <?php foreach ($crimes as $crime): ?>
+                    <option value="<?php echo htmlspecialchars($crime); ?>"><?php echo htmlspecialchars($crime); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="police_station">Police Station:</label>
+            <select id="police_station" name="police_station" required>
+                <option value="" disabled selected>Select a Police Station</option>
+                <?php foreach ($police_stations as $station): ?>
+                    <option value="<?php echo htmlspecialchars($station); ?>"><?php echo htmlspecialchars($station); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="complaint_text">Enter Your Complaint Here:</label>
+            <textarea id="complaint_text" name="complaint_text" required></textarea>
+        </div>
+
+        <input type="submit" value="Add Complaint">
+    </form>
 </div>
+
 
 
 
@@ -288,11 +399,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+
         <!--**********************************
             Footer end
         ***********************************-->

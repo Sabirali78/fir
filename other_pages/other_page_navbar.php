@@ -48,14 +48,14 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link  text-white" href="about_us.php">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  text-white" href="../public_service.php">Public Services</a>
+                <a class="nav-link  text-white" href="public_service.php">Public Services</a>
             </li>
             <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Complaints
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="../complaints_page.php">File a Complaint</a>
+        <a class="dropdown-item" href="complaints_page.php">File a Complaint</a>
         <a class="dropdown-item" href="../user/user_dashboard.php">Check Complaint Status</a>
         <a class="dropdown-item" href="../user/user_Comlpaints.php">View Complaint History</a>
     </div>
@@ -75,11 +75,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <!-- Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
