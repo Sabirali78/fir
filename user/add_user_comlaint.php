@@ -7,29 +7,156 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Check if the admin is logged in
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.html");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
     exit;
 }
 
-// Retrieve police station data along with city names
-$sql = "SELECT * FROM police_stations";
-$result = $conn->query($sql);
+$user_id = $_SESSION['user_id'];
+
+// Fetch the logged-in user's data
+$query = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+// Fetch police station names
+$police_stations = [];
+$query_stations = "SELECT name FROM police_stations";
+$stmt_stations = $conn->prepare($query_stations);
+$stmt_stations->execute();
+$result_stations = $stmt_stations->get_result();
+while ($row = $result_stations->fetch_assoc()) {
+    $police_stations[] = $row['name'];
+}
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+        .container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #007bff;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #007bff;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .form-group label {
+            padding-right: 1rem;
+            margin: 0;
+            color: #333;
+            flex-basis: 40%; /* Set a base width for the labels */
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            
+        }
+        textarea {
+            resize: vertical;
+            width: 100%;
+            height: 200px;
+        }
+        input[type="submit"],
+        .btn-secondary {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover,
+        .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+        .disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .form-group {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align items to the start */
+            }
+            .form-group label {
+                flex-basis: auto; /* Reset label width */
+                margin-bottom: 0.5rem; /* Add space below labels */
+            }
+            .form-group input {
+                width: 100%; /* Full width for inputs */
+            }
+        }
+        .links2{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+        .cancel_btn{
+            text-decoration: none;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem; /* Match font size with other inputs */
+}
+
+/* Optional: Change background color when the select is focused */
+select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border when focused */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a slight shadow for effect */
+}
+    </style>#
 </head>
     <!--*******************
         Preloader start
@@ -55,7 +182,7 @@ $result = $conn->query($sql);
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="dashboard.php" class="brand-logo">
+            <a href="user_dashboard.php" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
                 <img class="logo-compact" src="./images/logo-text.png" alt="">
                 <img class="brand-title" src="./images/logo-text.png" alt="">
@@ -102,7 +229,7 @@ $result = $conn->query($sql);
                                         <span class="ml-2">Profile </span>
                                     </a>
                                    
-                                    <a href="admin_logout.php" class="dropdown-item">
+                                    <a href="logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -129,36 +256,10 @@ $result = $conn->query($sql);
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
-                            <li><a href="Comlpaints.php">Crime_reports</a></li>
-                        </ul>
+                            <li><a href="user_Comlpaints.php">Complaints</a></li>
+
+                            <li><a href="../complaints.php">Add Complaint</a></li>                        </ul>
                     </li>
-
-            
-
-
-                    <li class="nav-label">Stations</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Stations</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="stations.php">Police Stations</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">Users</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="profile.php">Admin Profile</a></li>
-
-                        </ul>
-                    </li>
-
-
 
 
                 </ul>
@@ -173,56 +274,60 @@ $result = $conn->query($sql);
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
+               
 
-            <h3><a href="add_stations.php">Add a New Police Stations</a></h3>
-
+           
                 <div class="row">
-                   
-                    
+                                       
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="card">
-    <div class="card-header">
-        <h4 class="card-title">POLICE STATIONS DATA</h4>
-    </div>
-    <div class="card-body">
-    <div class="table-responsive">
-        <table class="table student-data-table m-t-20">
-            <thead>
-                <tr>
-                    <th>Station Name</th>
-                    <th>Address</th>
-                    <th>Contact Number</th>
-                    <th>Actions</th> <!-- Added Action column -->
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    // Output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<tr>';
-                        echo '<td>' . $row["name"] . '</td>';
-                        echo '<td>' . $row["address"] . '</td>';
-                        echo '<td>' . $row["contact_number"] . '</td>';
-                        echo '<td>';
-                        echo '<a href="update.php?id=' . $row["id"] . '" class="btn btn-primary btn-sm">Update</a> ';
-                        echo '<a href="delete_police_station.php?id=' . $row["id"] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this record?\')">Delete</a>';
-                        echo '</td>';
-                        echo '</tr>';
-                    }
-                } else {
-                    echo '<tr><td colspan="5">No data available</td></tr>';
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+<div class="row">
+<div class="container">
+        <div class="links2">
+
+        <h2>Add Complaint</h2>
+        </div>
+
+        <form action="Add_complaints.php" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="cnic">CNIC Number:</label>
+                <input type="text" class="form-control disabled" id="cnic" value="<?php echo htmlspecialchars($user['CNIC_Number']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" class="form-control disabled" id="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+    <label for="police_station">Police Station:</label>
+    <select id="police_station" name="police_station" required style="flex: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+        <option value="" disabled selected>Select a Police Station</option>
+        <?php foreach ($police_stations as $station): ?>
+            <option value="<?php echo htmlspecialchars($station); ?>"><?php echo htmlspecialchars($station); ?></option>
+        <?php endforeach; ?>
+    </select>
 </div>
 
-</div>
-                    </div>
+
+            <label for="complaint_text">Enter Your Complaint Here:</label>
+            <textarea id="complaint_text" name="complaint_text" required></textarea>
+
+            <input type="submit" value="Add Complaint">
+        </form>
+    </div>
+
+
+
         <!--**********************************
             Content body end
         ***********************************-->
@@ -231,11 +336,7 @@ $result = $conn->query($sql);
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+
         <!--**********************************
             Footer end
         ***********************************-->

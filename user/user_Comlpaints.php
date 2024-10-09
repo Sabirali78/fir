@@ -7,23 +7,31 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Check if the admin is logged in
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.html");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
     exit;
 }
 
-// Retrieve police station data along with city names
-$sql = "SELECT * FROM police_stations";
-$result = $conn->query($sql);
+// Get the logged-in user ID from the session
+$logged_in_user_id = $_SESSION['user_id'];
+
+$complaints_query = "
+    SELECT c.*, u.name 
+    FROM complaints c 
+    INNER JOIN users u ON c.user_id = u.id
+    WHERE c.user_id = $logged_in_user_id
+";
+$complaints_result = mysqli_query($conn, $complaints_query);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
@@ -55,7 +63,7 @@ $result = $conn->query($sql);
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="dashboard.php" class="brand-logo">
+            <a href="user_dashboard.php" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
                 <img class="logo-compact" src="./images/logo-text.png" alt="">
                 <img class="brand-title" src="./images/logo-text.png" alt="">
@@ -102,7 +110,7 @@ $result = $conn->query($sql);
                                         <span class="ml-2">Profile </span>
                                     </a>
                                    
-                                    <a href="admin_logout.php" class="dropdown-item">
+                                    <a href="logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -129,36 +137,10 @@ $result = $conn->query($sql);
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
-                            <li><a href="Comlpaints.php">Crime_reports</a></li>
-                        </ul>
+                            <li><a href="user_Comlpaints.php">Complaints</a></li>
+
+                            <li><a href="add_user_comlaint.php">Add Complaint</a></li>                        </ul>
                     </li>
-
-            
-
-
-                    <li class="nav-label">Stations</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Stations</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="stations.php">Police Stations</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-label">Users</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="profile.php">Admin Profile</a></li>
-
-                        </ul>
-                    </li>
-
-
 
 
                 </ul>
@@ -173,56 +155,62 @@ $result = $conn->query($sql);
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
+               
 
-            <h3><a href="add_stations.php">Add a New Police Stations</a></h3>
-
+           
                 <div class="row">
-                   
-                    
+                                       
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                    <div class="card">
-    <div class="card-header">
-        <h4 class="card-title">POLICE STATIONS DATA</h4>
-    </div>
-    <div class="card-body">
-    <div class="table-responsive">
-        <table class="table student-data-table m-t-20">
-            <thead>
-                <tr>
-                    <th>Station Name</th>
-                    <th>Address</th>
-                    <th>Contact Number</th>
-                    <th>Actions</th> <!-- Added Action column -->
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    // Output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<tr>';
-                        echo '<td>' . $row["name"] . '</td>';
-                        echo '<td>' . $row["address"] . '</td>';
-                        echo '<td>' . $row["contact_number"] . '</td>';
-                        echo '<td>';
-                        echo '<a href="update.php?id=' . $row["id"] . '" class="btn btn-primary btn-sm">Update</a> ';
-                        echo '<a href="delete_police_station.php?id=' . $row["id"] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this record?\')">Delete</a>';
-                        echo '</td>';
-                        echo '</tr>';
-                    }
-                } else {
-                    echo '<tr><td colspan="5">No data available</td></tr>';
-                }
-                ?>
-            </tbody>
-        </table>
+<div class="row">
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Complaints</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table student-data-table m-t-20">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">ID</th>
+                            <th class="py-2 px-4 border-b">User Name</th>
+                            <th class="py-2 px-4 border-b">Description</th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 border-b">Police Station</th>
+                            <th class="py-2 px-4 border-b">Tracking ID</th>
+                            <th class="py-2 px-4 border-b">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
+                            <tr>
+                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
+                                <td class="py-2 px-4 border-b">
+                                    <?php
+                                    $text = $row['complaint_text'];
+                                    if (strlen($text) > 30) {
+                                        echo substr($text, 0, 30) . '...';
+                                    } else {
+                                        echo $text;
+                                    }
+                                    ?>
+                                </td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['police_station']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
+                                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
-</div>
-                    </div>
+
+
         <!--**********************************
             Content body end
         ***********************************-->
