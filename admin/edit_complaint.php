@@ -7,33 +7,74 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Check if the admin is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: admin_login.html");
+    exit;
+}
+// Get the complaint ID from the URL
+$complaint_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+if ($complaint_id <= 0) {
+    echo "Invalid complaint ID.";
     exit;
 }
 
-// Get the logged-in user ID from the session
-$logged_in_user_id = $_SESSION['user_id'];
-
-$complaints_query = "
-    SELECT c.*, u.name as user_name, p.name as police_station_name 
+// Fetch the complaint data
+$complaint_query = "
+    SELECT c.*, u.name as user_name, p.name as police_station_name, cr.crime_title, cr.id as crime_id
     FROM complaints c 
     INNER JOIN users u ON c.user_id = u.id
     INNER JOIN police_stations p ON c.police_station_id = p.id
-    WHERE c.user_id = $logged_in_user_id
-    ORDER BY c.id ASC
+    INNER JOIN crimes cr ON c.crime_id = cr.id
+    WHERE c.id = $complaint_id
 ";
-$complaints_result = mysqli_query($conn, $complaints_query);
+$complaint_result = mysqli_query($conn, $complaint_query);
+$complaint = mysqli_fetch_assoc($complaint_result);
 
+if (!$complaint) {
+    echo "Complaint not found.";
+    exit;
+}
+
+// Fetch all crime titles for the dropdown
+$crimes_query = "SELECT id, crime_title FROM crimes";
+$crimes_result = mysqli_query($conn, $crimes_query);
+$crime_titles = [];
+while ($row = mysqli_fetch_assoc($crimes_result)) {
+    $crime_titles[] = $row;
+}
+
+// Update the complaint data
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $crime_id = intval($_POST['crime_id']);
+    $complaint_text = mysqli_real_escape_string($conn, $_POST['complaint_text']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $police_station_id = intval($_POST['police_station_id']);
+    $tracking_number = mysqli_real_escape_string($conn, $_POST['tracking_number']);
+
+    $update_query = "
+        UPDATE complaints 
+        SET crime_id = $crime_id, 
+            complaint_text = '$complaint_text', 
+            status = '$status', 
+            police_station_id = $police_station_id
+        WHERE id = $complaint_id
+    ";
+
+    if (mysqli_query($conn, $update_query)) {
+    header("location: admin_Comlpaints.php");   
+    } else {
+        echo "Error updating complaint: " . mysqli_error($conn);
+    }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
@@ -65,7 +106,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="user_dashboard.php" class="brand-logo">
+            <a href="dashboard.php" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
                 <img class="logo-compact" src="./images/logo-text.png" alt="">
                 <img class="brand-title" src="./images/logo-text.png" alt="">
@@ -112,7 +153,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                                         <span class="ml-2">Profile </span>
                                     </a>
                                    
-                                    <a href="logout.php" class="dropdown-item">
+                                    <a href="admin_logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -129,31 +170,53 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav">
-    <div class="quixnav-scroll">
-        <ul class="metismenu" id="menu">
-            <li class="nav-label">Queries</li>
-            <li>
-                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
-                    <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">Queries</span></a>
-                <ul aria-expanded="false">
-                    <li><a href="User_dashboard.php">Profile</a></li>
-                </ul>
-            </li>
-            <li class="nav-label">Complaints</li>
+        <div class="quixnav" style="position: fixed;">
+            <div class="quixnav-scroll">
+                <ul class="metismenu" id="menu">
+                 
+
+                    <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Complaints</span></a>
+                    <i class="fa-regular fa-folder-open"></i>
+                    <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                        <li><a href="user_Comlpaints.php">Comlpaints</a></li>
-                        <li><a href="add_user_comlaint.php">Add Complaint</a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
+                            <li><a href="Comlpaints.php">Complaint_reports</a></li>
+                            <li><a href="add_complaints.php">New Complaint</a></li>
+
                         </ul>
                     </li>
-        </ul>
-        
-    </div>
-</div>
+
+            
+
+
+                    <li class="nav-label">Stations</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Stations</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="stations.php">Police Stations</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-label">Users</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Registred Users</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
+                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
+                            <li><a href="profile.php">Admin Profile</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+
+                </ul>
+            </div>
+        </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -163,64 +226,55 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
-               
 
-           
-                <div class="row">
-                                       
-                </div>
 <div class="row">
 <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Complaints</h4>
+    
+<h2>Edit Complaint</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="crime_title">Crime Title</label>
+            <select class="form-control" id="crime_title" name="crime_id" required>
+                <option value="">Select a crime title</option>
+                <?php foreach ($crime_titles as $crime) : ?>
+                    <option value="<?php echo $crime['id']; ?>" <?php echo ($crime['id'] == $complaint['crime_id']) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($crime['crime_title']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-            <table class="table student-data-table m-t-20">
-    <thead>
-        <tr>
-            <th class="py-2 px-4 border-b">ID</th>
-            <th class="py-2 px-4 border-b">User Name</th>
-            <th class="py-2 px-4 border-b">Description</th>
-            <th class="py-2 px-4 border-b">Status</th>
-            <th class="py-2 px-4 border-b">Police Station</th>
-            <th class="py-2 px-4 border-b">Tracking ID</th>
-            <th class="py-2 px-4 border-b">Created At</th>
-            <th class="py-2 px-4 border-b">Action</th>
+        <div class="form-group">
+            <label for="complaint_text">Description</label>
+            <textarea class="form-control" id="complaint_text" name="complaint_text" required><?php echo htmlspecialchars($complaint['complaint_text']); ?></textarea>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" name="status" required>
+                <option value="pending" <?php echo ($complaint['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
+                <option value="resolved" <?php echo ($complaint['status'] == 'resolved') ? 'selected' : ''; ?>>Resolved</option>
+                <option value="rejected" <?php echo ($complaint['status'] == 'rejected') ? 'selected' : ''; ?>>Rejected</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="police_station_id">Police Station</label>
+            <select class="form-control" id="police_station_id" name="police_station_id" required>
+                <?php
+                $stations_query = "SELECT id, name FROM police_stations";
+                $stations_result = mysqli_query($conn, $stations_query);
+                while ($station = mysqli_fetch_assoc($stations_result)) {
+                    $selected = $complaint['police_station_id'] == $station['id'] ? 'selected' : '';
+                    echo "<option value=\"{$station['id']}\" $selected>{$station['name']}</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tracking_number">Tracking Number</label>
+            <input type="text" class="form-control" id="tracking_number" name="tracking_number" value="<?php echo htmlspecialchars($complaint['tracking_number']); ?>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Complaint</button>
+    </form>
 
-        </tr>
-    </thead>
-    <tbody>
-        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
-            <tr>
-                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['user_name']; ?></td>
-                <td class="py-2 px-4 border-b">
-                    <?php
-                    $text = $row['complaint_text'];
-                    if (strlen($text) > 30) {
-                        echo substr($text, 0, 30) . '...';
-                    } else {
-                        echo $text;
-                    }
-                    ?>
-                </td>
-                <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['police_station_name']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
-                <td class="py-2 px-4 border-b">
-                <a href="edit_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                <a href="delete_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    </tbody>
-</table>
-            </div>
-        </div>
-    </div>
 </div>
 
 

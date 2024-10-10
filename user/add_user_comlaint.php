@@ -22,16 +22,66 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-// Fetch police station names
+// Fetch police station IDs and names
 $police_stations = [];
-$query_stations = "SELECT name FROM police_stations";
+$query_stations = "SELECT id, name FROM police_stations";
 $stmt_stations = $conn->prepare($query_stations);
 $stmt_stations->execute();
 $result_stations = $stmt_stations->get_result();
 while ($row = $result_stations->fetch_assoc()) {
-    $police_stations[] = $row['name'];
+    $police_stations[] = $row;
 }
 
+
+// Fetch crime titles from the crimes table
+$sql_crimes = "SELECT id, crime_title FROM crimes";
+$result_crimes = $conn->query($sql_crimes);
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the logged-in user ID from the session
+    $user_id = $_SESSION['user_id'];
+    
+    // Sanitize and validate the input
+    $police_station_id = htmlspecialchars($_POST['police_station']);
+    $crime_id = htmlspecialchars($_POST['crime_id']);
+    $complaint_text = htmlspecialchars($_POST['complaint_text']);
+    
+
+    // Validate required fields
+    if (empty($police_station_id) || empty($crime_id) || empty($complaint_text)) {
+        echo "All fields are required.";
+        exit;
+    }
+
+    // Generate a unique tracking number
+    $tracking_number = uniqid('complaint_');
+
+    // Prepare the SQL query
+    $sql = "INSERT INTO complaints (user_id, police_station_id, crime_id, complaint_text, status, complaint_date, tracking_number) VALUES (?, ?, ?, ?, 'Pending', NOW(), ?)";
+
+    // Use prepared statements to prevent SQL injection
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("iiiss", $user_id, $police_station_id, $crime_id, $complaint_text, $tracking_number);
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Redirect to a success page or another page
+            header("Location: http://localhost/fir/user/add_user_comlaint.php"); // Replace with your success page
+            exit;
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close the statement
+        $stmt->close();
+    } else {
+        echo "Error: " . $conn->error;
+    }
+
+    // Close the connection
+    $conn->close();
+}
 ?>
 
 
@@ -48,15 +98,23 @@ while ($row = $result_stations->fetch_assoc()) {
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <style>
-        .container {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 500px;
-            border: 2px solid #007bff;
-        }
+       
+.form {
+        display: flex; /* Enable flexbox */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 70vh; /* Full height of the viewport */
+        margin: 0; /* Reset margin */
+    }
+
+    .container1 {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        border: 2px solid #007bff;
+    }
         h2 {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -72,7 +130,7 @@ while ($row = $result_stations->fetch_assoc()) {
             padding-right: 1rem;
             margin: 0;
             color: #333;
-            flex-basis: 40%; /* Set a base width for the labels */
+            flex-basis:  25%; /* Set a base width for the labels */
         }
         input[type="text"],
         input[type="email"],
@@ -156,6 +214,7 @@ select:focus {
     border-color: #007bff; /* Highlight border when focused */
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a slight shadow for effect */
 }
+
     </style>#
 </head>
     <!--*******************
@@ -246,25 +305,31 @@ select:focus {
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav" style="position: fixed;">
-            <div class="quixnav-scroll">
-                <ul class="metismenu" id="menu">
-                 
-
-                    <li class="nav-label">COMPLAINTS</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+        <div class="quixnav">
+    <div class="quixnav-scroll">
+        <ul class="metismenu" id="menu">
+            <li class="nav-label">Queries</li>
+            <li>
+                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">COMPLAINTS</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="user_Comlpaints.php">Complaints</a></li>
-
-                            <li><a href="../complaints.php">Add Complaint</a></li>                        </ul>
-                    </li>
-
-
+                    <span class="nav-text">Queries</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="User_dashboard.php">Profile</a></li>
                 </ul>
-            </div>
-        </div>
+            </li>
+            <li class="nav-label">Complaints</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Complaints</span></a>
+                        <ul aria-expanded="false">
+                        <li><a href="user_Comlpaints.php">Comlpaints</a></li>
+                        <li><a href="add_user_comlaint.php">Add Complaint</a></li>
+                        </ul>
+                    </li>
+        </ul>
+        
+    </div>
+</div>
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -281,21 +346,18 @@ select:focus {
                                        
                 </div>
 <div class="row">
-<div class="container">
-        <div class="links2">
+<div class="col-lg-12">
 
         <h2>Add Complaint</h2>
-        </div>
-
-        <form action="Add_complaints.php" method="post">
+        <form action="add_user_comlaint.php" method="post">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" disabled>
             </div>
 
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" disabled>
+                <label for="username">username:</label>
+                <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
             </div>
 
             <div class="form-group">
@@ -308,15 +370,32 @@ select:focus {
                 <input type="text" class="form-control disabled" id="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>" disabled>
             </div>
 
+
             <div class="form-group">
-    <label for="police_station">Police Station:</label>
-    <select id="police_station" name="police_station" required style="flex: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
-        <option value="" disabled selected>Select a Police Station</option>
-        <?php foreach ($police_stations as $station): ?>
-            <option value="<?php echo htmlspecialchars($station); ?>"><?php echo htmlspecialchars($station); ?></option>
-        <?php endforeach; ?>
-    </select>
-</div>
+            <label for="police_station">Police Station:</label>
+            <select id="police_station" name="police_station" required class="form-control">
+                <option value="">Select a Police Station</option>
+                <?php foreach ($police_stations as $station): ?>
+                    <option value="<?php echo htmlspecialchars($station['id']); ?>"><?php echo htmlspecialchars($station['name']); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+<div class="form-group">
+            <label for="crime_id">Crime Type</label>
+            <select name="crime_id" id="crime_id" class="form-control" required>
+                <option value="">Select Crime Type</option>
+                <?php
+                if ($result_crimes->num_rows > 0) {
+                    while ($row = $result_crimes->fetch_assoc()) {
+                        echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
+                    }
+                } else {
+                    echo "<option value=''>No crimes available</option>";
+                }
+                ?>
+            </select>
+        </div>
 
 
             <label for="complaint_text">Enter Your Complaint Here:</label>
@@ -325,7 +404,7 @@ select:focus {
             <input type="submit" value="Add Complaint">
         </form>
     </div>
-
+</div>
 
 
         <!--**********************************

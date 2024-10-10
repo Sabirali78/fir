@@ -18,6 +18,8 @@ $complaints_query = "
     INNER JOIN users u ON c.user_id = u.id
     INNER JOIN crimes cr ON c.crime_id = cr.id
     INNER JOIN police_stations ps ON c.police_station_id = ps.id
+    ORDER BY c.id ASC
+
 ";
 
 $complaints_result = mysqli_query($conn, $complaints_query);
