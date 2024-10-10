@@ -24,12 +24,12 @@ if (!isset($_SESSION['user_id'])) {
 
 // Fetch police station names
 $police_stations = [];
-$query_stations = "SELECT name FROM police_stations";
+$query_stations = "SELECT id, name FROM police_stations";
 $stmt_stations = $conn->prepare($query_stations);
 $stmt_stations->execute();
 $result_stations = $stmt_stations->get_result();
 while ($row = $result_stations->fetch_assoc()) {
-    $police_stations[] = $row['name'];
+    $police_stations[] = $row;
 }
 
 // Fetch crime titles
@@ -275,8 +275,8 @@ select:focus {
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" disabled>
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
                 </div>
 
                 <div class="form-group">
@@ -291,10 +291,10 @@ select:focus {
 
                 <div class="form-group">
                     <label for="police_station">Police Station:</label>
-                    <select id="police_station" name="police_station" required>
+                    <select id="police_station_id" name="police_station_id" required>
                         <option value="" disabled selected>Select a Police Station</option>
                         <?php foreach ($police_stations as $station): ?>
-                            <option value="<?php echo htmlspecialchars($station); ?>"><?php echo htmlspecialchars($station); ?></option>
+                            <option value="<?php echo htmlspecialchars($station['id']); ?>"><?php echo htmlspecialchars($station['name']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

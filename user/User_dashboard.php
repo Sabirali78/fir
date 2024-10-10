@@ -193,7 +193,7 @@ $user = $result->fetch_assoc();
             <tr>
                 <th class="py-2 px-4 border-b">ID</th>
                 <th class="py-2 px-4 border-b">Name</th>
-                <th class="py-2 px-4 border-b">Email</th>
+                <th class="py-2 px-4 border-b">Username</th>
                 <th class="py-2 px-4 border-b">CNIC</th>
                 <th class="py-2 px-4 border-b">Phone Number</th>
                 <th class="py-2 px-4 border-b">City</th>
@@ -208,7 +208,7 @@ $user = $result->fetch_assoc();
             <tr>
                 <td class="py-2 px-4 border-b"><?php echo $user['id']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['name']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $user['email']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['username']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['CNIC_Number']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['phone_number']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['city_name']; ?></td> <!-- Changed this line -->

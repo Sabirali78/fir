@@ -183,13 +183,13 @@ while ($city = $cityResult->fetch_assoc()) {
     <h2>Edit Profile</h2>
     <form action="update_profile.php" method="POST">
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+            <label for="name">Uname</label>
+            <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
         </div>
         
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+            <label for="email">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
         </div>
         <div class="form-group">
         <label for="city">City</label>

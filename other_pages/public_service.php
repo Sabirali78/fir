@@ -121,7 +121,7 @@
     </style>
 </head>
 <body>
-<?php include("assets/navbar.php");?>
+<?php include("other_page_navbar.php");?>
 
 <section class="bg_light pb-2">
     <div class="container text-center">
@@ -208,7 +208,6 @@
 
 <!--Footer-->
 <?php
-include("assets/footer.php")
 
 ?>
 <!--Footer End-->

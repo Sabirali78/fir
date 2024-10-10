@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         session_start();
     }
 
-    $sql = "SELECT * FROM users WHERE email = ? AND role = 'admin'";
+    $sql = "SELECT * FROM users WHERE username = ? AND role = 'admin'";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();

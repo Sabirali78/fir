@@ -12,44 +12,72 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_POST['user_id'];
-    $crime_id = $_POST['crime_id'];
-    $police_station_id = $_POST['police_station_id'];
-    $complaint_text = $_POST['complaint_text'];
-
-    $tracking_number = uniqid('complaint_');
-
-
-     // Prepare and bind
-     $stmt = $conn->prepare("INSERT INTO complaints (user_id, crime_id, police_station_id, complaint_text, tracking_number) VALUES (?, ?, ?, ?, ?)");
-     $stmt->bind_param("iiiss", $user_id, $crime_id, $police_station_id, $complaint_text, $tracking_number);
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "<div class='alert alert-success'>New complaint added successfully</div>";
-        header("location: dashboard.php");
-    } else {
-        echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
-    }
-
-    $stmt->close();
-}
-
-// Fetch user IDs from the users table
-$sql_users = "SELECT id, name FROM users";
-$result_users = $conn->query($sql_users);
-
 // Fetch crime titles from the crimes table
 $sql_crimes = "SELECT id, crime_title FROM crimes";
 $result_crimes = $conn->query($sql_crimes);
+
+// Fetch city titles from the city table
+$sql_city = "SELECT id, city FROM city";
+$result_city = $conn->query($sql_city);
 
 // Fetch police station names from the police_station table
 $sql_stations = "SELECT id, name FROM police_stations";
 $result_stations = $conn->query($sql_stations);
 
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // User details
+    $name = $_POST['name'];
+    $cnic_number = $_POST['cnic_number'];
+    $phone_number = $_POST['phone_number'];
+    $gender = $_POST['gender'];
+    $city_id = $_POST['city_id'];
+    $address = $_POST['address'];
+    $role = 'user';
+    $username = uniqid('user_');
+    $plain_password = bin2hex(random_bytes(4));
+    $created_at = $updated_at = date('Y-m-d H:i:s');
+
+    // Insert user details into the users table
+    $stmt_user = $conn->prepare("INSERT INTO users (name, CNIC_Number, phone_number, gender, city_id, address, role, username, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt_user->bind_param("ssssissssss", $name, $cnic_number, $phone_number, $gender, $city_id, $address, $role, $username, $plain_password, $created_at, $updated_at);
+
+    // Execute the statement
+    if ($stmt_user->execute()) {
+        // Get the last inserted user id
+        $user_id = $stmt_user->insert_id;
+
+        // Complaint details
+        $crime_id = $_POST['crime_id'];
+        $police_station_id = $_POST['police_station_id'];
+        $complaint_text = $_POST['complaint_text'];
+        $tracking_number = uniqid('complaint_');
+
+        // Insert complaint details into the complaints table
+        $stmt_complaint = $conn->prepare("INSERT INTO complaints (user_id, crime_id, police_station_id, complaint_text, tracking_number) VALUES (?, ?, ?, ?, ?)");
+        $stmt_complaint->bind_param("iiiss", $user_id, $crime_id, $police_station_id, $complaint_text, $tracking_number);
+
+        // Execute the statement
+        if ($stmt_complaint->execute()) {
+            echo "<div class='alert alert-success'>New complaint added successfully</div>";
+            header("Location: admin_Comlpaints.php");
+        } else {
+            echo "<div class='alert alert-danger'>Error: " . $stmt_complaint->error . "</div>";
+        }
+
+        $stmt_complaint->close();
+    } else {
+        echo "<div class='alert alert-danger'>Error: " . $stmt_user->error . "</div>";
+    }
+
+    $stmt_user->close();
+}
+
 $conn->close();
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -332,68 +360,101 @@ select:focus {
 
 
 <div class="row">
-    <a href="Online_reg_users.php" class="btn btn-success">See User List</a>
-    <a href="add_new_user.php" class="btn btn-warning">Add New User</a> 
-    <div class="col-lg-12">
-        <h2>Add Complaint</h2>
-        <form action="Add_complaints.php" method="post">
 
-            <div class="form-group">
-                <label for="user_id">User ID</label>
-                <select name="user_id" id="user_id" class="form-control" required>
-                    <option value="">Select User ID</option>
-                    <?php
-                    if ($result_users->num_rows > 0) {
-                        while($row = $result_users->fetch_assoc()) {
-                            echo "<option value='" . $row["id"] . "'>" . $row["username"] . " (ID: " . $row["id"] . ")</option>";
-                        }
-                    } else {
-                        echo "<option value=''>No users available</option>";
+<div class="col-lg-12">
+    <form action="Add_complaints.php" method="post">
+
+        <!-- User Details -->
+         <center> <h2>User Details:</h2> </center>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cnic_number">CNIC Number</label>
+            <input type="text" name="cnic_number" id="cnic_number" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" name="phone_number" id="phone_number" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender" class="form-control" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="city_id">City</label>
+            <select name="city_id" id="city_id" class="form-control" required>
+                <option value="">Select city</option>
+                <?php
+                if ($result_city->num_rows > 0) {
+                    while ($row = $result_city->fetch_assoc()) {
+                        echo "<option value='" . $row["id"] . "'>" . $row["city"] . "</option>";
                     }
-                    ?>
-                </select>
-            </div>
+                } else {
+                    echo "<option value=''>No police stations available</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="crime_id">Crime Type</label>
-                <select name="crime_id" id="crime_id" class="form-control" required>
-                    <option value="">Select Crime Type</option>
-                    <?php
-                    if ($result_crimes->num_rows > 0) {
-                        while($row = $result_crimes->fetch_assoc()) {
-                            echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
-                        }
-                    } else {
-                        echo "<option value=''>No crimes available</option>";
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address" class="form-control" required>
+        </div>
+
+        <!-- Complaint Details -->
+        <center> <h2>Complaints Details:</h2> </center>
+        <div class="form-group">
+            <label for="crime_id">Crime Type</label>
+            <select name="crime_id" id="crime_id" class="form-control" required>
+                <option value="">Select Crime Type</option>
+                <?php
+                if ($result_crimes->num_rows > 0) {
+                    while ($row = $result_crimes->fetch_assoc()) {
+                        echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
                     }
-                    ?>
-                </select>
-            </div>
+                } else {
+                    echo "<option value=''>No crimes available</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="police_station_id">Police Station</label>
-                <select name="police_station_id" id="police_station_id" class="form-control" required>
-                    <option value="">Select Police Station</option>
-                    <?php
-                    if ($result_stations->num_rows > 0) {
-                        while($row = $result_stations->fetch_assoc()) {
-                            echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
-                        }
-                    } else {
-                        echo "<option value=''>No police stations available</option>";
+        <div class="form-group">
+            <label for="police_station_id">Police Station</label>
+            <select name="police_station_id" id="police_station_id" class="form-control" required>
+                <option value="">Select Police Station</option>
+                <?php
+                if ($result_stations->num_rows > 0) {
+                    while ($row = $result_stations->fetch_assoc()) {
+                        echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
                     }
-                    ?>
-                </select>
-            </div>
+                } else {
+                    echo "<option value=''>No police stations available</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="complaint_text">Enter Your Complaint Here:</label>
-                <textarea id="complaint_text" name="complaint_text" class="form-control" rows="5" required></textarea>
-            </div>
+        <div class="form-group">
+            <label for="complaint_text">Enter Your Complaint Here:</label>
+            <textarea id="complaint_text" name="complaint_text" class="form-control" rows="5" required></textarea>
+        </div>
 
-            <button type="submit" class="btn btn-primary">Add Complaint</button>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary">Add Complaint</button>
+    </form>
+</div>
+
+
 
         <!--**********************************
             Content body end

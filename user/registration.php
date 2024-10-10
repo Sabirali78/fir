@@ -7,15 +7,15 @@ $cities_result = $conn->query($cities_sql);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
     $phone_number = $_POST['phone_number'];
     $address = $_POST['address'];
     $cnic = $_POST['cnic'];
     $gender = $_POST['gender'];
     $city_id = $_POST['city_id'];
 
-    $sql = "INSERT INTO users (name, CNIC_Number, email, password, phone_number, gender, address, city_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (name, CNIC_Number, username, password, phone_number, gender, address, city_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssssssi", $name, $cnic, $email, $password, $phone_number, $gender, $address, $city_id);
     $stmt->execute();
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="text" class="form-control" id="cnic" name="cnic" placeholder="CNIC" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="username" required>
                     </div>
                     <div class="form-group">
                         <select class="form-control" id="city_id" name="city_id" required>

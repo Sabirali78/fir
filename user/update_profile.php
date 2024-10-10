@@ -18,16 +18,16 @@ $user_id = $_SESSION['user_id'];
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the form data
+    $name = $_POST['name'];
     $username = $_POST['username'];
-    $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
     $city_id = $_POST['city_id'];
 
     // Update the user's data in the database
-    $query = "UPDATE users SET name = ?, email = ?, phone_number = ?, address = ?, city_id = ? WHERE id = ?";
+    $query = "UPDATE users SET name = ?, username = ?, phone_number = ?, address = ?, city_id = ? WHERE id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssii", $username, $email, $phone, $address, $city_id, $user_id);
+    $stmt->bind_param("ssssii", $name, $username,  $phone, $address, $city_id, $user_id);
 
     if ($stmt->execute()) {
         echo "Profile updated successfully.";

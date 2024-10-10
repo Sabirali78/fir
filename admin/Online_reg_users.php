@@ -6,9 +6,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-$sql = "SELECT users.id, users.name, users.CNIC_Number, users.email, users.password, users.phone_number, users.gender, city.city, users.address, users.role, users.created_at, users.updated_at
+$sql = "SELECT users.id, users.name, users.CNIC_Number, users.username, users.password, users.phone_number, users.gender, city.city, users.address, users.role, users.created_at, users.updated_at
         FROM users
-        JOIN city ON users.city_id = city.id";
+        JOIN city ON users.city_id = city.id  WHERE role = 'user'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -186,7 +186,7 @@ $result = mysqli_query($conn, $sql);
                             <tr>
                                 <th class="py-2 px-4 border-b">ID</th>
                                 <th class="py-2 px-4 border-b">Name</th>
-                                <th class="py-2 px-4 border-b">Email</th>
+                                <th class="py-2 px-4 border-b">username</th>
                                 <th class="py-2 px-4 border-b">CNIC</th>
                                 <th class="py-2 px-4 border-b">Phone Number</th>
                                 <th class="py-2 px-4 border-b">City</th>
@@ -204,7 +204,7 @@ $result = mysqli_query($conn, $sql);
                                     echo "<tr>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['id']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['name']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['email']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['username']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['CNIC_Number']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['phone_number']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['city']) . "</td>";

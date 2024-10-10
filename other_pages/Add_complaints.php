@@ -7,7 +7,6 @@ if ($conn->connect_error) {
 }
 
 // Check if user is logged in and user_id is set in the session
-session_start(); // Make sure the session is started
 if (!isset($_SESSION['user_id'])) {
     die("User not logged in");
 }
@@ -16,7 +15,7 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user_id'];
     $complaint_text = $_POST['complaint_text'];
-    $police_station = $_POST['police_station'];
+    $police_station = $_POST['police_station_id'];
     $crime_id = $_POST['crime_id']; // Get crime_id from the form
     
     // Set complaint_date to current timestamp if not provided
@@ -27,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tracking_number = uniqid('complaint_');
 
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO complaints (user_id, complaint_text, police_station, complaint_date, status, tracking_number, crime_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO complaints (user_id, complaint_text, police_station_id, complaint_date, status, tracking_number, crime_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
     
     // Correct the binding parameters to match the number of values
-    $stmt->bind_param("issssss", $user_id, $complaint_text, $police_station, $complaint_date, $status, $tracking_number, $crime_id);
+    $stmt->bind_param("isissss", $user_id, $complaint_text, $police_station, $complaint_date, $status, $tracking_number, $crime_id);
 
     // Execute the statement
     if ($stmt->execute()) {
