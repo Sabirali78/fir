@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($password === $officer['password']) {
             $_SESSION['officer_id'] = $officer['id'];
             $_SESSION['officer_name'] = $officer['name'];
+            $_SESSION['police_station_id'] = $officer['police_station_id']; // Store the police station ID
             header("Location: officer_dashboard.php"); // Redirect to officer dashboard
             exit;
         } else {

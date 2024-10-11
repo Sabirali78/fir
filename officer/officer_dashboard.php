@@ -7,6 +7,8 @@ if (!isset($_SESSION['officer_id'])) {
     header("Location: officer_login.html");
     exit;
 }
+$police_station_id = $_SESSION['police_station_id'];
+echo''.$police_station_id.'';
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +97,7 @@ if (!isset($_SESSION['officer_id'])) {
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="dashboard.php" class="brand-logo">
+            <a href="officer_dashboard.php" class="brand-logo">
                 <img class="logo-abbr" src="./images/logo.png" alt="">
                 <img class="logo-compact" src="./images/logo-text.png" alt="">
                 <img class="brand-title" src="./images/logo-text.png" alt="">
@@ -142,7 +144,7 @@ if (!isset($_SESSION['officer_id'])) {
                                         <span class="ml-2">Profile </span>
                                     </a>
                                    
-                                    <a href="admin_logout.php" class="dropdown-item">
+                                    <a href="officer_logout.php" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -164,14 +166,14 @@ if (!isset($_SESSION['officer_id'])) {
                 <ul class="metismenu" id="menu">
                  
 
-                    <li class="nav-label">QUERIES</li>
+                <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
-                            <li><a href="Comlpaints.php">Complaint_reports</a></li>
-                            <li><a href="add_complaints.php">New Complaint</a></li>
+                            <li><a href="station_complaints.php">Complaints</a></li>
+                            <li><a href="station_comlpaints.php">Complaint_reports</a></li>
+                            <li><a href="officer_add_complaints.php">New Complaint</a></li>
 
                         </ul>
                     </li>
@@ -179,12 +181,13 @@ if (!isset($_SESSION['officer_id'])) {
             
 
 
-                    <li class="nav-label">Stations</li>
+                    <li class="nav-label">Profile</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Stations</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="stations.php">Police Stations</a></li>
+                            <li><a href="station_info.php">Station Info</a></li>
+                            <li><a href="officer_profile.php">Officer Profie</a></li>
                         </ul>
                     </li>
 
@@ -195,7 +198,7 @@ if (!isset($_SESSION['officer_id'])) {
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
                             <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="profile.php">Admin Profile</a></li>
+                            <li><a href="profile.php">Officer Profile</a></li>
 
                         </ul>
                     </li>
@@ -218,7 +221,7 @@ if (!isset($_SESSION['officer_id'])) {
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Hi, welcome <?php echo htmlspecialchars($_SESSION['admin_name']); ?>!</h4>
+                            <h4>Hi, welcome <?php echo htmlspecialchars($_SESSION['officer_name']); ?>!</h4>
                             <p class="mb-0">dashboard</p>
                         </div>
                     </div>
