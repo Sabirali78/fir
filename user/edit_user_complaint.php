@@ -7,10 +7,12 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Check if the admin is logged in
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.html");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
     exit;
 }
+
+
 // Get the complaint ID from the URL
 $complaint_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -80,6 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+        #complaint_text{
+            height: 15rem;
+        }
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -253,11 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+  
         <!--**********************************
             Footer end
         ***********************************-->

@@ -2,7 +2,7 @@
 include("db.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
+    $email = $_POST['username'];
     $password = $_POST['password'];
 
     // Start the session if it hasn't been started already
