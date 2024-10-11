@@ -12,76 +12,36 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$user_id = $_SESSION['user_id'];
+// Get the complaint ID from the URL
+$complaint_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Fetch the logged-in user's data
-$query = "SELECT * FROM users WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-
-// Fetch police station IDs and names
-$police_stations = [];
-$query_stations = "SELECT id, name FROM police_stations";
-$stmt_stations = $conn->prepare($query_stations);
-$stmt_stations->execute();
-$result_stations = $stmt_stations->get_result();
-while ($row = $result_stations->fetch_assoc()) {
-    $police_stations[] = $row;
+if ($complaint_id <= 0) {
+    echo "Invalid complaint ID.";
+    exit;
 }
 
+// Fetch the complaint details from the database
+$complaint_query = "
+    SELECT c.*, u.name as user_name, p.name as police_station_name 
+    FROM complaints c 
+    INNER JOIN users u ON c.user_id = u.id
+    INNER JOIN police_stations p ON c.police_station_id = p.id
+    WHERE c.id = $complaint_id
+";
+$complaint_result = mysqli_query($conn, $complaint_query);
 
-// Fetch crime titles from the crimes table
-$sql_crimes = "SELECT id, crime_title FROM crimes";
-$result_crimes = $conn->query($sql_crimes);
-
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the logged-in user ID from the session
-    $user_id = $_SESSION['user_id'];
-    
-    // Sanitize and validate the input
-    $police_station_id = htmlspecialchars($_POST['police_station']);
-    $crime_id = htmlspecialchars($_POST['crime_id']);
-    $complaint_text = htmlspecialchars($_POST['complaint_text']);
-    
-
-    // Validate required fields
-    if (empty($police_station_id) || empty($crime_id) || empty($complaint_text)) {
-        echo "All fields are required.";
-        exit;
-    }
-
-    // Generate a unique tracking number
-    $tracking_number = uniqid('complaint_');
-
-    // Prepare the SQL query
-    $sql = "INSERT INTO complaints (user_id, police_station_id, crime_id, complaint_text, status, complaint_date, tracking_number) VALUES (?, ?, ?, ?, 'Pending', NOW(), ?)";
-
-    // Use prepared statements to prevent SQL injection
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("iiiss", $user_id, $police_station_id, $crime_id, $complaint_text, $tracking_number);
-
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Redirect to a success page or another page
-            header("Location: http://localhost/fir/user/add_user_comlaint.php"); // Replace with your success page
-            exit;
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-
-        // Close the statement
-        $stmt->close();
-    } else {
-        echo "Error: " . $conn->error;
-    }
-
-    // Close the connection
-    $conn->close();
+if (!$complaint_result) {
+    echo "Error: " . mysqli_error($conn);
+    exit;
 }
+
+$complaint = mysqli_fetch_assoc($complaint_result);
+
+if (!$complaint) {
+    echo "Complaint not found.";
+    exit;
+}
+
 ?>
 
 
@@ -98,124 +58,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <style>
-       
-.form {
-        display: flex; /* Enable flexbox */
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
-        height: 70vh; /* Full height of the viewport */
-        margin: 0; /* Reset margin */
-    }
-
-    .container1 {
-        background-color: #fff;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        border: 2px solid #007bff;
-    }
-        h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #007bff;
+       body {
+            font-family: Arial, sans-serif;
         }
-        .form-group {
+        .container {
+            
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .card-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        .form-group label {
-            padding-right: 1rem;
+        .card-header h4 {
             margin: 0;
-            color: #333;
-            flex-basis:  25%; /* Set a base width for the labels */
         }
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            
-        }
-        textarea {
-            resize: vertical;
-            width: 100%;
-            height: 200px;
-        }
-        input[type="submit"],
-        .btn-secondary {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #007bff;
+        .btn {
+            padding: 10px 20px;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-        input[type="submit"]:hover,
-        .btn-secondary:hover {
-            background-color: #0056b3;
-        }
-        .disabled {
-            background-color: #f8f9fa;
-            color: #6c757d;
-            cursor: not-allowed;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .form-group {
-                flex-direction: column; /* Stack items vertically */
-                align-items: flex-start; /* Align items to the start */
-            }
-            .form-group label {
-                flex-basis: auto; /* Reset label width */
-                margin-bottom: 0.5rem; /* Add space below labels */
-            }
-            .form-group input {
-                width: 100%; /* Full width for inputs */
-            }
-        }
-        .links2{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        }
-        .cancel_btn{
-            text-decoration: none;
-            padding: 0.75rem;
             background-color: #007bff;
-            color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 1rem;
         }
-
-        select {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 1rem; /* Match font size with other inputs */
-}
-
-/* Optional: Change background color when the select is focused */
-select:focus {
-    outline: none;
-    border-color: #007bff; /* Highlight border when focused */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a slight shadow for effect */
-}
-
-    </style>#
+        .btn-primary {
+            background-color: #007bff;
+        }
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -346,64 +223,25 @@ select:focus {
                                        
                 </div>
 <div class="row">
+
 <div class="col-lg-12">
-
-        <h2>Add Complaint</h2>
-        <form action="add_user_comlaint.php" method="post">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="username">username:</label>
-                <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="cnic">CNIC Number:</label>
-                <input type="text" class="form-control " id="cnic" value="<?php echo htmlspecialchars($user['CNIC_Number']); ?>" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="text" class="form-control " id="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>" disabled>
-            </div>
-
-
-            <div class="form-group">
-            <label for="police_station">Police Station:</label>
-            <select id="police_station" name="police_station" required class="form-control">
-                <option value="">Select a Police Station</option>
-                <?php foreach ($police_stations as $station): ?>
-                    <option value="<?php echo htmlspecialchars($station['id']); ?>"><?php echo htmlspecialchars($station['name']); ?></option>
-                <?php endforeach; ?>
-            </select>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Complaint Details</h4>
+            <button class="btn btn-primary" onclick="window.print()">Print</button>
         </div>
-
-<div class="form-group">
-            <label for="crime_id">Crime Type</label>
-            <select name="crime_id" id="crime_id" class="form-control" required>
-                <option value="">Select Crime Type</option>
-                <?php
-                if ($result_crimes->num_rows > 0) {
-                    while ($row = $result_crimes->fetch_assoc()) {
-                        echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
-                    }
-                } else {
-                    echo "<option value=''>No crimes available</option>";
-                }
-                ?>
-            </select>
+        <div class="card-body">
+            <p><strong>ID:</strong> <?php echo $complaint['id']; ?></p>
+            <p><strong>User Name:</strong> <?php echo $complaint['user_name']; ?></p>
+            <p><strong>Description:</strong> <?php echo $complaint['complaint_text']; ?></p>
+            <p><strong>Status:</strong> <?php echo $complaint['status']; ?></p>
+            <p><strong>Police Station:</strong> <?php echo $complaint['police_station_name']; ?></p>
+            <p><strong>Tracking ID:</strong> <?php echo $complaint['tracking_number']; ?></p>
+            <p><strong>Created At:</strong> <?php echo $complaint['complaint_date']; ?></p>
         </div>
-
-
-            <label for="complaint_text">Enter Your Complaint Here:</label>
-            <textarea id="complaint_text" name="complaint_text" required></textarea>
-
-            <input type="submit" value="Add Complaint">
-        </form>
     </div>
+</div>
 </div>
 
 

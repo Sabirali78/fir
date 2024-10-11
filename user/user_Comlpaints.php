@@ -40,6 +40,86 @@ $complaints_result = mysqli_query($conn, $complaints_query);
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <style>
+
+                /* General styles */
+                body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+
+        @media print {
+            /* Hide elements not required for printing */
+            .btn, .card-header {
+                display: none;
+            }
+
+            /* Style the table for printing */
+            .table {
+                border: none;
+                width: 100%;
+            }
+
+            .table th, .table td {
+                border: 1px solid #000;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .table th {
+                background-color: #ddd;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -212,6 +292,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                 <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
                 <td class="py-2 px-4 border-b">
                 <a href="edit_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                <a href="view_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fa-solid fa-print"></i></a>
                 <a href="delete_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
@@ -233,11 +314,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+
         <!--**********************************
             Footer end
         ***********************************-->
