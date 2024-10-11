@@ -362,98 +362,113 @@ select:focus {
 <div class="row">
 
 <div class="col-lg-12">
-    <form action="Add_complaints.php" method="post">
+<form action="Add_complaints.php" method="post">
 
-        <!-- User Details -->
-         <center> <h2>User Details:</h2> </center>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="cnic_number">CNIC Number</label>
-            <input type="text" name="cnic_number" id="cnic_number" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="phone_number">Phone Number</label>
-            <input type="text" name="phone_number" id="phone_number" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="gender">Gender</label>
-            <select name="gender" id="gender" class="form-control" required>
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="city_id">City</label>
-            <select name="city_id" id="city_id" class="form-control" required>
-                <option value="">Select city</option>
-                <?php
-                if ($result_city->num_rows > 0) {
-                    while ($row = $result_city->fetch_assoc()) {
-                        echo "<option value='" . $row["id"] . "'>" . $row["city"] . "</option>";
-                    }
-                } else {
-                    echo "<option value=''>No police stations available</option>";
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" name="address" id="address" class="form-control" required>
-        </div>
-
-        <!-- Complaint Details -->
-        <center> <h2>Complaints Details:</h2> </center>
-        <div class="form-group">
-            <label for="crime_id">Crime Type</label>
-            <select name="crime_id" id="crime_id" class="form-control" required>
-                <option value="">Select Crime Type</option>
-                <?php
-                if ($result_crimes->num_rows > 0) {
-                    while ($row = $result_crimes->fetch_assoc()) {
-                        echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
-                    }
-                } else {
-                    echo "<option value=''>No crimes available</option>";
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="police_station_id">Police Station</label>
-            <select name="police_station_id" id="police_station_id" class="form-control" required>
-                <option value="">Select Police Station</option>
-                <?php
-                if ($result_stations->num_rows > 0) {
-                    while ($row = $result_stations->fetch_assoc()) {
-                        echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
-                    }
-                } else {
-                    echo "<option value=''>No police stations available</option>";
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="complaint_text">Enter Your Complaint Here:</label>
-            <textarea id="complaint_text" name="complaint_text" class="form-control" rows="5" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Add Complaint</button>
-    </form>
+<!-- User Details -->
+<center><h2>User Details:</h2></center>
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" class="form-control" required>
 </div>
 
+<div class="form-group">
+    <label for="cnic_number">CNIC Number</label>
+    <input type="text" name="cnic_number" id="cnic_number" class="form-control" required>
+</div>
+
+<div class="form-group">
+    <label for="phone_number">Phone Number</label>
+    <input type="text" name="phone_number" id="phone_number" class="form-control" required>
+</div>
+
+<div class="form-group">
+    <label for="gender">Gender</label>
+    <select name="gender" id="gender" class="form-control" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="city_id">City</label>
+    <select name="city_id" id="city_id" class="form-control" required>
+        <option value="">Select city</option>
+        <?php
+        if ($result_city->num_rows > 0) {
+            while ($row = $result_city->fetch_assoc()) {
+                echo "<option value='" . $row["id"] . "'>" . $row["city"] . "</option>";
+            }
+        } else {
+            echo "<option value=''>No cities available</option>";
+        }
+        ?>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="address">Address</label>
+    <input type="text" name="address" id="address" class="form-control" required>
+</div>
+
+<!-- Complaint Details -->
+<center><h2>Complaints Details:</h2></center>
+<div class="form-group">
+    <label for="crime_id">Crime Type</label>
+    <select name="crime_id" id="crime_id" class="form-control" required>
+        <option value="">Select Crime Type</option>
+        <?php
+        if ($result_crimes->num_rows > 0) {
+            while ($row = $result_crimes->fetch_assoc()) {
+                echo "<option value='" . $row["id"] . "'>" . $row["crime_title"] . "</option>";
+            }
+        } else {
+            echo "<option value=''>No crimes available</option>";
+        }
+        ?>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="police_station_id">Police Station</label>
+    <select name="police_station_id" id="police_station_id" class="form-control" required>
+        <option value="">Select Police Station</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="complaint_text">Enter Your Complaint Here:</label>
+    <textarea id="complaint_text" name="complaint_text" class="form-control" rows="5" required></textarea>
+</div>
+
+<button type="submit" class="btn btn-primary">Add Complaint</button>
+</form>
+</div>
+
+<script>
+document.getElementById('city_id').addEventListener('change', function() {
+    var cityId = this.value;
+    var policeStationSelect = document.getElementById('police_station_id');
+    policeStationSelect.innerHTML = '<option value="">Select Police Station</option>'; // Reset police station options
+
+    if (cityId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'get_police_stations.php?city_id=' + cityId, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var stations = JSON.parse(xhr.responseText);
+                stations.forEach(function(station) {
+                    var option = document.createElement('option');
+                    option.value = station.id;
+                    option.text = station.name;
+                    policeStationSelect.appendChild(option);
+                });
+            }
+        };
+        xhr.send();
+    }
+});
+</script>
 
 
         <!--**********************************

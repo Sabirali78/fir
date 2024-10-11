@@ -186,7 +186,8 @@ $result = mysqli_query($conn, $sql);
                             <tr>
                                 <th class="py-2 px-4 border-b">ID</th>
                                 <th class="py-2 px-4 border-b">Name</th>
-                                <th class="py-2 px-4 border-b">username</th>
+                                <th class="py-2 px-4 border-b">Username</th>
+                                <th class="py-2 px-4 border-b">Password</th>
                                 <th class="py-2 px-4 border-b">CNIC</th>
                                 <th class="py-2 px-4 border-b">Phone Number</th>
                                 <th class="py-2 px-4 border-b">City</th>
@@ -205,6 +206,7 @@ $result = mysqli_query($conn, $sql);
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['id']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['name']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['username']) . "</td>";
+                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['password']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['CNIC_Number']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['phone_number']) . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['city']) . "</td>";
