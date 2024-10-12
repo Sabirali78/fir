@@ -1,29 +1,27 @@
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #d1bebe;
+    background-color: white;
     margin: 0;
-    
 }
 
 .container1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding: 8rem 0;
 }
+
+.container1 h1 {
+    margin-top: -5rem;
+}
+
 .container2 {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     width: 85%;
-
-}
-.container1 h1{
-    margin-top: -5rem;
 }
 
 .container_card {
@@ -38,6 +36,11 @@ body {
     position: relative;
     cursor: pointer;
     transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .container_card:hover {
@@ -49,26 +52,42 @@ body {
 
 .links-container {
     display: none;
-    position: absolute;
-    left: 7.1rem;
-    width: 83.5%;
-    top: 52.5rem;
+    width: 68%;
     background-color: white;
     border: 2px solid #112255;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 10;
+    margin-top: -130px;
+    margin-left: 305px;
 }
-.links-container:hover{
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    color: #112255;
-    border: 2px solid #112255;
-}
-
 .links ul {
     padding-left: 20px;
     list-style: none;
+}
+
+@media (max-width: 1200px) {
+    .container_card {
+        width: 20%;
+    }
+}
+
+@media (max-width: 992px) {
+    .container_card {
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container_card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 576px) {
+    .container_card {
+        width: 90%;
+    }
 }
 
 .fa-solid{
@@ -93,4 +112,32 @@ body {
     background-color: transparent;
     border-color: #112255;
     border-width: 2px;
+
+}
+.latest_news{
+    margin-top: 10rem;
+}
+
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-body {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+.container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+h1 {
+    margin-bottom: 40px;
 }

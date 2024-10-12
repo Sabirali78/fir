@@ -2,13 +2,10 @@
 include("db.php");
 
 // Check if the session is already started
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 // Check if the admin is logged in
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.html");
+    header("Location: admin_login.php");
     exit;
 }
 ?>

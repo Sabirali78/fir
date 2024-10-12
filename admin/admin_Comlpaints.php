@@ -38,6 +38,15 @@ $complaints_result = mysqli_query($conn, $complaints_query);
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <style>
+        td{
+            color: black;
+            font-weight: bold;
+        }
+        .new_Complaint{
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -179,16 +188,14 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         <div class="content-body">
             <div class="container-fluid">
                
-
-           
-                <div class="row">
-                    <a href="add_complaints.php" class="btn btn-primary">Add New Complaint</a>          
-                </div>
+            <div class="row new_Complaint">
+                  <a href="add_complaints.php" class="btn btn-primary">Add New Complaint</a>    
+            </div>      
 <div class="row">
-<div class="col-lg-12">
+<div class="col-lg-12" style="border: 1px solid black;">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Complaints</h4>
+                <h3>Complaints List</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
