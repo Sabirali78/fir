@@ -61,6 +61,7 @@ $conn->close();
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 </head>
     <!--*******************
         Preloader start
@@ -217,7 +218,7 @@ $conn->close();
 <div class="col-lg-12">
                 <h2 class="mb-4">Complaints List</h2>
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table id="stationcomplaintsTable" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -278,22 +279,22 @@ $conn->close();
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
+      <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- DataTables JS -->
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <!-- Other vendor scripts -->
     <script src="./vendor/global/global.min.js"></script>
     <script src="./js/quixnav-init.js"></script>
     <script src="./js/custom.min.js"></script>
-
     <script src="./vendor/chartist/js/chartist.min.js"></script>
-
     <script src="./vendor/moment/moment.min.js"></script>
     <script src="./vendor/pg-calendar/js/pignose.calendar.min.js"></script>
-
-
     <script src="./js/dashboard/dashboard-2.js"></script>
 
-    
-    <!-- Circle progress -->
-
+    <script>
+   let table = new DataTable('#stationcomplaintsTable');
+    </script>
 </body>
 
 </html>

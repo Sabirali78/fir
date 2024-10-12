@@ -15,6 +15,9 @@ if (!isset($_SESSION['officer_id'])) {
 // Get the officer's police station ID from the session
 $police_station_id = $_SESSION['police_station_id'];
 
+    $query =  "select * from users WHERE  police_station_id = $police_station_id";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result);
 
 ?>
 
@@ -190,19 +193,29 @@ $police_station_id = $_SESSION['police_station_id'];
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>City ID</th>
+                    <th>CNIC_Number</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>phone</th>
+                    <th>Gender</th>
                     <th>Address</th>
-                    <th>Contact Number</th>
+                    <th>Created At</th>
+                    <th>Police_station</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><?php echo htmlspecialchars($police_station['id']); ?></td>
-                    <td><?php echo htmlspecialchars($police_station['name']); ?></td>
-                    <td><?php echo htmlspecialchars($police_station['city_id']); ?></td>
-                    <td><?php echo htmlspecialchars($police_station['address']); ?></td>
-                    <td><?php echo htmlspecialchars($police_station['contact_number']); ?></td>
+            <td><?php echo htmlspecialchars($row['id']); ?></td>
+            <td><?php echo htmlspecialchars($row['name']); ?></td>
+            <td><?php echo htmlspecialchars($row['CNIC_Number']); ?></td>
+                    <td><?php echo htmlspecialchars($row['username']); ?></td>
+                    <td><?php echo htmlspecialchars($row['password']); ?></td>
+                    <td><?php echo htmlspecialchars($row['phone_number']); ?></td>
+                    <td><?php echo htmlspecialchars($row['gender']); ?></td>
+                    <td><?php echo htmlspecialchars($row['address']); ?></td>
+                    <td><?php echo htmlspecialchars($row['created_at']); ?></td>
+                    <td><?php echo htmlspecialchars($row['police_station_id']); ?></td>
                     <td><a href="edit_police_station.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a></td>
                     </tr>
             </tbody>

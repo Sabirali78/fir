@@ -329,24 +329,16 @@ select:focus {
         <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
-
                     <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
-                            <li><a href="Comlpaints.php">Complaint_reports</a></li>
-                            <li><a href="add_complaints.php">New Complaint</a></li>
-
+                        <li><a href="add_complaints.php">New Complaint</a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints List</a></li>
                         </ul>
                     </li>
-
-            
-
-
-                    <li class="nav-label">Stations</li>
+                   <li class="nav-label">Stations</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Stations</span></a>
@@ -354,11 +346,10 @@ select:focus {
                             <li><a href="stations.php">Police Stations</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-label">Users</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
+                        <span class="nav-text">Records</span></a>
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
                             <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
@@ -366,10 +357,14 @@ select:focus {
 
                         </ul>
                     </li>
-
-
-
-
+                    <li class="nav-label">Reports</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Reports</span></a>
+                        <ul aria-expanded="false">
+                        <li><a href="Comlpaints.php">Reports</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

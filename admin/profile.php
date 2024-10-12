@@ -135,22 +135,16 @@ $user = $result->fetch_assoc();
         <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
-
-                    <li class="nav-label">COMPLAINTS</li>
+                    <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
-                            <li><a href="Comlpaints.php">Crime_reports</a></li>
+                        <li><a href="add_complaints.php">New Complaint</a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints List</a></li>
                         </ul>
                     </li>
-
-            
-
-
-                    <li class="nav-label">Stations</li>
+                   <li class="nav-label">Stations</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Stations</span></a>
@@ -158,11 +152,10 @@ $user = $result->fetch_assoc();
                             <li><a href="stations.php">Police Stations</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-label">Users</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
+                        <span class="nav-text">Records</span></a>
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
                             <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
@@ -170,10 +163,14 @@ $user = $result->fetch_assoc();
 
                         </ul>
                     </li>
-
-
-
-
+                    <li class="nav-label">Reports</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Reports</span></a>
+                        <ul aria-expanded="false">
+                        <li><a href="Comlpaints.php">Reports</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -220,7 +217,7 @@ $user = $result->fetch_assoc();
             <tr>
                 <th class="py-2 px-4 border-b">ID</th>
                 <th class="py-2 px-4 border-b">Name</th>
-                <th class="py-2 px-4 border-b">Email</th>
+                <th class="py-2 px-4 border-b">Username</th>
                 <th class="py-2 px-4 border-b">CNIC</th>
                 <th class="py-2 px-4 border-b">Phone Number</th>
                 <th class="py-2 px-4 border-b">City</th>
@@ -235,7 +232,7 @@ $user = $result->fetch_assoc();
             <tr>
                 <td class="py-2 px-4 border-b"><?php echo $user['id']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['name']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $user['email']; ?></td>
+                <td class="py-2 px-4 border-b"><?php echo $user['username']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['CNIC_Number']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['phone_number']; ?></td>
                 <td class="py-2 px-4 border-b"><?php echo $user['city_name']; ?></td> <!-- Changed this line -->

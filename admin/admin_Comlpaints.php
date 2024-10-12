@@ -37,6 +37,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
     <link href="./vendor/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 </head>
     <!--*******************
         Preloader start
@@ -129,24 +130,16 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
-
                     <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="admin_Comlpaints.php">Complaints</a></li>
-                            <li><a href="Comlpaints.php">Complaint_reports</a></li>
-                            <li><a href="add_complaints.php">New Complaint</a></li>
-
+                        <li><a href="add_complaints.php">New Complaint</a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints List</a></li>
                         </ul>
                     </li>
-
-            
-
-
-                    <li class="nav-label">Stations</li>
+                   <li class="nav-label">Stations</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Stations</span></a>
@@ -154,11 +147,10 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                             <li><a href="stations.php">Police Stations</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-label">Users</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
+                        <span class="nav-text">Records</span></a>
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
                             <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
@@ -166,10 +158,14 @@ $complaints_result = mysqli_query($conn, $complaints_query);
 
                         </ul>
                     </li>
-
-
-
-
+                    <li class="nav-label">Reports</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Reports</span></a>
+                        <ul aria-expanded="false">
+                        <li><a href="Comlpaints.php">Reports</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -190,97 +186,96 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                 </div>
 <div class="row">
 <div class="col-lg-12">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Complaints</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table student-data-table m-t-20">
-                    <thead>
-                        <tr>
-                            <th class="py-2 px-4 border-b">ID</th>
-                            <th class="py-2 px-4 border-b">User Name</th>
-                            <th class="py-2 px-4 border-b">Crime Title</th>
-                            <th class="py-2 px-4 border-b">Description</th>
-                            <th class="py-2 px-4 border-b">Status</th>
-                            <th class="py-2 px-4 border-b">Police Station</th>
-                            <th class="py-2 px-4 border-b">Tracking ID</th>
-                            <th class="py-2 px-4 border-b">Created At</th>
-                            <th class="py-2 px-4 border-b">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Complaints</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="complaintsTable" class="display table student-data-table m-t-20">
+                        <thead>
                             <tr>
-                                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['crime_title']; ?></td>
-                                <td class="py-2 px-4 border-b">
-                                    <?php
-                                    $text = $row['complaint_text'];
-                                    if (strlen($text) > 30) {
-                                        echo substr($text, 0, 30) . '...';
-                                    } else {
-                                        echo $text;
+                                <th class="py-2 px-4 border-b">ID</th>
+                                <th class="py-2 px-4 border-b">User Name</th>
+                                <th class="py-2 px-4 border-b">Crime Title</th>
+                                <th class="py-2 px-4 border-b">Description</th>
+                                <th class="py-2 px-4 border-b">Status</th>
+                                <th class="py-2 px-4 border-b">Police Station</th>
+                                <th class="py-2 px-4 border-b">Tracking ID</th>
+                                <th class="py-2 px-4 border-b">Created At</th>
+                                <th class="py-2 px-4 border-b">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
+                                <tr>
+                                    <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo $row['crime_title']; ?></td>
+                                    <td class="py-2 px-4 border-b">
+                                        <?php
+                                        $text = $row['complaint_text'];
+                                        if (strlen($text) > 30) {
+                                            echo substr($text, 0, 30) . '...';
+                                        } else {
+                                            echo $text;
+                                        }
+                                        ?>
+                                    </td>
+                                    <?php 
+                                    if ($row['status'] === 'pending'){
+                                        
+                                        ?>
+                                        <td class="py-2 px-4 border-b"> <span class="badge badge-warning"><?php echo $row['status']; ?></span></td>
+
+                                        <?php
+
+                                    }
+                                    if ($row['status'] === 'resolved'){
+                                        
+                                        ?>
+                                        <td class="py-2 px-4 border-b"><span class="badge badge-success  text-white"><?php echo $row['status']; ?></span></td>
+
+                                        <?php
+
+                                    }
+                                    if ($row['status'] === 'rejected'){
+                                        
+                                        ?>
+                                        <td class="py-2 px-4 border-b"> <span class="badge badge-danger"><?php echo $row['status']; ?></span>  </td>
+
+                                        <?php
+
                                     }
                                     ?>
-                                </td>
-                                <?php 
-                                if ($row['status'] === 'pending'){
+
                                     
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-warning"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'resolved'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"><span class="badge badge-success  text-white"><?php echo $row['status']; ?></span></td>
-
-                                    <?php
-
-                                }
-                                if ($row['status'] === 'rejected'){
-                                    
-                                    ?>
-                                    <td class="py-2 px-4 border-b"> <span class="badge badge-danger"><?php echo $row['status']; ?></span>  </td>
-
-                                    <?php
-
-                                }
-                                ?>
-
-                                
-                                   <?php echo "<td>" . htmlspecialchars($row['police_station_name']) . "</td>"; ?>
-
-                                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
-                                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
-                                <td class="py-2 px-4 border-b">
-    <div style="display: flex; gap: 8px;">
-        <?php if ($row['status'] === 'pending') : ?>
-            <!-- Check if status is 'Pending' -->
-            <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Approve</a>
-            <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Reject</a>
-        <?php else : ?>
-            <span class="text-muted"></span> <!-- Show N/A for other statuses -->
-        <?php endif; ?>
-        
-        <a href="edit_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-        <a href="delete_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
-    </div>
-</td>
-
+                                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($row['police_station_name']); ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
+                                    <td class="py-2 px-4 border-b">
+                                        <div style="display: flex; gap: 8px;">
+                                            <?php if ($row['status'] === 'pending') : ?>
+                                                <!-- Check if status is 'Pending' -->
+                                                <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Approve</a>
+                                                <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Reject</a>
+                                            <?php else : ?>
+                                                <span class="text-muted"></span> <!-- Show N/A for other statuses -->
+                                            <?php endif; ?>
+                                            
+                                            <a href="edit_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                                            <a href="delete_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </td>
                                 </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+   
 
 
 
@@ -314,19 +309,24 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         Scripts
     ***********************************-->
     <!-- Required vendors -->
+        <!-- DataTables JS -->
+          
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- DataTables JS -->
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <!-- Other vendor scripts -->
     <script src="./vendor/global/global.min.js"></script>
     <script src="./js/quixnav-init.js"></script>
     <script src="./js/custom.min.js"></script>
-
     <script src="./vendor/chartist/js/chartist.min.js"></script>
-
     <script src="./vendor/moment/moment.min.js"></script>
     <script src="./vendor/pg-calendar/js/pignose.calendar.min.js"></script>
-
-
     <script src="./js/dashboard/dashboard-2.js"></script>
-    <!-- Circle progress -->
 
+    <script>
+   let table = new DataTable('#complaintsTable');
+    </script>
 </body>
 
 </html>

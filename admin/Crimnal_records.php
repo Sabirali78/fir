@@ -114,75 +114,45 @@ if (!isset($_SESSION['admin_id'])) {
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav">
+        <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                 
-
-                    <li class="nav-label">REPORTS</li>
+                    <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
-                    <span class="nav-text">Reports</span></a>
+                    <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="firs.php">FIR</a></li>
-                            <li><a href="NOC.php">NOC</a></li>
-                            <li><a href="Comlpaints.php">COMPLAINTS
-                            </a></li>
+                        <li><a href="add_complaints.php">New Complaint</a></li>
+                            <li><a href="admin_Comlpaints.php">Complaints List</a></li>
                         </ul>
                     </li>
-
+                   <li class="nav-label">Stations</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Stations</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="stations.php">Police Stations</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-label">Users</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Registred Users</span></a>
+                        <span class="nav-text">Records</span></a>
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
                             <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="Alerts.php">Sweet Alert</a></li>
+                            <li><a href="profile.php">Admin Profile</a></li>
+
                         </ul>
                     </li>
-
-
-                   
-                    <li class="nav-label">Components</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-world-2"></i><span class="nav-text">Bootstrap</span></a>
+                    <li class="nav-label">Reports</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span class="nav-text">Reports</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Accordion</a></li>
-                            <li><a href="./ui-alert.html">Alert</a></li>
-                            <li><a href="./ui-badge.html">Badge</a></li>
-                            <li><a href="./ui-button.html">Button</a></li>
-                            <li><a href="./ui-modal.html">Modal</a></li>
-                            <li><a href="./ui-button-group.html">Button Group</a></li>
-                            <li><a href="./ui-list-group.html">List Group</a></li>
-                            <li><a href="./ui-media-object mr-3.html">Media Object</a></li>
-                            <li><a href="./ui-card.html">Cards</a></li>
-                            <li><a href="./ui-carousel.html">Carousel</a></li>
-                            <li><a href="./ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="./ui-popover.html">Popover</a></li>
-                            <li><a href="./ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="./ui-tab.html">Tab</a></li>
-                            <li><a href="./ui-typography.html">Typography</a></li>
-                            <li><a href="./ui-pagination.html">Pagination</a></li>
-                            <li><a href="./ui-grid.html">Grid</a></li>
-
+                        <li><a href="Comlpaints.php">Reports</a></li>
                         </ul>
                     </li>
-
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-plug"></i><span class="nav-text">Plugins</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./uc-select2.html">Select 2</a></li>
-                            <li><a href="./uc-nestable.html">Nestedable</a></li>
-                            <li><a href="./uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="./uc-toastr.html">Toastr</a></li>
-                            <li><a href="./map-jqvmap.html">Jqv Map</a></li>
-                        </ul>
-                    </li>
-                    
-
-
                 </ul>
             </div>
         </div>

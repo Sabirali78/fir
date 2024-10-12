@@ -214,7 +214,7 @@ if (!$complaint) {
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body">
+        <div class="content-body" id="printableArea">
             <div class="container-fluid">
                
 
@@ -229,7 +229,7 @@ if (!$complaint) {
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Complaint Details</h4>
-            <button class="btn btn-primary" onclick="window.print()">Print</button>
+            <button class="btn btn-primary" onclick="printDiv('printableArea')">Print</button>
         </div>
         <div class="card-body">
             <p><strong>ID:</strong> <?php echo $complaint['id']; ?></p>
@@ -268,7 +268,11 @@ if (!$complaint) {
 
 
     </div>
-    <!--**********************************
+            </div>
+
+        </div>
+    </div>
+                <!--**********************************
         Main wrapper end
     ***********************************-->
 
@@ -287,6 +291,21 @@ if (!$complaint) {
 
 
     <script src="./js/dashboard/dashboard-2.js"></script>
+    <script>
+        function printDiv(divId) {
+            var content = document.getElementById(divId).innerHTML;
+            var myWindow = window.open('', '', 'width=800,height=600');
+            myWindow.document.write('<html><head><title>Print</title>');
+            myWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">');
+            myWindow.document.write('</head><body>');
+            myWindow.document.write(content);
+            myWindow.document.write('</body></html>');
+            myWindow.document.close();
+            myWindow.focus();
+            myWindow.print();
+            myWindow.close();
+        }
+    </script>
     <!-- Circle progress -->
 
 </body>
