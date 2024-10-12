@@ -38,43 +38,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $plain_password = bin2hex(random_bytes(4));
     $created_at = $updated_at = date('Y-m-d H:i:s');
 
-    // Insert user details into the users table
-    $stmt_user = $conn->prepare("INSERT INTO users (name, CNIC_Number, phone_number, gender, city_id, address, role, username, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt_user->bind_param("ssssissssss", $name, $cnic_number, $phone_number, $gender, $city_id, $address, $role, $username, $plain_password, $created_at, $updated_at);
+    // Check if CNIC number already exists
+    $stmt_check_cnic = $conn->prepare("SELECT id FROM users WHERE CNIC_Number = ?");
+    if (!$stmt_check_cnic) {
+        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+    }
+    $stmt_check_cnic->bind_param("s", $cnic_number);
+    $stmt_check_cnic->execute();
+    $stmt_check_cnic->store_result();
 
-    // Execute the statement
-    if ($stmt_user->execute()) {
-        // Get the last inserted user id
-        $user_id = $stmt_user->insert_id;
-
-        // Complaint details
-        $crime_id = $_POST['crime_id'];
-        $police_station_id = $_POST['police_station_id'];
-        $complaint_text = $_POST['complaint_text'];
-        $tracking_number = uniqid('complaint_');
-
-        // Insert complaint details into the complaints table
-        $stmt_complaint = $conn->prepare("INSERT INTO complaints (user_id, crime_id, police_station_id, complaint_text, tracking_number) VALUES (?, ?, ?, ?, ?)");
-        $stmt_complaint->bind_param("iiiss", $user_id, $crime_id, $police_station_id, $complaint_text, $tracking_number);
+    if ($stmt_check_cnic->num_rows > 0) {
+        // CNIC exists, get the user id
+        $stmt_check_cnic->bind_result($user_id);
+        $stmt_check_cnic->fetch();
+    } else {
+        // CNIC does not exist, insert new user
+        $stmt_user = $conn->prepare("INSERT INTO users (name, CNIC_Number, phone_number, gender, city_id, address, role, username, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        if (!$stmt_user) {
+            echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+        }
+        $stmt_user->bind_param("ssssissssss", $name, $cnic_number, $phone_number, $gender, $city_id, $address, $role, $username, $plain_password, $created_at, $updated_at);
 
         // Execute the statement
-        if ($stmt_complaint->execute()) {
-            echo "<div class='alert alert-success'>New complaint added successfully</div>";
-            header("Location: admin_Comlpaints.php");
+        if ($stmt_user->execute()) {
+            // Get the last inserted user id
+            $user_id = $stmt_user->insert_id;
         } else {
-            echo "<div class='alert alert-danger'>Error: " . $stmt_complaint->error . "</div>";
+            echo "<div class='alert alert-danger'>Error: " . $stmt_user->error . "</div>";
+            exit;
         }
 
-        $stmt_complaint->close();
-    } else {
-        echo "<div class='alert alert-danger'>Error: " . $stmt_user->error . "</div>";
+        $stmt_user->close();
     }
 
-    $stmt_user->close();
+    $stmt_check_cnic->close();
+
+    // Complaint details
+    $crime_id = $_POST['crime_id'];
+    $police_station_id = $_POST['police_station_id'];
+    $complaint_text = $_POST['complaint_text'];
+    $tracking_number = uniqid('complaint_');
+
+    // Insert complaint details into the complaints table
+    $stmt_complaint = $conn->prepare("INSERT INTO complaints (user_id, crime_id, police_station_id, complaint_text, tracking_number) VALUES (?, ?, ?, ?, ?)");
+    if (!$stmt_complaint) {
+        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+    }
+    $stmt_complaint->bind_param("iiiss", $user_id, $crime_id, $police_station_id, $complaint_text, $tracking_number);
+
+    // Execute the statement
+    if ($stmt_complaint->execute()) {
+        echo "<div class='alert alert-success'>New complaint added successfully</div>";
+        header("Location: admin_Comlpaints.php");
+    } else {
+        echo "<div class='alert alert-danger'>Error: " . $stmt_complaint->error . "</div>";
+    }
+
+    $stmt_complaint->close();
 }
 
 $conn->close();
 ?>
+
 
 
 
