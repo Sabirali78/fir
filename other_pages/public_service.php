@@ -203,13 +203,13 @@
             <!-- Card 3 -->
             <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                 <div class="card p-3 d-flex">
-                    <a href="https://dgip.gov.pk/immigration/" target="_blank">
+                    <a href="public_service_content\our_services.php">
                         <div class="d-flex align-items-center">
                             <div class="icon-container">
                                 <img src="https://www.pakistan.gov.pk/storage/uploads/nZxKjx5KqCujN4RPGqfdEtL8KXD8vh3PLpHmT3wl.svg" alt="Immigration">
                             </div>
                             <div class="sev-det ms-4">
-                                <h6>Immigration</h6>
+                                <h6>Our Services</h6>
                                 <p>Immigration Policy | Dual Nationality | Citizenship Forms | NIC & NICOP Application Process</p>
                             </div>
                         </div>
