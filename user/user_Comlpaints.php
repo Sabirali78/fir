@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Check if the admin is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: login.html");
     exit;
 }
 

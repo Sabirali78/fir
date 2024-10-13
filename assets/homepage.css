@@ -29,7 +29,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     width: 15%;
-    height: 9rem;
+    height: 11rem;
     margin: 10px;
     padding: 20px;
     color: white;
@@ -63,8 +63,14 @@ body {
 }
 .links ul {
     padding-left: 20px;
-    list-style: none;
 }
+
+.links ul a{
+    color: red;
+    font-size: 20px;
+}
+
+
 
 @media (max-width: 1200px) {
     .container_card {
@@ -152,6 +158,7 @@ h1 {
     text-align: center;
     padding: 20px 0;
     position: relative;
+    margin-bottom: 5rem;
 }
 .banner07 .region-banner07 {
     display: flex;
@@ -183,4 +190,103 @@ h1 {
 #onefive-txt-2 {
     font-size: 5em;
     font-weight: bold;
+}
+
+
+/* our  partner  section */
+
+
+.partner {
+    padding: 60px 0;
+    background-color: #a0a0aa;
+}
+
+.partner .big-title {
+    margin-bottom: 40px;
+    margin: auto;
+}
+
+.partner .big-title h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
+
+.our-clients {
+    text-align: center;
+    margin: auto;
+}
+
+.our-clients .client-item {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.our-clients .client-item img {
+    max-width: 100%;
+    height: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.our-clients .client-item img:hover {
+    transform: scale(1.1);
+}
+
+/* Owl Carousel */
+.owl-carousel .owl-wrapper-outer {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.owl-carousel .owl-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.owl-carousel .owl-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.owl-controls .owl-buttons div {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    color: #333;
+    display: inline-block;
+    zoom: 1;
+    cursor: pointer;
+    border: 0px solid #333;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.owl-controls .owl-buttons .owl-prev {
+    left: -25px;
+}
+
+.owl-controls .owl-buttons .owl-next {
+    right: -25px;
+}
+
+.owl-controls .owl-buttons div.owl-prev i,
+.owl-controls .owl-buttons div.owl-next i {
+    font-size: 32px;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .our-clients .client-item {
+        margin: 0 5px;
+    }
+
+    .owl-controls .owl-buttons .owl-prev {
+        left: -15px;
+    }
+
+    .owl-controls .owl-buttons .owl-next {
+        right: -15px;
+    }
 }

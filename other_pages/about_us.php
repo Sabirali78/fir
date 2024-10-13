@@ -10,23 +10,14 @@ if (session_status() == PHP_SESSION_NONE) {
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
 
-    .navbar-nav {
-        flex: 1;
-        justify-content: center;
-    }
-    .navbar-right {
-        display: flex;
-        align-items: center;
-    }
-
+ 
         body {
             font-family: Arial, sans-serif;
-            background-color: #d1bebe;
             
         }
         .breadcrumb{
             margin-top: 4rem;
-            background-color: #f8f9fa;
+            background-color: whitesmoke;
             border-radius: 0.25rem;
             display: flex;
             gap:1rem;
@@ -98,9 +89,6 @@ if (session_status() == PHP_SESSION_NONE) {
             border-radius: 0.25rem;
         }
     </style>
-</head>
-<body>
-
 
     <section class="col-sm-12" id="contentsection">
         <!-- breadcrumbs -->

@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -6,6 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,8 +83,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
         }
 
+        
         .sidebar ul {
-            list-style: none;
             padding: 0;
         }
 
@@ -110,6 +111,7 @@ if (session_status() == PHP_SESSION_NONE) {
             padding: 20px;
             overflow-y: auto;
             
+
         }
 
         .content-item {
@@ -121,7 +123,7 @@ if (session_status() == PHP_SESSION_NONE) {
         }
 
         .breadcrumb {
-            margin-top: 4rem;
+            margin-top: 2em;
             background-color: var(--breadcrumb-bg);
             border-radius: 0.25rem;
             display: flex;
@@ -139,19 +141,20 @@ if (session_status() == PHP_SESSION_NONE) {
             font-size: 20px;
         }
 
-        .breadcrumb > li + li:before {
+        .breadcrumb>li+li:before {
             padding: 0 5px;
             color: var(--breadcrumb-separator);
             content: "/\00a0";
         }
-        .services{
+
+        .services {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 2rem;
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">SecureCity</a>
@@ -190,19 +193,19 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
         </div>
     </nav>
-
+    <div class="services">
+        <h1>Our Services</h1>
+    </div>
     <ol class="breadcrumb">
         <li><a href="../../homepage.php">Home</a></li>
         <li><a href="../public_service.php" class="active-trail">Public Services</a></li>
         <li class="active last">Our Services</li>
     </ol>
 
-    <div class="services">
-    <h1>Our Services</h1>
-    </div>
+
     <div class="container1">
         <nav class="sidebar">
-            <ul>
+            <ul class="sidebar_ul">
                 <li><a href="#" class="nav-link active" data-content="learner-driving-license">Learner Driving License</a></li>
                 <li><a href="#" class="nav-link" data-content="driving-license-renewal">Driving License Renewal</a></li>
                 <li><a href="#" class="nav-link" data-content="international-driving-license">International Driving License</a></li>
@@ -213,6 +216,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </nav>
         <div class="content">
             <div id="learner-driving-license" class="content-item active">
+                
                 <h2>Learner Driving License</h2>
                 <p>Citizens can get Learner Driving License from any of the PKM.</p>
                 <h3>Required Documents:</h3>
@@ -234,49 +238,130 @@ if (session_status() == PHP_SESSION_NONE) {
                 <p>By hand</p>
             </div>
             <div id="driving-license-renewal" class="content-item">
-                <h2>Driving License Renewal</h2>
-                <!-- Add content for Driving License Renewal -->
+                <h2>Learner Driving License</h2>
+                <p>Citizens can get Learner Driving License from any of the PKM.</p>
+                <h3>Required Documents:</h3>
+                <ul>
+                    <li>Original and 1 Copy of CNIC</li>
+                    <li>Get a Code Book of Traffic Rules & Regulation from Traffic Police Office.</li>
+                    <li>Medical Certificate (for the candidates of 50 years or more)</li>
+                </ul>
+                <h3>Age Limits for Learner Permit:</h3>
+                <ul>
+                    <li>Motor Cycle/ Motor Car: 18 Years</li>
+                    <li>LTV (Rickshaw, Taxi, Tractor Commercial): 21 Years</li>
+                </ul>
+                <h3>Processing Fee:</h3>
+                <p>A Ticket of Rs.60 from any Post Office.</p>
+                <h3>Turn Around Time:</h3>
+                <p>Around 15 minutes, on spot delivery</p>
+                <h3>Mode of Delivery:</h3>
+                <p>By hand</p>
             </div>
             <div id="international-driving-license" class="content-item">
                 <h2>International Driving License</h2>
-                <!-- Add content for International Driving License -->
+                <p>Citizens can get Learner Driving License from any of the PKM.</p>
+                <h3>Required Documents:</h3>
+                <ul>
+                    <li>Original and 1 Copy of CNIC</li>
+                    <li>Get a Code Book of Traffic Rules & Regulation from Traffic Police Office.</li>
+                    <li>Medical Certificate (for the candidates of 50 years or more)</li>
+                </ul>
+                <h3>Age Limits for Learner Permit:</h3>
+                <ul>
+                    <li>Motor Cycle/ Motor Car: 18 Years</li>
+                    <li>LTV (Rickshaw, Taxi, Tractor Commercial): 21 Years</li>
+                </ul>
+                <h3>Processing Fee:</h3>
+                <p>A Ticket of Rs.60 from any Post Office.</p>
+                <h3>Turn Around Time:</h3>
+                <p>Around 15 minutes, on spot delivery</p>
+                <h3>Mode of Delivery:</h3>
+                <p>By hand</p>
             </div>
             <div id="duplicate-driving-license" class="content-item">
                 <h2>Duplicate Driving License</h2>
-                <!-- Add content for Duplicate Driving License -->
+                <p>Citizens can get Learner Driving License from any of the PKM.</p>
+                <h3>Required Documents:</h3>
+                <ul>
+                    <li>Original and 1 Copy of CNIC</li>
+                    <li>Get a Code Book of Traffic Rules & Regulation from Traffic Police Office.</li>
+                    <li>Medical Certificate (for the candidates of 50 years or more)</li>
+                </ul>
+                <h3>Age Limits for Learner Permit:</h3>
+                <ul>
+                    <li>Motor Cycle/ Motor Car: 18 Years</li>
+                    <li>LTV (Rickshaw, Taxi, Tractor Commercial): 21 Years</li>
+                </ul>
+                <h3>Processing Fee:</h3>
+                <p>A Ticket of Rs.60 from any Post Office.</p>
+                <h3>Turn Around Time:</h3>
+                <p>Around 15 minutes, on spot delivery</p>
+                <h3>Mode of Delivery:</h3>
+                <p>By hand</p>
             </div>
-            <div id="cheracter_cerrificate" class="content-item ">
-                                    <p class="services-title"><strong><u>Police Character Certificate</u></strong></p>
-                                    <p>Police Character Certificate is required for travelling abroad, jobs in different organizations abroad, immigration etc.</p>
-                                    <p class="services-title"><strong><u>Required Documents:</u></strong></p>
-                                    <ul class="custom-bullets">
+        
+            <div id="endorsement-of-license" class="content-item ">
+            <p class="services-title"><strong><u>Police Character Certificate</u></strong></p>
+            <p>Police Character Certificate is required for travelling abroad, jobs in different organizations abroad, immigration etc.</p>
+            <p class="services-title"><strong><u>Required Documents:</u></strong></p>
+            <ul class="custom-bullets">
 
-                                        <li> Original CNIC or B-Form and photocopy </li>
-                                        <li> Original and copy of Passport</li>
-                                        <li> Affidavit</li>
-                                        <li> Authority Letter (If applicant is abroad). Authority letter with the stamp of relevant Embassy will be accepted,.</li>
-                                        <li> Photograph (If certificate of any blood relative is required)</li>
-                                        <li>If applicant is out of country, the form can be submitted by any blood relative (brother, father, mother, sister etc.) with authority letter of the applicant.</li>
+                <li> Original CNIC or B-Form and photocopy </li>
+                <li> Original and copy of Passport</li>
+                <li> Affidavit</li>
+                <li> Authority Letter (If applicant is abroad). Authority letter with the stamp of relevant Embassy will be accepted,.</li>
+                <li> Photograph (If certificate of any blood relative is required)</li>
+                <li>If applicant is out of country, the form can be submitted by any blood relative (brother, father, mother, sister etc.) with authority letter of the applicant.</li>
 
 
-                                    </ul>
-                                    <p class="services-title"><strong><u>Processing Fee:</u></strong></p>
-                                    <ul class="custom-bullets">
-                                        <li> Rs. 500. The fee can be deposited on one of the counters of PKM</li>
-                                    </ul>
-                                    <p class="services-title"><strong><u>Turn Around Time:</u></strong></p>
-                                    <ul class="custom-bullets">
-                                        <li> 3 working days after application date</li>
-                                    </ul>
-                                    <p class="services-title"><strong><u>Mode of Delivery:</u></strong></p>
-                                    <ul class="custom-bullets">
-                                        <li> Courier</li>
-                                    </ul>
-            </div>
-            </div>
+            </ul>
+            <p class="services-title"><strong><u>Processing Fee:</u></strong></p>
+            <ul class="custom-bullets">
+                <li> Rs. 500. The fee can be deposited on one of the counters of PKM</li>
+            </ul>
+            <p class="services-title"><strong><u>Turn Around Time:</u></strong></p>
+            <ul class="custom-bullets">
+                <li> 3 working days after application date</li>
+            </ul>
+            <p class="services-title"><strong><u>Mode of Delivery:</u></strong></p>
+            <ul class="custom-bullets">
+                <li> Courier</li>
+            </ul>
         </div>
-    </div>
 
+
+        <div id="cheracter_cerrificate" class="content-item ">
+            <p class="services-title"><strong><u>Police Character Certificate</u></strong></p>
+            <p>Police Character Certificate is required for travelling abroad, jobs in different organizations abroad, immigration etc.</p>
+            <p class="services-title"><strong><u>Required Documents:</u></strong></p>
+            <ul class="custom-bullets">
+
+                <li> Original CNIC or B-Form and photocopy </li>
+                <li> Original and copy of Passport</li>
+                <li> Affidavit</li>
+                <li> Authority Letter (If applicant is abroad). Authority letter with the stamp of relevant Embassy will be accepted,.</li>
+                <li> Photograph (If certificate of any blood relative is required)</li>
+                <li>If applicant is out of country, the form can be submitted by any blood relative (brother, father, mother, sister etc.) with authority letter of the applicant.</li>
+
+
+            </ul>
+            <p class="services-title"><strong><u>Processing Fee:</u></strong></p>
+            <ul class="custom-bullets">
+                <li> Rs. 500. The fee can be deposited on one of the counters of PKM</li>
+            </ul>
+            <p class="services-title"><strong><u>Turn Around Time:</u></strong></p>
+            <ul class="custom-bullets">
+                <li> 3 working days after application date</li>
+            </ul>
+            <p class="services-title"><strong><u>Mode of Delivery:</u></strong></p>
+            <ul class="custom-bullets">
+                <li> Courier</li>
+            </ul>
+        </div>
+
+    </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
@@ -294,9 +379,10 @@ if (session_status() == PHP_SESSION_NONE) {
         });
     </script>
 </body>
+
 </html>
 
 
-<?php 
+<?php
 include("../other_page_footer.php");
 ?>

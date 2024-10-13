@@ -6,10 +6,18 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
+    .navbar{
+        background-color: #1a7d35 ;
+        padding: 0.7rem 5rem 0.7rem 5rem !important;
+    }
     .navbar-nav {
         flex: 1;
         justify-content: center;
+    }
+    .nav-link{
+        font-size: 20px;
     }
     .navbar-right {
         display: flex;
@@ -22,19 +30,25 @@ if (session_status() == PHP_SESSION_NONE) {
 
     .btn-action{
         background-color: white;
-        color: #112255;
+        color: black;
         border-radius: 3px;
         border: none;
         outline: none;
+        font-size: large;
+        font-weight: bold;
+        padding: 7 2rem;
     }
     .btn-action:hover{
-        background-color: transparent;
+        background-color: black;
         color:white;
+    }
+    .navbar-brand{
+        font-size: 30px !important;
     }
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark nav-color">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="#">SecureCity</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -72,17 +86,3 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </div>
 </nav>
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<!-- Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

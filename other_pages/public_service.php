@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
+<?php 
+include("../db.php");
+include("other_page_navbar.php");
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+?>
 
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f9f9f9;
         }
+        
 
         /* Improved Heading Styles */
         .heading-title {
@@ -20,6 +21,7 @@
             color: #01411c;
             margin-bottom: 25px;
         }
+        
 
         .heading-title::after {
             content: '';
@@ -142,9 +144,6 @@
 }
 
     </style>
-</head>
-<body>
-<?php include("other_page_navbar.php");?>
 
 
   <!-- breadcrumbs -->
