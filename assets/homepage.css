@@ -141,3 +141,46 @@ body {
 h1 {
     margin-bottom: 40px;
 }
+
+
+
+
+
+.banner07 {
+    background-color: #2a3698; /* Dark blue background color */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+}
+.banner07 .region-banner07 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pp-onefive-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#pp-onefive {
+    display: flex;
+    align-items: center;
+}
+#onefive-txt-wrap {
+    display: flex;
+    align-items: center;
+}
+#onefive-txt-1 {
+    font-size: 2em;
+    margin-right: 10px;
+}
+#onefive-txt-15 {
+    display: inline-block;
+    margin-left: 5px;
+}
+#onefive-txt-2 {
+    font-size: 5em;
+    font-weight: bold;
+}

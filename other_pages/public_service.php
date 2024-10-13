@@ -118,10 +118,42 @@
             color: inherit;
         }
 
+        .breadcrumb{
+            margin-top: 4rem;
+            background-color: #f8f9fa;
+            border-radius: 0.25rem;
+            display: flex;
+            gap:1rem;
+      
+        }
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .breadcrumb .active {
+            color: #6c757d;
+            font-size: 20px;
+        }
+        .breadcrumb>li+li:before {
+            padding: 0 5px;
+            color: #ccc;
+            content: "/\00a0";
+}
+
     </style>
 </head>
 <body>
 <?php include("other_page_navbar.php");?>
+
+
+  <!-- breadcrumbs -->
+  <ol class="breadcrumb">
+            <li class="first"><a href="../homepage.php">Home</a></li>
+            <li class="active last">Public Service</li>
+        </ol>
+        <!-- /breadcrumbs -->
+
 
 <section class="bg_light pb-2">
     <div class="container text-center">
@@ -137,13 +169,13 @@
             <!-- Card 1 -->
             <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                 <div class="card p-3 d-flex">
-                    <a href="https://dgip.gov.pk/eServices/online-passport.php" target="_blank">
+                    <a href="public_service_content\women_help.php">
                         <div class="d-flex align-items-center">
                             <div class="icon-container">
                                 <img src="https://www.pakistan.gov.pk/storage/uploads/HUOwe4MT8tMKrXtZnLsUPxEltvlu405ilNVCSOAP.svg" alt="Passport">
                             </div>
                             <div class="sev-det ms-4">
-                                <h6>Apply for Passport</h6>
+                                <h6>Women Help</h6>
                                 <p>Process Flow to Obtain Passport | Passport Types | Contact Regional Offices | e-Services</p>
                             </div>
                         </div>
@@ -188,13 +220,13 @@
             <!-- Card 4 -->
             <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                 <div class="card p-3 d-flex">
-                    <a href="https://visa.nadra.gov.pk" target="_blank">
+                    <a href="public_service_content\safety_tips.php">
                         <div class="d-flex align-items-center">
                             <div class="icon-container">
                                 <img src="https://www.pakistan.gov.pk/website/assets/images/services/service-one.svg" alt="Visa">
                             </div>
                             <div class="sev-det ms-4">
-                                <h6>Apply for Visa</h6>
+                                <h6>Safety Tips</h6>
                                 <p>Visa Policy | Online Visa Application | Visa Categories | Fee Structure | Work Visa</p>
                             </div>
                         </div>
@@ -208,11 +240,7 @@
 
 <!--Footer-->
 <?php
-
+include("other_page_footer.php");
 ?>
 <!--Footer End-->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>

@@ -131,6 +131,27 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 
 
+    <div class="row" id="pp-b07">
+        <div class="banner07 col-sm-12">
+            <div class="region region-banner07">
+                <section id="block-block-18" class="block block-block clearfix">
+                    <div class="row mcc" id="pp-onefive-wrap">
+                        <div class="mcc" id="pp-onefive">
+                            <div class="row mcc" id="onefive-txt-wrap">
+                                <div id="onefive-txt-1">In Case of an Emergency,
+                                    <div id="onefive-txt-15">Call</div>
+                                </div>
+                                <div id="onefive-txt-2">15</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        
+        </div>
+    </div>
+
+
 
 
 <!--News Room Start-->
@@ -179,11 +200,6 @@ if (session_status() == PHP_SESSION_NONE) {
     </section>
 <!--News Room End-->
 
-<!--Footer Start-->
-<?php
-include("assets/footer.php");
-?>
-<!--Footer End-->
 
 
 
@@ -232,11 +248,12 @@ include("assets/footer.php");
         });
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-</body>
-</html>
 
+<!--Footer Start-->
+<?php
+include("assets/footer.php");
+?>
+<!--Footer End-->
 
 
