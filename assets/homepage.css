@@ -4,6 +4,8 @@ body {
     margin: 0;
 }
 
+
+/* 5 cards section */
 .container1 {
     display: flex;
     justify-content: center;
@@ -49,17 +51,18 @@ body {
     color: #112255;
     border: 2px solid #112255;
 }
-
 .links-container {
-    display: none;
+    display: none; /* Initially hidden */
     width: 68%;
     background-color: white;
     border: 2px solid #112255;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    margin-top: -130px;
-    margin-left: 305px;
+    position: absolute; /* Keep it absolute */
+    z-index: 10; /* Ensure it appears above other content */
+    top: 0; /* Set initial top position, will be adjusted with JS */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center alignment adjustment */
 }
 .links ul {
     padding-left: 20px;
@@ -290,3 +293,34 @@ h1 {
         right: -15px;
     }
 }
+
+
+/* Gallery section */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 10rem;
+}
+
+.grid-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+

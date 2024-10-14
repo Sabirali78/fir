@@ -31,43 +31,47 @@ if (session_status() == PHP_SESSION_NONE) {
         }
 
         .navbar {
-            background-color: var(--navbar-bg);
-            padding: 0.7rem 5rem;
-        }
-
-        .navbar-nav {
-            flex: 1;
-            justify-content: center;
-        }
-
-        .nav-link {
-            font-size: 20px;
-        }
-
-        .navbar-right {
+    background-color: #14274e;
+    padding: 1rem 8rem 1rem 8rem;
+    border-bottom: 3px solid rgb(255, 255, 255);
+}
+.navbar-brand {
+            color: #fff; /* Make the text white */
             display: flex;
             align-items: center;
+            font-size: 25px;
         }
 
-        .btn-action {
-            background-color: white;
-            color: black;
-            border-radius: 3px;
-            border: none;
-            outline: none;
-            font-size: large;
-            font-weight: bold;
-            padding: 7px 2rem;
+        .navbar-brand img {
+            height: 50px;
+            margin-right: 10px; /* Add some spacing between the logo and the text */
         }
 
-        .btn-action:hover {
-            background-color: black;
-            color: white;
+        .navbar-brand span {
+            color: #fff; /* Ensure the "SecureCityHub" part is also white */
         }
-
-        .navbar-brand {
-            font-size: 30px;
+        .navbar-brand:hover{
+            color:#f5a623;
         }
+.nav-link {
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #fff;
+    margin-right: 10px;
+}
+.nav-link:hover {
+    color: #f5a623;
+}
+.btn-signin {
+    background-color: #394867;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+}
+.btn-signin:hover {
+    background-color: #2d4b73;
+    color: #f5a623;
+}
 
         .container1 {
             display: flex;
@@ -156,43 +160,46 @@ if (session_status() == PHP_SESSION_NONE) {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">SecureCity</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="homepage.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="other_pages/about_us.php">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="other_pages/public_service.php">Public Services</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Complaints
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="other_pages/complaints_page.php">File a Complaint</a>
-                        <a class="dropdown-item" href="user/user_dashboard.php">Check Complaint Status</a>
-                        <a class="dropdown-item" href="user/user_Complaints.php">View Complaint History</a>
-                    </div>
-                </li>
-            </ul>
-            <div class="navbar-right">
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a class="nav-link btn-action" href="./user/User_dashboard.php">Profile</a>
-                    <a class="nav-link mx-1 btn-action" href="./user/logout.php">Logout</a>
-                <?php else: ?>
-                    <a class="nav-link btn-action" href="./user/login.html">Login</a>
-                <?php endif; ?>
-            </div>
+  
+<nav class="navbar navbar-expand-lg">
+<a class="navbar-brand" href="../../homepage.php">
+        <img src="logo.png">
+        SecureCityHub
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+                <a class="nav-link" href="../../homepage.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="../about_us.php">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public_service.php">Public Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">PKM Global</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="../complaints_page.php">Complaints</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Track</a>
+            </li>
+            
+         
+        </ul>
+        <div class="navbar-right">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a class="nav-link btn-action" href="./user/User_dashboard.php" >Profile</a>
+                <a class="nav-link  mx-1 btn-action" href="./user/logout.php">Logout</a>
+            <?php else: ?>
+                <a class="nav-link btn-signin"  href="./user/login.html">Sign in</a>
+            <?php endif; ?>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <div class="services">
         <h1>Our Services</h1>
     </div>

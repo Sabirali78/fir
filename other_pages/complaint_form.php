@@ -1,19 +1,49 @@
 <?php
-include("db.php");
+include("../db.php");
+
 
 // Check if the session is already started
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the admin is logged in
+// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../user\login.html");
-    exit;
+    // Store the current page URL in session before redirecting to the login page
+    $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI']; // Get the current page URL
+    header("Location: ../user/login.php");
+    exit();
+} else {
+    $user_id = $_SESSION['user_id'];
+
+    // Fetch the logged-in user's data
+    $query = "SELECT * FROM users WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 }
 
-// Get the user ID from the session
-$user_id = $_SESSION['user_id'];
+// Fetch police station names
+$police_stations = [];
+$query_stations = "SELECT id, name FROM police_stations";
+$stmt_stations = $conn->prepare($query_stations);
+$stmt_stations->execute();
+$result_stations = $stmt_stations->get_result();
+while ($row = $result_stations->fetch_assoc()) {
+    $police_stations[] = $row;
+}
+
+// Fetch crime titles
+$crimes = [];
+$query_crimes = "SELECT id, crime_title FROM crimes"; // Fetching crime id and title
+$stmt_crimes = $conn->prepare($query_crimes);
+$stmt_crimes->execute();
+$result_crimes = $stmt_crimes->get_result();
+while ($row = $result_crimes->fetch_assoc()) {
+    $crimes[] = $row; // Storing both id and title for use in the select dropdown
+}
 ?>
 
 
