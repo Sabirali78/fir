@@ -83,7 +83,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link" href="other_pages/complaints_page.php">Complaints</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="other_pages/track.php">Track</a>
+                <a class="nav-link" href="other_pages/complaint_details.php">Track</a>
             </li>
         </ul>
         <div class="navbar-right d-flex">
@@ -297,7 +297,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <div class="card-body d-flex flex-column"> <!-- Added flexbox for consistent spacing -->
                     <h4 style="color: #333;">National Inter-Departmental Karate Championship: Police Athletes Shine with 6 Medals</h4> <!-- Darker heading -->
                     <h5 style="color: red;">October 11, 2024</h5> <!-- Red date -->
-                    <p class="card-text flex-grow-1">Police athletes showcased their skills and determination at the recent National Inter-Departmental Karate Championship, bringing home six medals. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat delectus consequuntur tempora nihil omnis ipsam nesciunt minus suscipit.</p>
+                    <p class="card-text flex-grow-1">Police athletes showcased their skills and determination at the recent bringing home six medals. Lorem ipsum, dolor sit elit. Quaerat delectus consequuntur tempora nihil omnis ipsam nesciunt minus suscipit.</p>
                     <a href="#" class="btn mt-auto" style="color: white; background-color:#112255;">Read More</a> <!-- Added margin to the button for proper spacing -->
                 </div>
             </div>
@@ -333,10 +333,10 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <!--Feedback Section Start-->
 <section class="text-center mt-4">
-    <h1  style="background-color: #112255; color: white;">User Feedback</h1>
+    <h1  style="background-color: #2d4b73; color: white;">User Feedback</h1>
 </section>
 
-<section class="container mt-4">
+<section class="container mt-4"  >
     <div class="row justify-content-center">
 
         <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Card 1 -->
@@ -379,7 +379,7 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4" style="border: 2px solid #112255; padding:10px;">
         <h2>Your Feedback Matters</h2>
         <p>We value your opinion! Please share your thoughts about the police services in your area. Your feedback helps us improve our services.</p>
         <form>

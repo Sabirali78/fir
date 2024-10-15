@@ -110,7 +110,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link"  href="complaints_page.php">Complaints</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="track.php">Track</a>
+            <a class="nav-link" href="complaint_details.php">Track</a>
             </li>
             
          
@@ -118,11 +118,10 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="navbar-right d-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="nav-item"> 
-                    <a class="nav-link btn-signin" href="./user/User_dashboard.php">Profile</a>
+                    <a class="nav-link btn-signin" href="../user/User_dashboard.php">Profile</a>
                 </div>
                 <div class="nav-item mx-1">
-                    <a class="nav-link btn-signin" href="./user/logout.php">Logout</a>
-                </div>
+                    <a class="nav-link btn-signin" href="../user/logout.php">Logout</a>
             <?php else: ?>
                 <div class="nav-item">
                 <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>

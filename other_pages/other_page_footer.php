@@ -55,16 +55,16 @@
           <h6 class="text-uppercase fw-bold">Products</h6>
           <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
           <p>
-            <a href="homepage.html" class="text-white">Homepage</a>
+            <a href="homepage.php" class="text-white">Homepage</a>
           </p>
           <p>
-            <a href="complaint.html" class="text-white">Complaint Page</a>
+            <a href="other_pages/complaints_page.php" class="text-white">Complaint Page</a>
           </p>
           <p>
-            <a href="public_service.html" class="text-white">Public Service Page</a>
+            <a href="other_pages/public_service.php" class="text-white">Public Service Page</a>
           </p>
           <p>
-            <a href="about_us.html" class="text-white">About Us</a>
+            <a href="other_pages/about_us.php" class="text-white">About Us</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -75,16 +75,16 @@
           <h6 class="text-uppercase fw-bold">Useful Links</h6>
           <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
           <p>
-            <a href="track.html" class="text-white">Track Page</a>
+            <a href="other_pages/track.php" class="text-white">Track Page</a>
           </p>
           <p>
             <a href="our_history.html" class="text-white">Our History</a>
           </p>
           <p>
-            <a href="#!" class="text-white">Dummy Link 1</a>
+            <a href="#!" class="text-white">Safety Tips</a>
           </p>
           <p>
-            <a href="#!" class="text-white">Dummy Link 2</a>
+            <a href="#!" class="text-white">Our Services</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -94,10 +94,10 @@
           <!-- Links -->
           <h6 class="text-uppercase fw-bold">Contact</h6>
           <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-          <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-          <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
-          <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-          <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          <p><i class="fas fa-home mr-3"></i> karachi, Saddar, PK</p>
+          <p><i class="fas fa-envelope mr-3"></i> SecureCity@gmail.com</p>
+          <p><i class="fas fa-phone mr-3"></i> +92 45266476</p>
+          <p><i class="fas fa-print mr-3"></i> +92 45266476</p>
         </div>
         <!-- Grid column -->
       </div>

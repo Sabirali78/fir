@@ -55,16 +55,16 @@
           <h6 class="text-uppercase fw-bold">Products</h6>
           <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
           <p>
-            <a href="homepage.html" class="text-white">Homepage</a>
+            <a href="homepage.php" class="text-white">Homepage</a>
           </p>
           <p>
-            <a href="complaint.html" class="text-white">Complaint Page</a>
+            <a href="other_pages/complaints_page.php" class="text-white">Complaint Page</a>
           </p>
           <p>
-            <a href="public_service.html" class="text-white">Public Service Page</a>
+            <a href="other_pages/public_service.php" class="text-white">Public Service Page</a>
           </p>
           <p>
-            <a href="about_us.html" class="text-white">About Us</a>
+            <a href="other_pages/about_us.php" class="text-white">About Us</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -75,16 +75,16 @@
           <h6 class="text-uppercase fw-bold">Useful Links</h6>
           <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
           <p>
-            <a href="track.html" class="text-white">Track Page</a>
+            <a href="other_pages/track.php" class="text-white">Track Page</a>
           </p>
           <p>
             <a href="our_history.html" class="text-white">Our History</a>
           </p>
           <p>
-            <a href="#!" class="text-white">Dummy Link 1</a>
+            <a href="#!" class="text-white">Safety Tips</a>
           </p>
           <p>
-            <a href="#!" class="text-white">Dummy Link 2</a>
+            <a href="#!" class="text-white">Our Services</a>
           </p>
         </div>
         <!-- Grid column -->
