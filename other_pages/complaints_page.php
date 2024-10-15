@@ -28,7 +28,7 @@ if (session_status() == PHP_SESSION_NONE) {
     /* navbar */
     .navbar {
             background-color: #14274e;
-            padding: 0.5rem 8rem;
+            padding: 0rem 8rem;
             border-bottom: 3px solid #fff;
             
         }
@@ -39,7 +39,7 @@ if (session_status() == PHP_SESSION_NONE) {
             font-size: 25px;
         }
         .navbar-brand img {
-            height: 50px;
+            height: 70px;
             margin-right: 10px;
         }
         .navbar-brand span {
@@ -77,7 +77,7 @@ if (session_status() == PHP_SESSION_NONE) {
         align-items: center;    /* Center vertically */
         width: 100%;
         height: 70vh; /* Adjust height as needed */
-        background-image: url("../assets/Images/cards2-cp.jpg");
+        background-image: url("../assets/Images/card10.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         position: relative; /* Required for absolute positioning of text_section */
@@ -130,8 +130,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <nav class="navbar navbar-expand-lg fixed-top">
 <a class="navbar-brand" href="../homepage.php">
-        <img src="logo.png">
-        SecureCityHub
+        <img src="../assets/Images/logo1.png">
+        SecureCity
     </a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">

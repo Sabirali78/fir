@@ -16,7 +16,7 @@ if (session_status() == PHP_SESSION_NONE) {
         /* navbar */
         .navbar {
             background-color: #14274e;
-            padding: 0.5rem 8rem;
+            padding: 0rem 8rem;
             border-bottom: 3px solid #fff;
             
         }
@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
             font-size: 25px;
         }
         .navbar-brand img {
-            height: 50px;
+            height: 70px;
             margin-right: 10px;
         }
         .navbar-brand span {
@@ -136,9 +136,9 @@ if (session_status() == PHP_SESSION_NONE) {
 <body>
 
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="../homepage.php">
-        <img src="logo.png">
-        SecureCityHub
+<a class="navbar-brand" href="../homepage.php">
+        <img src="../assets/Images/logo1.png">
+        SecureCity
     </a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">

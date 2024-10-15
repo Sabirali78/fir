@@ -88,9 +88,9 @@ if (session_status() == PHP_SESSION_NONE) {
     
 
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="../homepage.php">
-        <img src="logo.png">
-        SecureCityHub
+<a class="navbar-brand" href="../homepage.php">
+        <img src="../assets/Images/logo1.png">
+        SecureCity
     </a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
