@@ -263,9 +263,8 @@ select:focus {
         ***********************************-->
         <div class="nav-header">
             <a href="dashboard.php" class="brand-logo">
-                <img class="logo-abbr" src="./images/logo.png" alt="">
-                <img class="logo-compact" src="./images/logo-text.png" alt="">
-                <img class="brand-title" src="./images/logo-text.png" alt="">
+            <img  src="../assets/Images/logo (2).png" alt="" style="height: 120px;">
+
             </a>
 
             <div class="nav-control">
@@ -329,13 +328,23 @@ select:focus {
         <div class="quixnav" style="position: fixed;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
+                <li class="nav-label">Overview</li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <span class="nav-text">Admin</span></a>
+                        <ul aria-expanded="false">
+                        <li><a href="dashboard.php">Admin Dashboard</a></li>
+                        <li><a href="profile.php">Admin Profile</a></li>
+
+                        </ul>
+                    </li>
                     <li class="nav-label">QUERIES</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa-regular fa-folder-open"></i>
                     <span class="nav-text">COMPLAINTS</span></a>
                         <ul aria-expanded="false">
-                        <li><a href="add_complaints.php">New Complaint</a></li>
-                            <li><a href="admin_Comlpaints.php">Complaints List</a></li>
+                        <li><a href="add_complaints.php">File a Complaint</a></li>
+                            <li><a href="admin_Comlpaints.php">Complaint Management</a></li>
                         </ul>
                     </li>
                    <li class="nav-label">Stations</li>
@@ -343,7 +352,7 @@ select:focus {
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Stations</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="stations.php">Police Stations</a></li>
+                            <li><a href="stations.php">Police Station Records</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Users</li>
@@ -351,10 +360,9 @@ select:focus {
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Records</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="Online_reg_users.php">Online Registred Citizens</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Record Register</a></li>
-                            <li><a href="profile.php">Admin Profile</a></li>
-
+                            <li><a href="Online_reg_users.php">User Management</a></li>
+                            <li><a href="Crimnal_records.php">Criminal Database</a></li>
+                            <li><a href="officer-directory.php">Officer Directory</a></li>
                         </ul>
                     </li>
                     <li class="nav-label">Reports</li>

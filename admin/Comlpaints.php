@@ -6,15 +6,52 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-$sql = "SELECT users.id, users.name, users.CNIC_Number, users.username, users.password, users.phone_number, users.gender, city.city, users.address, users.role, users.created_at, users.updated_at
-        FROM users
-        JOIN city ON users.city_id = city.id  WHERE role = 'user'";
+// Check if the admin is logged in
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: admin_login.html");
+    exit;
+}
 
-$result = mysqli_query($conn, $sql);
+// Fetch cities
+$cities = $conn->query("SELECT id, city FROM city");
 
+// Fetch police stations
+$police_stations = $conn->query("SELECT id, name FROM police_stations");
 
+// Fetch crime types
+$crimes = $conn->query("SELECT id, crime_title FROM crimes");
+
+// Initialize filter values
+$city = isset($_GET['city']) ? intval($_GET['city']) : null;
+$police_station = isset($_GET['police_station']) ? intval($_GET['police_station']) : null;
+$crime = isset($_GET['crime']) ? intval($_GET['crime']) : null;
+$sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'asc';
+
+// Build the query
+$where = [];
+if ($city) {
+    $where[] = "u.city_id = $city";
+}
+if ($police_station) {
+    $where[] = "c.police_station_id = $police_station";
+}
+if ($crime) {
+    $where[] = "c.crime_id = $crime";
+}
+$where_sql = count($where) > 0 ? "WHERE " . implode(" AND ", $where) : "";
+
+$query = "
+    SELECT c.*, ci.city, ps.name AS police_station, cr.crime_title, u.name AS user_name 
+    FROM complaints c
+    JOIN users u ON c.user_id = u.id
+    JOIN city ci ON u.city_id = ci.id
+    JOIN police_stations ps ON c.police_station_id = ps.id
+    JOIN crimes cr ON c.crime_id = cr.id
+    $where_sql
+    ORDER BY c.complaint_date $sort_order
+";
+$complaints = $conn->query($query);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +65,15 @@ $result = mysqli_query($conn, $sql);
     <link href="./vendor/chartist/css/chartist.min.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <style>
+        td{
+            color: black;
+            font-weight: bold;
+        }
+        .new_Complaint{
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
     <!--*******************
         Preloader start
@@ -178,66 +224,81 @@ $result = mysqli_query($conn, $sql);
         <div class="content-body">
             <div class="container-fluid">
                
+<div class="row">
+<div class="col-lg-12">
+<div class="container">
+    <form method="GET" action="" class="form-inline">
+        <label for="city" class="mr-2">City:</label>
+        <select name="city" id="city" class="form-control mr-2">
+            <option value="">Select City</option>
+            <?php while($row = $cities->fetch_assoc()): ?>
+                <option value="<?php echo $row['id']; ?>" <?php if($city == $row['id']) echo 'selected'; ?>><?php echo $row['city']; ?></option>
+            <?php endwhile; ?>
+        </select>
 
-                <div class="row">
-                <div class="row">
-                <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Registred User Information</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="regusersTable" class="table student-data-table m-t-20">
-                        <thead>
-                            <tr>
-                                <th class="py-2 px-4 border-b">ID</th>
-                                <th class="py-2 px-4 border-b">Name</th>
-                                <th class="py-2 px-4 border-b">Username</th>
-                                <th class="py-2 px-4 border-b">Password</th>
-                                <th class="py-2 px-4 border-b">CNIC</th>
-                                <th class="py-2 px-4 border-b">Phone Number</th>
-                                <th class="py-2 px-4 border-b">City</th>
-                                <th class="py-2 px-4 border-b">Address</th>
-                                <th class="py-2 px-4 border-b">Role</th>
-                                <th class="py-2 px-4 border-b">Created At</th>
-                                <th class="py-2 px-4 border-b">Updated At</th>
-                                <th class="py-2 px-4 border-b">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['id']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['name']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['username']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['password']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['CNIC_Number']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['phone_number']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['city']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['address']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['role']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['created_at']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'>" . htmlspecialchars($row['updated_at']) . "</td>";
-                                    echo "<td class='py-2 px-4 border-b'><a href='user_edit_profile.php?id=" . $row['id'] . "' class='text-blue-500 hover:text-blue-700'><i class='fas fa-edit'></i> Edit</a>
-                                    <a href='delete_user_profile.php?id=" . $row['id'] . "' class='text-red-500 hover:text-blue-700'>></i> Delete</a>
-                                    </td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='11' class='py-2 px-4 border-b'>No data found</td></tr>";
-                            }
+        <label for="police_station" class="mr-2">Police Station:</label>
+        <select name="police_station" id="police_station" class="form-control mr-2">
+            <option value="">Select Police Station</option>
+            <?php while($row = $police_stations->fetch_assoc()): ?>
+                <option value="<?php echo $row['id']; ?>" <?php if($police_station == $row['id']) echo 'selected'; ?>><?php echo $row['name']; ?></option>
+            <?php endwhile; ?>
+        </select>
 
-                            mysqli_close($conn);
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+        <label for="crime" class="mr-2">Crime Type:</label>
+        <select name="crime" id="crime" class="form-control mr-2">
+            <option value="">Select Crime Type</option>
+            <?php while($row = $crimes->fetch_assoc()): ?>
+                <option value="<?php echo $row['id']; ?>" <?php if($crime == $row['id']) echo 'selected'; ?>><?php echo $row['crime_title']; ?></option>
+            <?php endwhile; ?>
+        </select>
+
+        <label for="sort_order" class="mr-2">Sort by Time:</label>
+        <select name="sort_order" id="sort_order" class="form-control mr-2">
+            <option value="asc" <?php if($sort_order == 'asc') echo 'selected'; ?>>Ascending</option>
+            <option value="desc" <?php if($sort_order == 'desc') echo 'selected'; ?>>Descending</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <table class="table table-bordered table-striped table-responsive" id="complaintsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reported By</th>
+                <th>City</th>
+                <th>Police Station</th>
+                <th>Crime Type</th>
+                <th>Created At</th>
+                <th>Description</th>
+                <th>Tracking Number</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while($row = $complaints->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['user_name']; ?></td>
+                    <td><?php echo $row['city']; ?></td>
+                    <td><?php echo $row['police_station']; ?></td>
+                    <td><?php echo $row['crime_title']; ?></td>
+                    <td><?php echo $row['complaint_date']; ?></td>
+                    <td><?php echo $row['complaint_text']; ?></td>
+                    <td><?php echo $row['tracking_number']; ?></td>
+                    <td><?php echo $row['status']; ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>
+
+    <?php $conn->close(); ?>
+</div>
+   
+
+
+
         <!--**********************************
             Content body end
         ***********************************-->
@@ -246,11 +307,6 @@ $result = mysqli_query($conn, $sql);
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
         <!--**********************************
             Footer end
         ***********************************-->
@@ -272,8 +328,11 @@ $result = mysqli_query($conn, $sql);
     <!--**********************************
         Scripts
     ***********************************-->
-       <!-- jQuery -->
-       <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Required vendors -->
+        <!-- DataTables JS -->
+          
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- DataTables JS -->
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <!-- Other vendor scripts -->
@@ -286,8 +345,32 @@ $result = mysqli_query($conn, $sql);
     <script src="./js/dashboard/dashboard-2.js"></script>
 
     <script>
-   let table = new DataTable('#regusersTable');
-    </script>
+   let table = new DataTable('#complaintsTable');
+ 
+$(document).ready(function() {
+    $('#city').on('change', function() {
+        var city_id = $(this).val();
+        if (city_id) {
+            $.ajax({
+                url: 'get_police_stations.php',
+                type: 'GET',
+                data: { city_id: city_id },
+                dataType: 'json',
+                success: function(data) {
+                    $('#police_station').empty();
+                    $('#police_station').append('<option value="">Select Police Station</option>');
+                    $.each(data, function(key, value) {
+                        $('#police_station').append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#police_station').empty();
+            $('#police_station').append('<option value="">Select Police Station</option>');
+        }
+    });
+});
+</script>
 </body>
 
 </html>
