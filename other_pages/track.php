@@ -102,7 +102,7 @@ $complaints = mysqli_query($conn, $query);
                 <a class="nav-link" href="public_service.php">Public Services</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">PKM Global</a>
+            <a class="nav-link" href="blogs.php">Blogs</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="complaints_page.php">Complaints</a>
@@ -111,12 +111,18 @@ $complaints = mysqli_query($conn, $query);
                 <a class="nav-link" href="#">Track</a>
             </li>
         </ul>
-        <div class="navbar-right">
+        <div class="navbar-right d-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a class="nav-link btn-action" href="./user/User_dashboard.php">Profile</a>
-                <a class="nav-link mx-1 btn-action" href="./user/logout.php">Logout</a>
+                <div class="nav-item"> 
+                    <a class="nav-link btn-signin" href="./user/User_dashboard.php">Profile</a>
+                </div>
+                <div class="nav-item mx-1">
+                    <a class="nav-link btn-signin" href="./user/logout.php">Logout</a>
+                </div>
             <?php else: ?>
-                <a class="nav-link btn-signin" href="./user/login.html">Sign in</a>
+                <div class="nav-item">
+                <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
+                </div>
             <?php endif; ?>
         </div>
     </div>

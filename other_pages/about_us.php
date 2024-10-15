@@ -59,6 +59,31 @@ if (session_status() == PHP_SESSION_NONE) {
             font-family: Arial, sans-serif;
         }
 
+
+        .Hero-section{
+            background-image: url("../assets/Images/1692771843.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100vw;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            display: flex;
+            padding-top: 100px;
+        }
+
+        .about_us{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #e9ecef;
+            background-color: rgb(0, 0, 0,0.5);
+            height: 100px;
+        }
+
         .breadcrumb {
             margin-top: 4rem;
             background-color: whitesmoke;
@@ -106,31 +131,6 @@ if (session_status() == PHP_SESSION_NONE) {
         .content ul li a:hover {
             text-decoration: underline;
         }
-        .page-cover {
-            position: relative;
-            height: 200px;
-            margin-top: 20px;
-        }
-        .cover-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://via.placeholder.com/1500x500');
-            background-size: cover;
-            background-position: center;
-            border-radius: 0.25rem;
-        }
-        .cover-bg-mask {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 0.25rem;
-        }
     </style>
 </head>
 <body>
@@ -161,18 +161,28 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link" href="track.php">Track</a>
             </li>
         </ul>
-        <div class="navbar-right">
+        <div class="navbar-right d-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a class="nav-link btn-action" href="./user/User_dashboard.php">Profile</a>
-                <a class="nav-link mx-1 btn-action" href="./user/logout.php">Logout</a>
+                <div class="nav-item"> 
+                    <a class="nav-link btn-signin" href="./user/User_dashboard.php">Profile</a>
+                </div>
+                <div class="nav-item mx-1">
+                    <a class="nav-link btn-signin" href="./user/logout.php">Logout</a>
+                </div>
             <?php else: ?>
-                <a class="nav-link btn-signin" href="./user/login.html">Sign in</a>
+                <div class="nav-item">
+                <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 </nav>
+<div class="Hero-section">
+<h1 class="about_us">About Us</h1>
 
-    <section class="col-sm-12" id="contentsection" style="padding-top: 30px;">
+</div>
+
+    <section class="col-sm-12" id="contentsection">
         <!-- breadcrumbs -->
         <ol class="breadcrumb">
             <li class="first"><a href="../homepage.php">Home</a></li>
@@ -181,7 +191,6 @@ if (session_status() == PHP_SESSION_NONE) {
         <!-- /breadcrumbs -->
 
         <!-- page title -->
-        <h1 class="title" id="page-title">About Us</h1>
         <!-- /page title -->
 
         <!-- page content -->
