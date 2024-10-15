@@ -153,20 +153,14 @@ $user = $result->fetch_assoc();
                             <li><a href="admin_Comlpaints.php">Complaint Management</a></li>
                         </ul>
                     </li>
-                   <li class="nav-label">Stations</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user"></i>
-                        <span class="nav-text">Stations</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="stations.php">Police Station Records</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Users</li>
+
+                    <li class="nav-label">Records</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                         <i class="fa-regular fa-circle-user"></i>
                         <span class="nav-text">Records</span></a>
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">User Management</a></li>
+                            <li><a href="stations.php">Police Station Records</a></li>
                             <li><a href="Crimnal_records.php">Criminal Database</a></li>
                             <li><a href="officer-directory.php">Officer Directory</a></li>
                         </ul>
