@@ -1,6 +1,5 @@
 <?php
 include("db.php");
-include("assets/navabar.php");
 // Start session to access session variables
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -169,8 +168,8 @@ if (session_status() == PHP_SESSION_NONE) {
 </div> -->
 <!-- 5 cards section -->
 
-<div class="partner">
-        <div class="container" style="direction: ltr;">
+<div class="partner" style="margin-top: 10rem;">
+        <div class="container" style="margin-top: 5rem;">
             <div class="row">
                 <!-- Start Big Heading -->
                 <div class="big-title">
@@ -285,7 +284,6 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
-
 <!--News Room Start-->
 <section class="text-center">
     <h1>News Room</h1>
@@ -294,35 +292,35 @@ if (session_status() == PHP_SESSION_NONE) {
 <section class="container mt-4">
     <div class="row justify-content-center">
 
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card newroom">
-                <div class="card-body">
-                    <h4>National Inter-Departmental Karate Championship: Police Athletes Shine with 6 Medals</h4>
-                    <h5>October 11 2024</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium saepe impedit dolore cumque! Excepturi, adipisci autem?</p>
-                    <a href="#" class="btn" style="color: white; background-color:#112255;">Read More</a>
+        <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Changed col sizes for wider cards -->
+            <div class="card newroom" style="height: 400px; margin-bottom: 20px;"> <!-- Added height -->
+                <div class="card-body d-flex flex-column"> <!-- Added flexbox for consistent spacing -->
+                    <h4 style="color: #333;">National Inter-Departmental Karate Championship: Police Athletes Shine with 6 Medals</h4> <!-- Darker heading -->
+                    <h5 style="color: red;">October 11, 2024</h5> <!-- Red date -->
+                    <p class="card-text flex-grow-1">Police athletes showcased their skills and determination at the recent National Inter-Departmental Karate Championship, bringing home six medals. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat delectus consequuntur tempora nihil omnis ipsam nesciunt minus suscipit.</p>
+                    <a href="#" class="btn mt-auto" style="color: white; background-color:#112255;">Read More</a> <!-- Added margin to the button for proper spacing -->
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card newroom">
-                <div class="card-body">
-                    <h4>National Inter-Departmental Karate Championship: Police Athletes Shine with 6 Medals</h4>
-                    <h5>October 11 2024</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium saepe impedit dolore cumque! Excepturi, adipisci autem?</p>
-                    <a href="#" class="btn" style="color: white; background-color:#112255;">Read More</a>
+        <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Changed col sizes for wider cards -->
+            <div class="card newroom" style="height: 400px; margin-bottom: 20px;"> <!-- Added height -->
+                <div class="card-body d-flex flex-column"> <!-- Added flexbox for consistent spacing -->
+                    <h4 style="color: #333;">Local Community Celebrates Annual Festival with Enthusiasm</h4> <!-- Darker heading -->
+                    <h5 style="color: red;">October 12, 2024</h5> <!-- Red date -->
+                    <p class="card-text flex-grow-1">The annual community festival brought together families for a day filled with fun, games, and local food stalls, fostering a sense of unity and joy.  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat delectus consequuntur tempora nihil omnis ipsam nesciunt minus suscipit.</p>
+                    <a href="#" class="btn mt-auto" style="color: white; background-color:#112255;">Read More</a> <!-- Added margin to the button for proper spacing -->
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card newroom">
-                <div class="card-body">
-                    <h4>National Inter-Departmental Karate Championship: Police Athletes Shine with 6 Medals</h4>
-                    <h5>October 11 2024</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium saepe impedit dolore cumque! Excepturi, adipisci autem?</p>
-                    <a href="#" class="btn" style="color: white; background-color:#112255;">Read More</a>
+        <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Changed col sizes for wider cards -->
+            <div class="card newroom" style="height: 400px; margin-bottom: 20px;"> <!-- Added height -->
+                <div class="card-body d-flex flex-column"> <!-- Added flexbox for consistent spacing -->
+                    <h4 style="color: #333;">City Marathon Draws Participants from Across the Region</h4> <!-- Darker heading -->
+                    <h5 style="color: red;">October 13, 2024</h5> <!-- Red date -->
+                    <p class="card-text flex-grow-1">The city’s annual marathon attracted runners of all ages, promoting fitness and healthy living, while supporting local charities. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat delectus consequuntur tempora nihil omnis ipsam nesciunt minus suscipit.</p>
+                    <a href="#" class="btn mt-auto" style="color: white; background-color:#112255;">Read More</a> <!-- Added margin to the button for proper spacing -->
                 </div>
             </div>
         </div>
@@ -332,6 +330,72 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
+
+<!--Feedback Section Start-->
+<section class="text-center mt-4">
+    <h1  style="background-color: #112255; color: white;">User Feedback</h1>
+</section>
+
+<section class="container mt-4">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Card 1 -->
+            <div class="card newroom shadow-sm"> <!-- Added shadow for depth -->
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3"> <!-- Profile picture and username -->
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2"> <!-- Placeholder for profile picture -->
+                        <h4 style="color: #333;">JohnDoe123</h4>
+                    </div>
+                    <p class="card-text flex-grow-1">"I feel safe in my community knowing that the police are always ready to help and respond quickly to emergencies."</p>
+                    <small class="text-muted">Posted on October 11, 2024</small> <!-- Date -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Card 2 -->
+            <div class="card newroom shadow-sm"> <!-- Added shadow for depth -->
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3"> <!-- Profile picture and username -->
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2"> <!-- Placeholder for profile picture -->
+                        <h4 style="color: #333;">JaneSmith456</h4>
+                    </div>
+                    <p class="card-text flex-grow-1">"The officers in our neighborhood are very approachable and always willing to listen to our concerns. Thank you!"</p>
+                    <small class="text-muted">Posted on October 12, 2024</small> <!-- Date -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-5 col-sm-6 mb-4"> <!-- Card 3 -->
+            <div class="card newroom shadow-sm"> <!-- Added shadow for depth -->
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3"> <!-- Profile picture and username -->
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2"> <!-- Placeholder for profile picture -->
+                        <h4 style="color: #333;">AlexWilson789</h4>
+                    </div>
+                    <p class="card-text flex-grow-1">"I appreciate the community outreach programs that help bridge the gap between the police and the public."</p>
+                    <small class="text-muted">Posted on October 13, 2024</small> <!-- Date -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h2>Your Feedback Matters</h2>
+        <p>We value your opinion! Please share your thoughts about the police services in your area. Your feedback helps us improve our services.</p>
+        <form>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="mb-3">
+                <label for="feedback" class="form-label">Feedback</label>
+                <textarea class="form-control" id="feedback" rows="3" placeholder="Share your feedback here" required></textarea>
+            </div>
+            <button type="submit" class="btn" style="color: white; background-color:#112255;">Submit Feedback</button>
+        </form>
+    </div>
+</section>
+<!--Feedback Section End-->
 
 
 

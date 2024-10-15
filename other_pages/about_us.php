@@ -131,6 +131,45 @@ if (session_status() == PHP_SESSION_NONE) {
         .content ul li a:hover {
             text-decoration: underline;
         }
+
+
+        .description-container {
+            text-align: center;
+            margin: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Gallery section */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 10rem;
+}
+
+.grid-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -190,11 +229,24 @@ if (session_status() == PHP_SESSION_NONE) {
         </ol>
         <!-- /breadcrumbs -->
 
-        <!-- page title -->
-        <!-- /page title -->
+        <div class="description-container">
+        Welcome to our website! Here you will find a variety of resources and information about our services. We are dedicated to providing you with the best experience possible. Our team works tirelessly to ensure that you have access to the most up-to-date information and tools. Whether you are looking for support, services, or just general information, we have got you covered. Our commitment to excellence means that we are always here to help you, no matter what your needs may be. Thank you for visiting, and we hope you enjoy your time here. If you have any questions or need further assistance, please do not hesitate to reach out to our support team. We are here to ensure that your experience is nothing short of exceptional. Explore our site and discover all the wonderful things we have to offer!
+    </div>
+
+
+    <div class="grid-container">
+        <img src="../assets/Images/card10.jpg" alt="Image 1">
+        <img src="../assets/Images/card11.jpg" alt="Image 2">
+        <img src="../assets/Images/card12.jpg" alt="Image 3">
+        <img src="../assets/Images/card13.jpg" alt="Image 4">
+        <img src="../assets/Images/card14.jpg" alt="Image 5">
+        <img src="../assets/Images/card18.jpg" alt="Image 6">
+        <img src="../assets/Images/card16.jpg" alt="Image 7">
+        <img src="../assets/Images/card17.jpg" alt="Image 8">
+    </div>
 
         <!-- page content -->
-        <div class="region region-content">
+        <div class="region region-content" style="margin-top: 10rem;">
             <section id="block-system-main" class="block block-system clearfix">
                 <div id="node-3608" class="node node-page clearfix" about="/about_us" typeof="foaf:Document">
                     <div class="content">
@@ -203,19 +255,9 @@ if (session_status() == PHP_SESSION_NONE) {
                                 <div class="field-item even" property="content:encoded">
                                     <ul>
                                         <li><a href="about_us_content/history.php">History</a></li>
-                                        <li><a href="/our-igps">Inspectors-General of Police</a></li>
-                                        <li><a href="/police_formations">Police Formations</a></li>
-                                        <li><a href="/contact_details">Contact Details</a></li>
-                                        <li><a href="/RulesandRegs">Laws, Rules &amp; Regulations</a></li>
-                                        <li><a href="/accountability_mechanism">Accountability Mechanism</a></li>
-                                        <li><a href="/forms">Forms &amp; Circulars</a></li>
-                                        <li><a href="/annual_policing_plan">Annual Policing Plans</a></li>
-                                        <li><a href="http://shuhada.punjabpolice.gov.pk/">Our Shuhada</a></li>
-                                        <li><a href="/policeofficersbooks">Books by Police Officers</a></li>
-                                        <li><a href="/women_serving_in_police">Women Serving&nbsp;in Punjab Police</a></li>
-                                        <li><a href="/licensing_offices">Driving Licensing Offices</a></li>
-                                        <li><a href="/procurement">Tenders</a></li>
-                                        <li><a href="/punjabpolice-jobs">Join Punjab Police</a></li>
+                                        <li><a href="about_us_content/police_formation.php">Police Formations</a></li>
+                                        <li><a href="about_us_content/law_rules.php">Laws, Rules &amp; Regulations</a></li>
+                                        <li><a href="about_us_content/shuhada.php">Our Shuhada</a></li>
                                     </ul>
                                     <p>&nbsp;</p>
                                 </div>
