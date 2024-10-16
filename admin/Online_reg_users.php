@@ -174,7 +174,6 @@ $result = mysqli_query($conn, $sql);
                
 
                 <div class="row">
-                <div class="row">
                 <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -240,11 +239,7 @@ $result = mysqli_query($conn, $sql);
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+
         <!--**********************************
             Footer end
         ***********************************-->

@@ -28,7 +28,6 @@ if (session_status() == PHP_SESSION_NONE) {
         }
         .navbar-brand img {
             height: 70px;
-            margin-right: 10px;
         }
         .navbar-brand span {
             color: #fff;
@@ -65,27 +64,27 @@ if (session_status() == PHP_SESSION_NONE) {
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            width: 100vw;
             height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             display: flex;
-            padding-top: 100px;
+            padding-top: 4rem;
         }
 
         .about_us{
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: #e9ecef;
             background-color: rgb(0, 0, 0,0.5);
-            height: 100px;
+            height: 100%;
         }
 
         .breadcrumb {
-            margin-top: 4rem;
+            margin-top: 2rem;
             background-color: whitesmoke;
             border-radius: 0.25rem;
             display: flex;
@@ -170,6 +169,94 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 }
 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9rem;
+    height: 50vh;
+    padding-top: 2rem;
+}
+
+.about-us {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+    
+}
+
+.map {
+    flex: 1;
+    height: 100vh;
+}
+
+.about-us h2, .about-us h3 {
+    margin-top: 0;
+}
+
+.map iframe {
+    width: 100%;
+    border: 0;
+}
+
+
+
+.feedback{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedback-container {
+    width: 50%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
     </style>
 </head>
 <body>
@@ -244,8 +331,28 @@ if (session_status() == PHP_SESSION_NONE) {
         <img src="../assets/Images/card17.jpg" alt="Image 8">
     </div>
 
-        <!-- page content -->
-        <div class="region region-content" style="margin-top: 10rem;">
+    </section>
+
+
+
+
+    <div class="container">
+        <div class="about-us">
+            <h3>Contact Information</h3>
+            <p>Email: securecity@gmail.com</p>
+            <p>Phone: +92-456-7890</p>
+            <p>Address: 123 Main Street, Block 13, Karachi Sindh PK</p>
+        </div>
+        <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7235.697623998656!2d67.06114434653216!3d24.937219862075526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f5d79867657%3A0xb576576f8d5ef29b!2sFederal%20B%20Area%20Block%2013%20Gulberg%20Town%2C%20Karachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1729108278822!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+
+      <!-- page content -->
+      <div class="region region-content" style="margin-top: 15rem;">
+      <h2>INFORMATION</h2>
+
             <section id="block-system-main" class="block block-system clearfix">
                 <div id="node-3608" class="node node-page clearfix" about="/about_us" typeof="foaf:Document">
                     <div class="content">
@@ -267,6 +374,79 @@ if (session_status() == PHP_SESSION_NONE) {
             </section>
         </div>
         <!-- /page content -->
+
+
+
+
+        <!--Feedback Section Start-->
+    <section class="text-center mt-4">
+        <h1>User Feedback</h1>
+    </section>
+
+    <section class="container mt-4">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-4 col-md-5 col-sm-6"> <!-- Card 1 -->
+                <div class="card newroom shadow-sm"> <!-- Added shadow for depth -->
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3"> <!-- Profile picture and username -->
+                            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2" style="margin-right: 4px;"> <!-- Placeholder for profile picture -->
+                            <h4 style="color: #333;  margin: 0;">JohnDoe123</h4>
+                        </div>
+                        <p class="card-text flex-grow-1">"I feel safe in my community knowing that the police are always ready to help and respond quickly to emergencies."</p>
+                        <small class="text-muted">Posted on October 11, 2024</small> <!-- Date -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-5 col-sm-6"> <!-- Card 2 -->
+                <div class="card newroom shadow-sm"> <!-- Added shadow for depth -->
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3 gap-3"> <!-- Profile picture and username -->
+                            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-4" style="margin-right: 4px;"> <!-- Placeholder for profile picture -->
+                            <h4 style="color: #333;  margin: 0;">JaneSmith456</h4>
+                        </div>
+                        <p class="card-text flex-grow-1">"The officers in our neighborhood are very approachable and always willing to listen to our concerns. Thank you!"</p>
+                        <small class="text-muted">Posted on October 12, 2024</small> <!-- Date -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-5 col-sm-6"> <!-- Card 3 -->
+                <div class="card newroom shadow-sm"> <!-- Added shadow for depth -->
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3"> <!-- Profile picture and username -->
+                            <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle me-2" style="margin-right: 4px;"> <!-- Placeholder for profile picture -->
+                            <h4 style="color: #333; margin: 0;">AlexWilson789</h4>
+                        </div>
+                        <p class="card-text flex-grow-1">"I appreciate the community outreach programs that help bridge the gap between the police and the public."</p>
+                        <small class="text-muted">Posted on October 13, 2024</small> <!-- Date -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <section class="feedback">
+
+
+    <div class="feedback-container">
+        <h2>Feedback Form</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="feedback">Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="5" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
     </section>
 <?php 
 include("other_page_footer.php");

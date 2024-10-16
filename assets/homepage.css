@@ -156,12 +156,13 @@ h1 {
 
 
 .banner07 {
-    background-color: #2a3698; /* Dark blue background color */
+    background-color: #14274e; /* Dark blue background color */
     color: white;
     text-align: center;
     padding: 20px 0;
+    padding-top: 20px;
     position: relative;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
 .banner07 .region-banner07 {
     display: flex;
@@ -184,12 +185,12 @@ h1 {
 }
 #onefive-txt-1 {
     font-size: 2em;
-    margin-right: 10px;
+   
 }
-#onefive-txt-15 {
+/* #onefive-txt-15 {
     display: inline-block;
     margin-left: 5px;
-}
+} */
 #onefive-txt-2 {
     font-size: 5em;
     font-weight: bold;
@@ -199,13 +200,12 @@ h1 {
 /* our  partner  section */
 
 
-.partner {
-    padding: 60px 0;
-    background-color: #a0a0aa;
+.partner{
+    background-color: #112255;
+    padding: 2.5rem 0rem;
 }
-
 .partner .big-title {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     margin: auto;
 }
 
@@ -306,15 +306,19 @@ h1 {
     gap: 10px;
     margin: 0 auto;
     padding: 10px;
-    margin-top: 10rem;
+    margin-bottom: 50px;
 }
 
 .grid-container img {
     width: 100%;
     height: auto;
     display: block;
+    transition: all .5s;
 }
-
+.grid-container img:hover{
+    cursor: pointer;
+    scale: 1.1;
+}
 @media (max-width: 800px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
@@ -325,4 +329,22 @@ h1 {
     .grid-container {
         grid-template-columns: 1fr;
     }
+}
+
+
+.heading-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #01411c;
+    margin-top: 50px;
+}
+
+
+.heading-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #01411c;
+    margin: 8px auto 0;
 }

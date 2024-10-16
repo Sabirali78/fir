@@ -209,7 +209,6 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                                 <th class="py-2 px-4 border-b">ID</th>
                                 <th class="py-2 px-4 border-b">User Name</th>
                                 <th class="py-2 px-4 border-b">Crime Title</th>
-                                <th class="py-2 px-4 border-b">Description</th>
                                 <th class="py-2 px-4 border-b">Status</th>
                                 <th class="py-2 px-4 border-b">Police Station</th>
                                 <th class="py-2 px-4 border-b">Tracking ID</th>
@@ -223,16 +222,7 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                                     <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['name']; ?></td>
                                     <td class="py-2 px-4 border-b"><?php echo $row['crime_title']; ?></td>
-                                    <td class="py-2 px-4 border-b">
-                                        <?php
-                                        $text = $row['complaint_text'];
-                                        if (strlen($text) > 30) {
-                                            echo substr($text, 0, 30) . '...';
-                                        } else {
-                                            echo $text;
-                                        }
-                                        ?>
-                                    </td>
+                             
                                     <?php 
                                     if ($row['status'] === 'pending'){
                                         
@@ -268,12 +258,12 @@ $complaints_result = mysqli_query($conn, $complaints_query);
                                         <div style="display: flex; gap: 8px;">
                                             <?php if ($row['status'] === 'pending') : ?>
                                                 <!-- Check if status is 'Pending' -->
-                                                <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Approve</a>
-                                                <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning">Reject</a>
+                                                <a href="approve_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                                <a href="reject_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-ban" aria-hidden="true"></i></a>
                                             <?php else : ?>
                                                 <span class="text-muted"></span> <!-- Show N/A for other statuses -->
                                             <?php endif; ?>
-                                            
+                                            <a href="view_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fa-solid fa-print"></i></a>
                                             <a href="edit_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                             <a href="delete_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
                                         </div>

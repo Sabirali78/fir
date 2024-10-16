@@ -263,8 +263,6 @@ $complaints = $conn->query($query);
                 <th>City</th>
                 <th>Police Station</th>
                 <th>Crime Type</th>
-                <th>Created At</th>
-                <th>Description</th>
                 <th>Tracking Number</th>
                 <th>Status</th>
             </tr>
@@ -276,9 +274,7 @@ $complaints = $conn->query($query);
                     <td><?php echo $row['user_name']; ?></td>
                     <td><?php echo $row['city']; ?></td>
                     <td><?php echo $row['police_station']; ?></td>
-                    <td><?php echo $row['crime_title']; ?></td>
-                    <td><?php echo $row['complaint_date']; ?></td>
-                    <td><?php echo $row['complaint_text']; ?></td>
+                    <td><?php echo $row['crime_title']; ?></td>    
                     <td><?php echo $row['tracking_number']; ?></td>
                     <td><?php echo $row['status']; ?></td>
                 </tr>

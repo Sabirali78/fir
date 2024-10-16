@@ -30,8 +30,7 @@ if (session_status() == PHP_SESSION_NONE) {
             font-size: 25px;
         }
         .navbar-brand img {
-            height:60px;
-            margin-right: 10px;
+            height: 70px;
         }
         .navbar-brand span {
             color: #fff;
@@ -195,6 +194,30 @@ body {
             content: "/\00a0";
 }
 
+.Hero-section{
+            background-image: url("../assets/Images/1692771843.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            display: flex;
+            padding-top: 4rem;
+        }
+
+        .about_us{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #e9ecef;
+            background-color: rgb(0, 0, 0,0.5);
+            height: 100%;
+        }
+
 
     </style>
 </head>
@@ -245,17 +268,14 @@ body {
     </div>
 </nav>
 
-<div class="home" style="padding-top: 40px;">
+<div class="Hero-section">
+<h1 class="about_us">Public Service</h1>
 
-  <!-- breadcrumbs -->
-  <ol class="breadcrumb">
-            <li class="first"><a href="../homepage.php">Home</a></li>
-            <li class="active last">Public Service</li>
-        </ol>
-        <!-- /breadcrumbs -->
+</div>
 
 
-<section class="bg_light pb-2">
+
+<section class="bg_light pb-2 " style="margin-top: 5rem; margin-bottom:5rem;">
     <div class="container text-center">
         <!-- Main Title -->
         <div class="row justify-content-center text-center py-5 mt-2">
@@ -309,7 +329,7 @@ body {
                                 <img src="https://www.pakistan.gov.pk/storage/uploads/nZxKjx5KqCujN4RPGqfdEtL8KXD8vh3PLpHmT3wl.svg" alt="Immigration">
                             </div>
                             <div class="sev-det ms-4">
-                                <h6>Our Services</h6>
+                                <h6>Driving License</h6>
                                 <p>Immigration Policy | Dual Nationality | Citizenship Forms | NIC & NICOP Application Process</p>
                             </div>
                         </div>

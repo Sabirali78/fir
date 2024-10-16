@@ -30,48 +30,47 @@ if (session_status() == PHP_SESSION_NONE) {
             padding: 0;
         }
 
-        .navbar {
-    background-color: #14274e;
-    padding: 1rem 8rem 1rem 8rem;
-    border-bottom: 3px solid rgb(255, 255, 255);
-}
-.navbar-brand {
-            color: #fff; /* Make the text white */
+        /* navbar */
+ .navbar {
+            background-color: #14274e;
+            padding: 0 8rem;
+            border-bottom: 3px solid #fff;
+            
+        }
+        .navbar-brand {
+            color: #fff;
             display: flex;
             align-items: center;
             font-size: 25px;
         }
-
         .navbar-brand img {
-            height: 50px;
-            margin-right: 10px; /* Add some spacing between the logo and the text */
+            height: 70px;
         }
-
         .navbar-brand span {
-            color: #fff; /* Ensure the "SecureCityHub" part is also white */
+            color: #fff;
         }
-        .navbar-brand:hover{
-            color:#f5a623;
+        .navbar-brand:hover {
+            color: #f5a623;
         }
-.nav-link {
-    font-size: 18px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: #fff;
-    margin-right: 10px;
-}
-.nav-link:hover {
-    color: #f5a623;
-}
-.btn-signin {
-    background-color: #394867;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-}
-.btn-signin:hover {
-    background-color: #2d4b73;
-    color: #f5a623;
-}
+        .nav-link {
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .nav-link:hover {
+            color: #f5a623;
+        }
+        .btn-signin {
+            background-color: #394867;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+        }
+        .btn-signin:hover {
+            background-color: #2d4b73;
+            color: #f5a623;
+        }
 
         .container1 {
             display: flex;
@@ -161,14 +160,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <body>
   
-<nav class="navbar navbar-expand-lg">
-<a class="navbar-brand" href="../../homepage.php">
-        <img src="logo.png">
-        SecureCityHub
+<nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="../homepage.php">
+        <img src="../../assets/Images/logo1.png">
+        SecureCity
     </a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="../../homepage.php">Home</a>
             </li>
             <li class="nav-item">
@@ -178,27 +177,33 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a class="nav-link" href="../public_service.php">Public Services</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">PKM Global</a>
+            <a class="nav-link" href="../blogs.php">Blogs</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"  href="../complaints_page.php">Complaints</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Track</a>
+                <a class="nav-link" href="../complaint_details.php">Track</a>
             </li>
             
          
         </ul>
-        <div class="navbar-right">
+        <div class="navbar-right d-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a class="nav-link btn-action" href="./user/User_dashboard.php" >Profile</a>
-                <a class="nav-link  mx-1 btn-action" href="./user/logout.php">Logout</a>
+                <div class="nav-item"> 
+                    <a class="nav-link btn-signin" href="../user/User_dashboard.php">Profile</a>
+                </div>
+                <div class="nav-item mx-1">
+                    <a class="nav-link btn-signin" href="../user/logout.php">Logout</a>
             <?php else: ?>
-                <a class="nav-link btn-signin"  href="./user/login.html">Sign in</a>
+                <div class="nav-item">
+                <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 </nav>
+
 
     <div class="services">
         <h1>Our Services</h1>
@@ -214,11 +219,9 @@ if (session_status() == PHP_SESSION_NONE) {
         <nav class="sidebar">
             <ul class="sidebar_ul">
                 <li><a href="#" class="nav-link active" data-content="learner-driving-license">Learner Driving License</a></li>
-                <li><a href="#" class="nav-link" data-content="driving-license-renewal">Driving License Renewal</a></li>
                 <li><a href="#" class="nav-link" data-content="international-driving-license">International Driving License</a></li>
                 <li><a href="#" class="nav-link" data-content="duplicate-driving-license">Duplicate Driving License</a></li>
                 <li><a href="#" class="nav-link" data-content="endorsement-of-license">Endorsement of a License</a></li>
-                <li><a href="#" class="nav-link" data-content="cheracter_cerrificate">Cheracter</a></li>
             </ul>
         </nav>
         <div class="content">
@@ -244,48 +247,29 @@ if (session_status() == PHP_SESSION_NONE) {
                 <h3>Mode of Delivery:</h3>
                 <p>By hand</p>
             </div>
-            <div id="driving-license-renewal" class="content-item">
-                <h2>Learner Driving License</h2>
-                <p>Citizens can get Learner Driving License from any of the PKM.</p>
-                <h3>Required Documents:</h3>
-                <ul>
-                    <li>Original and 1 Copy of CNIC</li>
-                    <li>Get a Code Book of Traffic Rules & Regulation from Traffic Police Office.</li>
-                    <li>Medical Certificate (for the candidates of 50 years or more)</li>
-                </ul>
-                <h3>Age Limits for Learner Permit:</h3>
-                <ul>
-                    <li>Motor Cycle/ Motor Car: 18 Years</li>
-                    <li>LTV (Rickshaw, Taxi, Tractor Commercial): 21 Years</li>
-                </ul>
-                <h3>Processing Fee:</h3>
-                <p>A Ticket of Rs.60 from any Post Office.</p>
-                <h3>Turn Around Time:</h3>
-                <p>Around 15 minutes, on spot delivery</p>
-                <h3>Mode of Delivery:</h3>
-                <p>By hand</p>
-            </div>
+         
             <div id="international-driving-license" class="content-item">
-                <h2>International Driving License</h2>
-                <p>Citizens can get Learner Driving License from any of the PKM.</p>
-                <h3>Required Documents:</h3>
-                <ul>
-                    <li>Original and 1 Copy of CNIC</li>
-                    <li>Get a Code Book of Traffic Rules & Regulation from Traffic Police Office.</li>
-                    <li>Medical Certificate (for the candidates of 50 years or more)</li>
-                </ul>
-                <h3>Age Limits for Learner Permit:</h3>
-                <ul>
-                    <li>Motor Cycle/ Motor Car: 18 Years</li>
-                    <li>LTV (Rickshaw, Taxi, Tractor Commercial): 21 Years</li>
-                </ul>
-                <h3>Processing Fee:</h3>
-                <p>A Ticket of Rs.60 from any Post Office.</p>
-                <h3>Turn Around Time:</h3>
-                <p>Around 15 minutes, on spot delivery</p>
-                <h3>Mode of Delivery:</h3>
-                <p>By hand</p>
-            </div>
+    <h2>International Driving License</h2>
+    <p>Citizens can obtain an International Driving License to drive legally in foreign countries.</p>
+    <h3>Required Documents:</h3>
+    <ul>
+        <li>Original and copy of CNIC</li>
+        <li>Original and copy of local driving license</li>
+        <li>Passport size photographs (usually 2 or 3, depending on the specific requirements)</li>
+        <li>Copy of valid passport</li>
+        <li>Visa for the country of travel (if applicable)</li>
+    </ul>
+    <h3>Processing Fee:</h3>
+    <p>The fee varies by location. Please check with your local issuing authority.</p>
+    <h3>Turn Around Time:</h3>
+    <p>Typically, the international driving license is issued within 2-3 working days.</p>
+    <h3>Mode of Delivery:</h3>
+    <p>By hand</p>
+    <h3>Validity:</h3>
+    <p>The international driving license is usually valid for one year from the date of issue.</p>
+</div>
+
+
             <div id="duplicate-driving-license" class="content-item">
                 <h2>Duplicate Driving License</h2>
                 <p>Citizens can get Learner Driving License from any of the PKM.</p>

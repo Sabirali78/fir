@@ -38,10 +38,12 @@ $conn->close();
     <title>Track Complaint</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-       /* navbar */
- .navbar {
+
+        
+  /* navbar */
+    .navbar {
             background-color: #14274e;
-            padding: 0 8rem;
+            padding: 0rem 8rem;
             border-bottom: 3px solid #fff;
             
         }
@@ -52,8 +54,7 @@ $conn->close();
             font-size: 25px;
         }
         .navbar-brand img {
-            height:60px;
-            margin-right: 10px;
+            height: 70px;
         }
         .navbar-brand span {
             color: #fff;

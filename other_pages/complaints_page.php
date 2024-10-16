@@ -40,7 +40,6 @@ if (session_status() == PHP_SESSION_NONE) {
         }
         .navbar-brand img {
             height: 70px;
-            margin-right: 10px;
         }
         .navbar-brand span {
             color: #fff;
