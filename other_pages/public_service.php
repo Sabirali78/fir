@@ -15,7 +15,6 @@ if (session_status() == PHP_SESSION_NONE) {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         
-/* navbar */
  /* navbar */
  .navbar {
             background-color: #14274e;

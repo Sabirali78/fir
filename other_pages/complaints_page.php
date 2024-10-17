@@ -87,7 +87,8 @@ if (session_status() == PHP_SESSION_NONE) {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 70%;
+        width: 100%;
+        height: 100%;
         background-color: rgba(0, 0, 0, 0.5); /* Transparent white background */
         padding: 20px; /* Padding for the text */
         border-radius: 10px; /* Rounded corners */

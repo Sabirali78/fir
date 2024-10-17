@@ -46,12 +46,20 @@ while ($row = $result_crimes->fetch_assoc()) {
 }
 ?>
 
-
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
     body{
         background-color: #6c757d;
+        padding-top: 10rem;
     }
-    .form {
+    .form-div {
         display: flex; /* Enable flexbox */
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
@@ -59,6 +67,61 @@ while ($row = $result_crimes->fetch_assoc()) {
         margin: 0; /* Reset margin */
         margin-top: 10rem;
     }
+
+    .guidance {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #333;
+        }
+
+    /* navbar */
+ .navbar {
+            background-color: #14274e;
+            padding: 0 8rem;
+            border-bottom: 3px solid #fff;
+            
+        }
+        .navbar-brand {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            font-size: 25px;
+        }
+        .navbar-brand img {
+            height: 70px;
+        }
+        .navbar-brand span {
+            color: #fff;
+        }
+        .navbar-brand:hover {
+            color: #f5a623;
+        }
+        .nav-link {
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .nav-link:hover {
+            color: #f5a623;
+        }
+        .btn-signin {
+            background-color: #394867;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+        }
+        .btn-signin:hover {
+            background-color: #2d4b73;
+            color: #f5a623;
+        }
+
+
+
 
     .container1 {
         background-color: #fff;
@@ -169,56 +232,101 @@ select:focus {
 }
 
 </style>
-
-<div class="form">
-        <div class="container1">
-
-            <form action="Add_complaints.php" method="post">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" disabled>
+<nav class="navbar navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="../homepage.php">
+        <img src="../assets/Images/logo1.png">
+        SecureCity
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../homepage.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="about_us.php">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="public_service.php">Public Services</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="blogs.php">Blogs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="complaints_page.php">Complaints</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="complaint_details.php">Track</a>
+            </li>
+            
+         
+        </ul>
+        <div class="navbar-right d-flex">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <div class="nav-item"> 
+                    <a class="nav-link btn-signin" href="../user/User_dashboard.php">Profile</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
+                <div class="nav-item mx-1">
+                    <a class="nav-link btn-signin" href="../user/logout.php">Logout</a>
+            <?php else: ?>
+                <div class="nav-item">
+                <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="cnic">CNIC Number:</label>
-                    <input type="text" class="form-control disabled" id="cnic" value="<?php echo htmlspecialchars($user['CNIC_Number']); ?>" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="text" class="form-control disabled" id="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label for="police_station">Police Station:</label>
-                    <select id="police_station_id" name="police_station_id" required>
-                        <option value="" disabled selected>Select a Police Station</option>
-                        <?php foreach ($police_stations as $station): ?>
-                            <option value="<?php echo htmlspecialchars($station['id']); ?>"><?php echo htmlspecialchars($station['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="crime_id">Crime:</label>
-                    <select id="crime_id" name="crime_id" required>
-                        <option value="" disabled selected>Select a Crime</option>
-                        <?php foreach ($crimes as $crime): ?>
-                            <option value="<?php echo htmlspecialchars($crime['id']); ?>"><?php echo htmlspecialchars($crime['crime_title']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <label for="complaint_text">Enter Your Complaint Here:</label>
-                <textarea id="complaint_text" name="complaint_text" required></textarea>
-
-                <input type="submit" value="Add Complaint">
-            </form>
+            <?php endif; ?>
         </div>
+    </div>
+</nav>
 
+<div class="form-div">
+    <div class="container1">
+        <h2>Complaint Section</h2>
+        <div class="guidance">
+            Please fill out the following form to file your complaint. Your personal details are already provided for your convenience. Select the appropriate police station and crime from the dropdowns, and describe your complaint in detail.
+        </div>
+        <form action="Add_complaints.php" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" value="<?php echo htmlspecialchars($user['name']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="cnic">CNIC Number:</label>
+                <input type="text" class="form-control" id="cnic" value="<?php echo htmlspecialchars($user['CNIC_Number']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" class="form-control" id="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="police_station">Police Station:</label>
+                <select id="police_station_id" name="police_station_id" required>
+                    <option value="" disabled selected>Select a Police Station</option>
+                    <?php foreach ($police_stations as $station): ?>
+                        <option value="<?php echo htmlspecialchars($station['id']); ?>"><?php echo htmlspecialchars($station['name']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="crime_id">Crime:</label>
+                <select id="crime_id" name="crime_id" required>
+                    <option value="" disabled selected>Select a Crime</option>
+                    <?php foreach ($crimes as $crime): ?>
+                        <option value="<?php echo htmlspecialchars($crime['id']); ?>"><?php echo htmlspecialchars($crime['crime_title']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <label for="complaint_text">Enter Your Complaint Here:</label>
+            <textarea id="complaint_text" name="complaint_text" required></textarea>
+
+            <input type="submit" value="Add Complaint">
+        </form>
+    </div>
 </div>
