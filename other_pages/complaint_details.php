@@ -101,9 +101,7 @@ $conn->close();
             <li class="nav-item">
                 <a class="nav-link" href="public_service.php">Public Services</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="blogs.php">Blogs</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link"  href="complaints_page.php">Complaints</a>
             </li>

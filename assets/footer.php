@@ -44,8 +44,8 @@
           <h6 class="text-uppercase fw-bold">SecureCity</h6>
           <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
           <p>
-            Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          </p>
+  Secure City is designed to enhance public safety and security by providing easy access to essential police services and information. Stay informed, stay safe.
+</p>
         </div>
         <!-- Grid column -->
 

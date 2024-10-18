@@ -176,8 +176,7 @@ if (!$complaint) {
                     <ul aria-expanded="false">
                         <li><a href="Online_reg_users.php">User Management</a></li>
                         <li><a href="stations.php">Police Station Records</a></li>
-                        <li><a href="Crimnal_records.php">Criminal Database</a></li>
-                        <li><a href="officer-directory.php">Officer Directory</a></li>
+
                     </ul>
                 </li>
                 <li class="nav-label">Reports</li>

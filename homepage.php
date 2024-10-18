@@ -87,9 +87,6 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link" href="other_pages/public_service.php">Public Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="other_pages/blogs.php">Blogs</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="other_pages/complaints_page.php">Complaints</a>
                 </li>
                 <li class="nav-item">

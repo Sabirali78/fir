@@ -105,25 +105,60 @@ if (session_status() == PHP_SESSION_NONE) {
         font-size: 1.2rem; /* Adjust font size */
     }
 
-    .card {
-        margin: 20px; /* Space around card */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Card shadow */
-    }
-
-    .list-group-item {
-        font-size: 1.1rem; /* Font size for list items */
-    }
-
-    .card-header {
-        background-color: #007bff; /* Header background color */
-        color: white; /* Header text color */
+    body {
+    background-color: #6c757d;
+    padding-top: 5rem;
 }
 
-.compalint-btn{
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  
+.card {
+    background-color: #14274e; /* Set the card background color */
+    color: #ffffff; /* Set the text color */
+    border: none; /* Remove the default border */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add a box shadow */
+    margin: 2rem auto; /* Center the card */
 }
+
+.card-header {
+    background-color: #394867; /* Slightly lighter color for the header */
+    color: #ffffff;
+    padding: 1rem;
+    border-top-left-radius: 10px; /* Rounded corners for the header */
+    border-top-right-radius: 10px; /* Rounded corners for the header */
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-body .list-group-item {
+    background-color: #14274e; /* Match the card background */
+    color: #ffffff; /* Match the text color */
+    border: none; /* Remove the default border */
+    margin-bottom: 0.5rem; /* Add some space between items */
+}
+
+.card-footer {
+    background-color: #394867; /* Slightly lighter color for the footer */
+    color: #ffffff;
+    padding: 1rem;
+    border-bottom-left-radius: 10px; /* Rounded corners for the footer */
+    border-bottom-right-radius: 10px; /* Rounded corners for the footer */
+    text-align: center; /* Center the text */
+}
+
+.card-footer .btn-success {
+    background-color: #00a651; /* Custom green color for the button */
+    border: none; /* Remove the default border */
+    padding: 0.5rem 1rem; /* Add some padding */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove the underline */
+}
+
+.card-footer .btn-success:hover {
+    background-color: #007b33; /* Darker green on hover */
+}
+
 
 </style>
 </head>
@@ -144,9 +179,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <li class="nav-item">
                 <a class="nav-link" href="public_service.php">Public Services</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="blogs.php">Blogs</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link"  href="complaints_page.php">Complaints</a>
             </li>
@@ -184,36 +217,36 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
     </div>
     <div class="card">
-        <div class="card-header">
-            <h4>How to Report a Complaint</h4>
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <strong>Step 1:</strong> Fill in your personal details such as name, email, and phone number.
-                </li>
-                <li class="list-group-item">
-                    <strong>Step 2:</strong> Select the relevant police station where you wish to lodge your complaint.
-                </li>
-                <li class="list-group-item">
-                    <strong>Step 3:</strong> Choose the type of crime you are reporting from the list provided.
-                </li>
-                <li class="list-group-item">
-                    <strong>Step 4:</strong> Write a detailed description of your complaint in the designated text area.
-                </li>
-                <li class="list-group-item">
-                    <strong>Step 5:</strong> Once all details are filled in, click on the "Add Complaint" button to submit your report.
-                </li>
-            </ul>
-        </div>
-        <div class="card-footer text-muted">
-            Please ensure that all information provided is accurate and truthful. Your cooperation helps us to take necessary actions effectively.
-        </div>
-        <div class="card-footer text-muted">
-        
-           <p style="display: inline;">click here to</p> <a class="btn btn-success" href="complaint_form.php">File a new Complaint</a>
+    <div class="card-header">
+        <h4>How to Report a Complaint</h4>
     </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <strong>Step 1:</strong> Fill in your personal details such as name, email, and phone number.
+            </li>
+            <li class="list-group-item">
+                <strong>Step 2:</strong> Select the relevant police station where you wish to lodge your complaint.
+            </li>
+            <li class="list-group-item">
+                <strong>Step 3:</strong> Choose the type of crime you are reporting from the list provided.
+            </li>
+            <li class="list-group-item">
+                <strong>Step 4:</strong> Write a detailed description of your complaint in the designated text area.
+            </li>
+            <li class="list-group-item">
+                <strong>Step 5:</strong> Once all details are filled in, click on the "Add Complaint" button to submit your report.
+            </li>
+        </ul>
     </div>
+    <div class="card-footer">
+        Please ensure that all information provided is accurate and truthful. Your cooperation helps us to take necessary actions effectively.
+    </div>
+    <div class="card-footer text-muted">
+        <a class="btn btn-success" href="complaint_form.php">File a new Complaint</a>
+    </div>
+</div>
+
 </div>
 
 

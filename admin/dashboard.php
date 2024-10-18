@@ -188,8 +188,8 @@ if (!isset($_SESSION['admin_id'])) {
                         <ul aria-expanded="false">
                             <li><a href="Online_reg_users.php">User Management</a></li>
                             <li><a href="stations.php">Police Station Records</a></li>
-                            <li><a href="Crimnal_records.php">Criminal Database</a></li>
-                            <li><a href="officer-directory.php">Officer Directory</a></li>
+                            <!-- <li><a href="Crimnal_records.php">Criminal Database</a></li>
+                            <li><a href="officer-directory.php">Officer Directory</a></li> -->
                         </ul>
                     </li>
                     <li class="nav-label">Reports</li>
@@ -248,8 +248,8 @@ if (!isset($_SESSION['admin_id'])) {
                                     <i class="ti-user text-primary border-primary"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">FIR'S</div>
-                                    <div class="stat-digit">961</div>
+                                    <div class="stat-text">Resolved Complaints</div>
+                                    <div class="stat-digit">84</div>
                                 </div>
                             </div>
                         </div>
@@ -261,8 +261,8 @@ if (!isset($_SESSION['admin_id'])) {
                                     <i class="ti-layout-grid2 text-pink border-pink"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Complaints</div>
-                                    <div class="stat-digit">770</div>
+                                    <div class="stat-text">Pending Complaints</div>
+                                    <div class="stat-digit">97</div>
                                 </div>
                             </div>
                         </div>
@@ -274,8 +274,8 @@ if (!isset($_SESSION['admin_id'])) {
                                     <i class="ti-link text-danger border-danger"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">NOC'S</div>
-                                    <div class="stat-digit">2,781</div>
+                                    <div class="stat-text">Reported Crimes</div>
+                                    <div class="stat-digit">36</div>
                                 </div>
                             </div>
                         </div>

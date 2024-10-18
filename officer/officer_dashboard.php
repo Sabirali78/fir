@@ -239,8 +239,8 @@ echo''.$police_station_id.'';
                                     <i class="ti-user text-primary border-primary"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Solved Cases</div>
-                                    <div class="stat-digit">304</div>
+                                    <div class="stat-text">Reported Complaints</div>
+                                    <div class="stat-digit">117</div>
                                 </div>
                             </div>
                         </div>
@@ -252,8 +252,8 @@ echo''.$police_station_id.'';
                                     <i class="ti-user text-primary border-primary"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">FIR'S</div>
-                                    <div class="stat-digit">961</div>
+                                    <div class="stat-text">Resolved Complaints</div>
+                                    <div class="stat-digit">84</div>
                                 </div>
                             </div>
                         </div>
@@ -265,8 +265,8 @@ echo''.$police_station_id.'';
                                     <i class="ti-layout-grid2 text-pink border-pink"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Complaints</div>
-                                    <div class="stat-digit">770</div>
+                                    <div class="stat-text">Pending Complaints</div>
+                                    <div class="stat-digit">97</div>
                                 </div>
                             </div>
                         </div>
@@ -278,8 +278,8 @@ echo''.$police_station_id.'';
                                     <i class="ti-link text-danger border-danger"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">NOC'S</div>
-                                    <div class="stat-digit">2,781</div>
+                                    <div class="stat-text">Reported Crimes</div>
+                                    <div class="stat-digit">36</div>
                                 </div>
                             </div>
                         </div>
@@ -308,45 +308,7 @@ echo''.$police_station_id.'';
 </div>
 
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">USERS DATA</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table student-data-table m-t-20">
-                                        <thead>
-                                            <tr>
-                                                <th>Subject</th>
-                                                <th>Grade Point</th>
-                                                <th>Percent Form</th>
-                                                <th>Percent Upto</th>
-                                                <th>Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Class Test</td>
-                                                <td>Mathmatics</td>
-                                                <td>
-                                                    4.00
-                                                </td>
-                                                <td>
-                                                    95.00
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td>20/04/2017</td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
         <!--**********************************
             Content body end
         ***********************************-->
@@ -355,11 +317,7 @@ echo''.$police_station_id.'';
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
-            </div>
-        </div>
+
         <!--**********************************
             Footer end
         ***********************************-->
@@ -397,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(ctxBar, {
         type: 'bar',
         data: {
-            labels: ['Reported FIRs', 'Solved Cases', 'Reported Crimes', 'Obtained NOCs'],
+            labels: ['Reported Complainnts', 'Solved Cases', 'Pending Complaints' , 'Reported Crimes'],
             datasets: [{
                 label: 'Number of Cases',
                 data: [data.reportedCrimes, data.reportedFIRs, data.solvedCrimes, data.obtainedNOCs],
@@ -431,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(ctxPie, {
         type: 'pie',
         data: {
-            labels: ['Reported FIRs', 'Solved Cases', 'Reported Crimes', 'Obtained NOCs'],
+            labels: ['Reported Complainnts', 'Solved Cases',  'Pending Complaints' , 'Reported Crimes'],
             datasets: [{
                 data: [data.reportedCrimes, data.reportedFIRs, data.solvedCrimes, data.obtainedNOCs],
                 backgroundColor: [

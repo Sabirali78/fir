@@ -277,9 +277,7 @@ button:hover {
             <li class="nav-item">
                 <a class="nav-link" href="public_service.php">Public Services</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="blogs.php">Blogs</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="complaints_page.php">Complaints</a>
             </li>
@@ -308,12 +306,7 @@ button:hover {
 </div>
 
     <section class="col-sm-12" id="contentsection">
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb">
-            <li class="first"><a href="../homepage.php">Home</a></li>
-            <li class="active last">About Us</li>
-        </ol>
-        <!-- /breadcrumbs -->
+
 
         <div class="description-container">
         Welcome to our website! Here you will find a variety of resources and information about our services. We are dedicated to providing you with the best experience possible. Our team works tirelessly to ensure that you have access to the most up-to-date information and tools. Whether you are looking for support, services, or just general information, we have got you covered. Our commitment to excellence means that we are always here to help you, no matter what your needs may be. Thank you for visiting, and we hope you enjoy your time here. If you have any questions or need further assistance, please do not hesitate to reach out to our support team. We are here to ensure that your experience is nothing short of exceptional. Explore our site and discover all the wonderful things we have to offer!

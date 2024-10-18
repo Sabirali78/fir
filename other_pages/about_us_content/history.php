@@ -16,50 +16,47 @@
             
 /* navbar */
 
-
-.navbar {
-    background-color: #14274e;
-    padding: 1rem 8rem 1rem 8rem;
-    border-bottom: 3px solid rgb(255, 255, 255);
-}
-.navbar-brand {
-            color: #fff; /* Make the text white */
+ /* navbar */
+ .navbar {
+            background-color: #14274e;
+            padding: 0rem 8rem;
+            border-bottom: 3px solid #fff;
+            
+        }
+        .navbar-brand {
+            color: #fff;
             display: flex;
             align-items: center;
             font-size: 25px;
         }
-
         .navbar-brand img {
-            height: 50px;
-            margin-right: 10px; /* Add some spacing between the logo and the text */
+            height: 70px;
         }
-
         .navbar-brand span {
-            color: #fff; /* Ensure the "SecureCityHub" part is also white */
+            color: #fff;
         }
-        .navbar-brand:hover{
-            color:#f5a623;
+        .navbar-brand:hover {
+            color: #f5a623;
         }
-.nav-link {
-    font-size: 18px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: #fff;
-    margin-right: 10px;
-}
-.nav-link:hover {
-    color: #f5a623;
-}
-.btn-signin {
-    background-color: #394867;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-}
-.btn-signin:hover {
-    background-color: #2d4b73;
-    color: #f5a623;
-}
-
+        .nav-link {
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .nav-link:hover {
+            color: #f5a623;
+        }
+        .btn-signin {
+            background-color: #394867;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+        }
+        .btn-signin:hover {
+            background-color: #2d4b73;
+            color: #f5a623;
+        }
 
 
     .breadcrumb {
@@ -155,10 +152,10 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg">
-<a class="navbar-brand" href="../../homepage.php">
-        <img src="logo.png">
-        SecureCityHub
+<nav class="navbar navbar-expand-lg fixed-top">
+<a class="navbar-brand" href="../homepage.php">
+        <img src="../../assets/Images/logo1.png">
+        SecureCity
     </a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
@@ -166,29 +163,30 @@
                 <a class="nav-link" href="../../homepage.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="../about_us.php">About Us</a>
+                <a class="nav-link" href="../about_us.php">About Us</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../public_service.php">Public Services</a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="#">PKM Global</a>
+                <a class="nav-link" href="../complaints_page.php">Complaints</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="../complaints_page.php">Complaints</a>
+            <a class="nav-link" href="../complaint_details.php">Track</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Track</a>
-            </li>
-            
-         
         </ul>
-        <div class="navbar-right">
+        <div class="navbar-right d-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <a class="nav-link btn-action" href="./user/User_dashboard.php" >Profile</a>
-                <a class="nav-link  mx-1 btn-action" href="./user/logout.php">Logout</a>
+                <div class="nav-item"> 
+                    <a class="nav-link btn-signin" href="../user/User_dashboard.php">Profile</a>
+                </div>
+                <div class="nav-item mx-1">
+                    <a class="nav-link btn-signin" href="../user/logout.php">Logout</a>
             <?php else: ?>
-                <a class="nav-link btn-signin"  href="./user/login.html">Sign in</a>
+                <div class="nav-item">
+                <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -198,7 +196,7 @@
 
 
 
-    <section class="col-sm-12" id="contentsection">
+    <section class="col-sm-12" id="contentsection" style="padding-top: 4rem;">
 
         <!-- page content -->
         <div class="region region-content">
@@ -215,12 +213,7 @@
                                         <!-- highlighted -->
                                         <!-- /highlighted -->
 
-                                        <!-- breadcrumbs -->
-                                        <ol class="breadcrumb">
-                                            <li class="first"><a href="../../homepage.php">Home</a></li>
-                                            <li><a href="../about_us.php" class="active-trail">About Us</a></li>
-                                            <li class="active last">History</li>
-                                        </ol> <!-- /breadcrumbs -->
+                                     
 
                                         <!-- main content --><a id="main-content"></a><!-- /main content -->
 
