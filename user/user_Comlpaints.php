@@ -273,32 +273,41 @@ $complaints_result = mysqli_query($conn, $complaints_query);
         </tr>
     </thead>
     <tbody>
-        <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
-            <tr>
-                <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['user_name']; ?></td>
-                <td class="py-2 px-4 border-b">
-                    <?php
-                    $text = $row['complaint_text'];
-                    if (strlen($text) > 30) {
-                        echo substr($text, 0, 30) . '...';
-                    } else {
-                        echo $text;
-                    }
-                    ?>
-                </td>
-                <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['police_station_name']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
-                <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
-                <td class="py-2 px-4 border-b">
-                <a href="edit_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                <a href="view_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"><i class="fa-solid fa-print"></i></a>
-                <a href="delete_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    </tbody>
+    <?php while ($row = mysqli_fetch_assoc($complaints_result)) : ?>
+        <tr>
+            <td class="py-2 px-4 border-b"><?php echo $row['id']; ?></td>
+            <td class="py-2 px-4 border-b"><?php echo $row['user_name']; ?></td>
+            <td class="py-2 px-4 border-b">
+                <?php
+                $text = $row['complaint_text'];
+                if (strlen($text) > 30) {
+                    echo substr($text, 0, 30) . '...';
+                } else {
+                    echo $text;
+                }
+                ?>
+            </td>
+            <td class="py-2 px-4 border-b"><?php echo $row['status']; ?></td>
+            <td class="py-2 px-4 border-b"><?php echo $row['police_station_name']; ?></td>
+            <td class="py-2 px-4 border-b"><?php echo $row['tracking_number']; ?></td>
+            <td class="py-2 px-4 border-b"><?php echo $row['complaint_date']; ?></td>
+            <td class="py-2 px-4 border-b">
+                <?php if ($row['status'] == 'pending') : ?>
+                    <a href="edit_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="delete_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this complaint?');">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                <?php endif; ?>
+                <a href="view_user_complaint.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary">
+                    <i class="fas fa-print"></i>
+                </a>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+</tbody>
+
 </table>
             </div>
         </div>

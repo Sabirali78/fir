@@ -294,7 +294,7 @@ button:hover {
                     <a class="nav-link btn-signin" href="../user/logout.php">Logout</a>
             <?php else: ?>
                 <div class="nav-item">
-                <a class="nav-link btn-signin" href="./user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
+                <a class="nav-link btn-signin" href="../user/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Sign in</a>
                 </div>
             <?php endif; ?>
         </div>
